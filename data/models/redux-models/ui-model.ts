@@ -14,7 +14,8 @@ export interface UiState {
     loading:boolean,
     errorMessage:string,
     buttonText:string,
-    isMobile:boolean
+    isMobile:boolean,
+    initAnimation:boolean
     // shouldFetch:boolean,
     // dialogLoading:boolean,
 }

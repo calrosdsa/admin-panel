@@ -50,6 +50,25 @@ export const getLink = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
     }
 }
 
+export const login =(email:string,password:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+      console.log(email,password)
+
+        try{
+            const formData = new FormData()
+            formData.append('email',email)
+            formData.append('password',password)
+            const response =await axios.post('https://teclu.com/apiFB/public/auth/login/',formData,
+            {headers:{
+                'Access-Control-Allow-Origin': '*',
+            }})
+            console.log(response.data)
+        }catch(e:any){
+            console.log(e)
+        }
+    }
+}
+
 // export const validateLike = async()=>{
 //     const validateLike = await axios.get(`https://teclu.com/validatelike.php?name=${username}`)
 //     const hasLike:boolean = validateLike.data

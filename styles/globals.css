@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer components {
+    .dialog {
+      @apply fixed top-20 left-1/2 -translate-x-1/2 -translate-y-1/2  
+    }
+    .title{
+      @apply text-xl font-semibold 
+    }
+    .helpText {
+      @apply text-gray-500 italic text-lg cursor-default 
+    }
+    .button {
+      @apply  shadow-lg 2xl:py-2 2xl:px-4 px-3 py-1
+      rounded-lg xl:text-xl cursor-pointer font-semibold bg-primary text-white
+    }
+    .primary {
+      @apply text-indigo-500 
+    }
+    .bg-primary {
+      @apply bg-indigo-600 
+    }
+    .border-primary {
+      @apply border-indigo-500
+    }
+    .customInput {
+      @apply outline-none bg-gray-100 rounded-lg 
+    }
+    .iconM {
+      @apply cursor-pointer h-6 w-6
+    }
+  }
