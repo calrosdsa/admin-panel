@@ -2,7 +2,6 @@ import axios from "axios";
 import PostItem from "./facebook/PostItem";
 import { useEffect, useState } from "react";
 import { Post } from "../types/facebook";
-import { FACEBOOK_BASE_URL } from "../config";
 
 const LandingPage = () =>{
   const [posts,setPosts]  = useState<Post[]>([])
@@ -24,7 +23,7 @@ const LandingPage = () =>{
            </div>
             <div className="mt-20 mx-auto max-w-xl">
          {posts.map((item:Post)=> (
-           <div className="p-1">
+           <div className="p-1" key={item.id}>
            <PostItem
            post={item}
            />
