@@ -58,7 +58,11 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             const formData = new FormData()
             formData.append('email',email)
             formData.append('password',password)
-            const response =await axios.post('https://teclu.com/apiFB/public/facebook/post',{formData})
+            const response =await axios.post('https://teclu.com/apiFB/public/facebook/post',{formData},{
+                headers:{
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
             console.log(response.data)
         }catch(e:any){
             console.log(e)
