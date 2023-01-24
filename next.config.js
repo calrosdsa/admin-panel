@@ -4,6 +4,7 @@ const nextConfig = {
   swcMinify: true,
   env: {
     facebook_url: process.env.facebook_url,
+    PUBLIC_URL :process.env.PUBLIC_URL
   },
 }
 

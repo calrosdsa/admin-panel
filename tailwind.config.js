@@ -8,8 +8,9 @@ module.exports = {
     extend: {
       colors:{
         'facebook': '#039be5',
-        'teclu':'#0406ee',
+        'primary':'#0406ee',
         'teclu2':'#e50108',
+        
       }
     },
   },
