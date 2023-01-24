@@ -15,10 +15,8 @@ const EditText = ({titulo,id,setValueText,colorValue    }:Props) =>{
         setValueText(titulo,e.hex)
         const textValue:any = document.querySelector(id)
         const textValue2:any = document.querySelector("#privacidad")
-        const textValue3:any = document.querySelector("#help")
         textValue.style.color = e.hex
         textValue2.style.color = e.hex
-        textValue3.style.color = e.hex
         setColor(e)
     }
     const onChangeTitulo = (e:ChangeEvent<HTMLInputElement>)=>{

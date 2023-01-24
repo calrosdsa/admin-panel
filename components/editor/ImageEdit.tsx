@@ -85,7 +85,11 @@ const ImageEdit = ({src,id}:Props)=>{
             </div>
             }
             </div>
-        <Image src={contentBase64} className="w-96 h-28 p-1 object-contain" alt="" />
+        <Image src={contentBase64}
+        width={200}
+        height={50}
+        style={{objectFit:"contain"}}
+         className="object-contain h-24" alt=""/>
         </div>
     )
 }

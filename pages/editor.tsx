@@ -134,7 +134,7 @@ const Editor = ()=>{
   
     return(
       <Layout title="Panel Admin">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 w-full ">
             {/* <textarea className="w-1/2" name="" id="" cols={30} rows={10}
             value={htmlString}></textarea> */}
             <div className="overflow-auto h-screen p-3 space-y-4" >
@@ -143,7 +143,7 @@ const Editor = ()=>{
             <a href={`${base_url}/transporte/`} target="_blank" rel="noreferrer"
             className="button hover:underline">Ver</a>
               </div>
-              <div>
+              <div className="">
               <span className="text-xl font-semibold">Editar Logo</span>
               <ImageEdit
               id="#logo"
@@ -185,7 +185,7 @@ const Editor = ()=>{
      />
               </div>
 
-              <div className="pt-10 flex justify-end">
+              <div className="pt-10 flex justify-end space-x-3">
                 <button
              onClick={()=>window.location.reload()}
               className="button">Descartar Cambios</button>
