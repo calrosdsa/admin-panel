@@ -13,12 +13,13 @@ export default function Home() {
     setTimeout(()=>{
       router.push('./dashboard')
     },1500)
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
     <div className={`grid place-items-center h-screen
     `}>
-          <img
+          <Image
             src='/images/teclu-logo.png'
             alt="splash-logo"
             className={`

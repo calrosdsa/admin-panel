@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
 import { json } from "stream/consumers";
 // import { json } from "node:stream/consumers";
-export default async(req:NextApiRequest,res:NextApiResponse)=>{
+export default async function push(req:NextApiRequest,res:NextApiResponse){
     if(req.method == 'POST'){
         const shell = require('shelljs')
         // console.log('render')

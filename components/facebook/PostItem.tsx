@@ -43,7 +43,9 @@ const PostItem = ({post}:Props) =>{
            <div className="sm:p-1 border-b-[1px]">
             <span className={`${hasPicture ? "text-2xl":"text-sm "} px-2`}>{post.message}</span>
             {hasPicture ||
-            <img src={post.full_picture} alt={post.id}
+            <Image src={post.full_picture} alt={post.id}
+            height={100}
+            width={100}
             className="rounded-lg"
             />
         }

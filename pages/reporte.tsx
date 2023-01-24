@@ -7,7 +7,7 @@ const Reporte = ()=>{
     return(
         <Layout title="Panel Admin">
         <div className="grid grid-cols-1 place-items-center h-screen w-full">
-            <img
+            <Image
             src="/images/logo.png"
             alt="logo"
             />

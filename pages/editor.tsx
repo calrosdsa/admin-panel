@@ -140,7 +140,7 @@ const Editor = ()=>{
             <div className="overflow-auto h-screen p-3 space-y-4" >
               <div className="p-2 flex justify-between">
             <span className="text-2xl font-semibold">Portal Cautivo</span>
-            <a href={`${base_url}/transporte/`} target="_blank"
+            <a href={`${base_url}/transporte/`} target="_blank" rel="noreferrer"
             className="button hover:underline">Ver</a>
               </div>
               <div>

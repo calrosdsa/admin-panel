@@ -3,7 +3,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from 'axios';
 // import { json } from "node:stream/consumers";
-export default async(req:NextApiRequest,res:NextApiResponse)=>{
+export default async function save(req:NextApiRequest,res:NextApiResponse){
     const {htmlCode} = req.body
     if(req.method == 'POST'){
         var fs = require('fs');

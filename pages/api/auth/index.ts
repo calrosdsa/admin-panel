@@ -2,8 +2,7 @@ import { NextApiRequest,NextApiResponse } from "next";
 import axios from "axios";
 import cookie from 'cookie';
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
-export default async(req:NextApiRequest,res:NextApiResponse)=>{
-
+export default async function auth(req:NextApiRequest,res:NextApiResponse){
     if (req.method === 'POST') {
         console.log(req.body)
         const rp = require('request-promise');

@@ -1,4 +1,5 @@
 import axios from "axios"
+import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
 interface Props{
@@ -84,7 +85,7 @@ const ImageEdit = ({src,id}:Props)=>{
             </div>
             }
             </div>
-        <img src={contentBase64} className="w-96 h-28 p-1 object-contain" alt="" />
+        <Image src={contentBase64} className="w-96 h-28 p-1 object-contain" alt="" />
         </div>
     )
 }
