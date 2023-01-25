@@ -212,6 +212,7 @@ const deletedSubmitedImage = () =>{
                 className="button">Guardar Cambios</button>
               </div>
               <iframe className="w-full h-full" src="http://portal.teclumobility.com:8181/login.html/" 
+              referrerPolicy="unsafe-url"
                allowFullScreen></iframe>
            </div>
             <div
