@@ -21,7 +21,8 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
             };
             const response = await rp.post(options)
             const data = JSON.parse(response);
-            setCookie('token', data.access_token, { req, res, maxAge: 60 * 60 * 24 });
+            console.log(data)
+            setCookie('access_token', data.access_token, { req, res, maxAge: 60 * 60 * 24 });
             res.status(200).json({
                 ok:'okk'
             })

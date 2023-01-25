@@ -62,6 +62,9 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             console.log(response)
             // localStorage.setItem('token',response.data.access_token)
             console.log(response.data)
+            if(response.status == 200){
+                window.location.replace("http://localhost:3000")
+            }
         }catch(e:any){
             console.log(e)
         }

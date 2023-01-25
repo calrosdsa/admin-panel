@@ -23,6 +23,15 @@ const Editor = ()=>{
     text:"",
     color:""
   })
+  const [portalData,setPortalData]=useState({
+    imageFondo:"",
+    image:"",
+    video:"",
+    poster:"",
+    titulo:"",
+    descripcion:"",
+    color:""
+  })
   const [descripcion,setDescripcion] = useState("")
   const [loading,setLoading]=useState(false)
   const [source,setSource] = useState("")
@@ -68,7 +77,7 @@ const Editor = ()=>{
       const videoB:any  = document.querySelector("#video-b")
       const imageFondo2:any =  document.querySelector("#image-fondo")
       console.log(imageFondo2)
-    if(logoSource != undefined){
+      if(logoSource != undefined){
       setSource(logoSource.src)
     }
     if(descripcionId != undefined){
@@ -87,6 +96,7 @@ const Editor = ()=>{
       })
     }
     if(imageFondo2 != undefined){
+      setPortalData({...portalData,imageFondo:imageFondo2.src as string})
       setImageFondo(imageFondo2.src)
     }
   }
@@ -94,7 +104,6 @@ const Editor = ()=>{
 
   const onChangeImageFondo = async(e:React.ChangeEvent<HTMLInputElement>)=>{
     const imageBack:any = document.querySelector("#image-fondo")
-
     if(imageBack != undefined){   
         if (e.target.files && e.target.files[0]) {
             const formData = new FormData()
@@ -123,6 +132,12 @@ const Editor = ()=>{
         // setFileNamePoster(fileN)
       }
 }
+
+const deletedSubmitedImage = () =>{
+  setImageFondo(portalData.imageFondo)
+  const image:any = document.querySelector("#image-fondo")
+  image.src = portalData.imageFondo
+}
  
   useUpdateEffect(()=>{
    updateHtmlCode()
@@ -132,9 +147,10 @@ const Editor = ()=>{
     getHtmlFromApi()
   })
   
-    return(
-      <Layout title="Panel Admin">
-        <div className="grid grid-cols-2 w-full ">
+  return(
+    <Layout title="Panel Admin">
+        <div className={`grid grid-cols-2 w-full ${htmlCode == undefined? " transition-all opacity-0 duration-1000":
+        " transition-all opacity-100 duration-1000"}`}>
             {/* <textarea className="w-1/2" name="" id="" cols={30} rows={10}
             value={htmlString}></textarea> */}
             <div className="overflow-auto h-screen p-3 space-y-4" >
@@ -177,31 +193,35 @@ const Editor = ()=>{
               <div className="pt-2">
               <span className="text-xl font-semibold">Editar Imagen de fondo</span>
              <UploadMedia
+             originSource={portalData.imageFondo}
              source={imageFondo}
              onChange={onChangeImageFondo}
              text="Sube una imagen"
              loading={loading}
              id="fondo"
-     />
+             restore={deletedSubmitedImage}
+             />
               </div>
 
               <div className="pt-10 flex justify-end space-x-3">
                 <button
              onClick={()=>window.location.reload()}
-              className="button">Descartar Cambios</button>
+             className="button">Descartar Cambios</button>
                 <button
                 onClick={saveChanges}
-                 className="button">Guardar Cambios</button>
+                className="button">Guardar Cambios</button>
               </div>
+              <iframe className="w-full h-full" src="http://portal.teclumobility.com:8181/login.html/" 
+               allowFullScreen></iframe>
            </div>
             <div
             id="core"
             className="relative overflow-hidden"
-           dangerouslySetInnerHTML={{__html:htmlCode as string}}
-           />
+            dangerouslySetInnerHTML={{__html:htmlCode as string}}
+            />
              </div>
       </Layout>
-    )
-}
-
-export default Editor;
+      )
+    }
+    
+    export default Editor;

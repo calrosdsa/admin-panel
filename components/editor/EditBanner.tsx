@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
 import { uiActions } from "../../context/slices/ui-slice";
 import SwitchComponent from "../menu/SwitchComponent";
@@ -18,29 +19,12 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
     const [changeVideoScreen,setChangeVideoScreen] = useState(true)
     const imgRef = useRef<HTMLInputElement>(null)
     const [contentBase64, setContentBase64] = useState<string | undefined>(undefined)
-    // const [fileNameVideo,setFileNameVideo] = useState<string | undefined>(undefined)
-    // const [fileNamePoster,setFileNamePoster] = useState<string | undefined>(undefined)
-    // const [fileNameImage,setFileNameImage] = useState<string | undefined>(undefined)
     const [contentBase64ForVideo, setContentBase64ForVideo] = useState<string | undefined>(undefined)
     const [contentBase64ForPoster, setContentBase64ForPoster] = useState<string | undefined>(undefined)
     const [enableImage,setEnableImage]=useState(false)
     const [enableVideo,setEnableVideo]=useState(false)
 
-    const changeStateBar = (bool:boolean)=>{
-    }
-
-    const getInputFileName = ()=>{
-        let fullPath = imgRef.current?.value
-        if (fullPath) {
-          let startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
-          let filename = fullPath.substring(startIndex);
-          if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
-              filename = filename.substring(1);
-          }
-          return filename
-      }
-      }
-     
+  
     const selectMedia =(e:boolean)=>{
         if(e){
             setEnableImage(true)
@@ -77,21 +61,27 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
             const formData = new FormData()
             formData.append("file",e.target.files[0])
             dispatch(uiActions.setLoading(true))
-            const response = await axios.post(`${base_url}/upload/media/`,formData)
-            dispatch(uiActions.setLoading(false))
-            const imgHref = response.data
-            setContentBase64ForVideo(imgHref)
-            video.src = imgHref
-            video.id = "video-b"
-            video.style ="width: 100%; max-height: 280px;object-fit: contain;border-radius: 0.5rem;"
-            video.className = "image_placeholder"
-            // video.className = "object-contain rounded-lg"
-            video.controls = true
-          }
-        const parent  = image?.parentNode
-        parent?.insertBefore(video,image)
-        if (image != null){
-          parent?.removeChild(image)
+            try{
+                const response = await axios.post(`${base_url}/upload/media/`,formData)
+                dispatch(uiActions.setLoading(false))
+                const imgHref = response.data
+                setContentBase64ForVideo(imgHref)
+                video.src = imgHref
+                video.id = "video-b"
+                video.style ="width: 100%; max-height: 280px;object-fit: contain;border-radius: 0.5rem;"
+                video.className = "image_placeholder"
+                // video.className = "object-contain rounded-lg"
+                video.controls = true
+                const parent  = image?.parentNode
+                parent?.insertBefore(video,image)
+                if (image != null){
+                    parent?.removeChild(image)
+                }
+            }catch(err:any){
+                dispatch(uiActions.setLoading(false))
+                toast.error(err.message)
+                console.log(err)
+            }
         }
     }
     
@@ -103,40 +93,50 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 const formData = new FormData()
                 formData.append("file",e.target.files[0])
                 dispatch(uiActions.setLoading(true))
-                const response = await axios.post(`${base_url}/upload/media/`,formData)
-                dispatch(uiActions.setLoading(false))
-                const imgHref = response.data
-                setContentBase64(imgHref)
-                imagePortada.src = imgHref
+                try{
+                    const response = await axios.post(`${base_url}/upload/media/`,formData)
+                    dispatch(uiActions.setLoading(false))
+                    const imgHref = response.data
+                    setContentBase64(imgHref)
+                    imagePortada.src = imgHref
+                }catch(err){
+                    dispatch(uiActions.setLoading(false))
+                }
                 // const fileN = getInputFileName()
                 // setFileNameVideo(fileN)
             }
             return
         }
         const videoTag = document.getElementById("video-b")
-        const imageTag:any = document.createElement("img")
+        let imageTag:any = document.createElement("img")
         if (e.target.files && e.target.files[0]) {
             const formData = new FormData()
             formData.append("file",e.target.files[0])
             dispatch(uiActions.setLoading(true))
-            const response = await axios.post(`${base_url}/upload/media/`,formData)
-            dispatch(uiActions.setLoading(false))
-            const imgHref = response.data
-            setContentBase64(imgHref)
-            imageTag.src = imgHref
-            // const fileN = getInputFileName()
-            imageTag.id = "image-b"
-            imageTag.style = "width: 100%; max-height: 280px;object-fit: contain;border-radius: 0.5rem;"
-            imageTag.className = "image_placeholder"
-            imageTag.controls = true
-            // setFileNameVideo(fileN)
+            try{
+                const response = await axios.post(`${base_url}/upload/media/`,formData)
+                dispatch(uiActions.setLoading(false))
+                const imgHref = response.data
+                setContentBase64(imgHref)
+                imageTag.src = imgHref
+                
+                imageTag.id = "image-b"
+                imageTag.style = "width: 100%; max-height: 280px;object-fit: contain;border-radius: 0.5rem;"
+                imageTag.className = "image_placeholder"
+                imageTag.controls = true
+                // setFileNameVideo(fileN)
+                const parent  = videoTag?.parentNode
+                parent?.insertBefore(imageTag,videoTag)
+                if (videoTag != null){
+                    parent?.removeChild(videoTag)
+                }
+            }catch(err:any){
+                toast.error(err.message)
+                dispatch(uiActions.setLoading(false))
+                // const fileN = getInputFileName()
+            }
         }
-        const parent  = videoTag?.parentNode
-        parent?.insertBefore(imageTag,videoTag)
-        if (videoTag != null){
-          parent?.removeChild(videoTag)
         }
-      }
 
     const onChangePoster = async(e:React.ChangeEvent<HTMLInputElement>)=>{
         const video:any = document.querySelector("#video-b")
@@ -161,6 +161,12 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
             // setFileNamePoster(fileN)
           }
     }
+
+    const clearInput = () =>{
+        setContentBase64(imageSource)
+        const image:any = document.querySelector("#image-b")
+        image.src = imageSource
+    }
     
    
 
@@ -180,7 +186,7 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
     },[imageSource,videoSource])
     return(
         <div>
-            <div className="grid gap-y-3 py-2">
+            {/* <div className="grid gap-y-3 py-2">
             <SwitchComponent
             title="Usar una imagen para la portada"
             isChecked={enableImage}
@@ -197,12 +203,23 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 selectMedia(!e)
             }}
             />
-            </div>
+            </div> */}
             <div>
          
             </div>
+            <div className="w-full m-1 h-72 p-2 place-items-center grid">
+                <UploadMedia
+                source={contentBase64}
+                onChange={onChangeVideoByImage}
+                text="Sube una imagen"
+                id="image"
+                loading={uiState.loading}
+                restore={()=>clearInput()}
+                originSource={imageSource}
+                />
+            </div>
 
-            <section>
+            {/* <section>
             {select ?
             <div className="w-full m-1 h-72 p-2 place-items-center grid">
                 <UploadMedia
@@ -211,6 +228,8 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 text="Sube una imagen"
                 id="image"
                 loading={uiState.loading}
+                restore={()=>clearInput()}
+                originSource={imageSource}
                 />
             </div>
             :
@@ -229,6 +248,8 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 loading={uiState.loading}
                 isVideo={true}
                 id="video"
+                originSource={videoSource == undefined ? undefined :videoSource.src}
+
                 />
                 :
                 <UploadMedia
@@ -237,11 +258,12 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 text="Sube un imagen"
                 loading={uiState.loading}
                 id="poster"
+                originSource={videoSource == undefined ? undefined : videoSource.poster}
                 />
                 }
             </div>
             }
-            </section>
+            </section> */}
         </div>
     )
 }

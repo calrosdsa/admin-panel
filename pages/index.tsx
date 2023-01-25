@@ -22,6 +22,8 @@ export default function Home() {
           <Image
             src='/images/teclu-logo.png'
             alt="splash-logo"
+            height={100}
+            width={200}
             className={`
             ${uiState.initAnimation  ? " opacity-0 transform transition-all duration-1000":
             " opacity-100 transform transition-all duration-1000"}

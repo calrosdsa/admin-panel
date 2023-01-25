@@ -25,6 +25,8 @@ return(
         <Image
         src='/images/fondo5.jpeg'
         alt="image"
+        height={1000}
+        width={1000}
         className='w-full h-screen hidden xl:block'
         />
         <div

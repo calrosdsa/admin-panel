@@ -8,8 +8,8 @@ import { login } from '../../context/actions/authActions';
 
 const LoginPage = () => {
     // const dispatch=useAppDispatch();
-    const emailRef = useRef<any>(null)
-    const passwordRef = useRef<any>(null);
+    const emailRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null);
     // const router = useRouter();
     const isAuthenticated=useAppSelector(state=>state.auth.isAuthenticated);
     const dispatch = useAppDispatch()
@@ -56,15 +56,29 @@ const LoginPage = () => {
     tipo='email'
     onKeyPress={(e)=>{
       if(e.key == 'Enter'){
-        passwordRef.current.focus()
+          passwordRef.current?.focus()
       }
     }}
-    ref={emailRef}
     name='email'
     titulo='Email'
     value={email}
+    ref={emailRef}
     />
-      
+
+{/* <InputComponent
+    onChange={onChange}
+    tipo='password'
+    onKeyPress={(e)=>{
+      if(e.key == 'Enter'){
+          // passwordRef.current?.focus()
+      }
+    }}
+    name='password'
+    titulo='Password'
+    value={password}
+    ref={passwordRef}
+    />
+       */}
       <div className="relative mt-7">
         <input 
         required
