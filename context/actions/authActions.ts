@@ -10,6 +10,8 @@ import { RootState } from "../store";
 // import { NextRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { uiActions } from "../slices/ui-slice";
+import { API_URL } from "../../config";
+import { setCookie } from "cookies-next";
 
 export const authActions = authSlice.actions
 export const initAuth = (accessToken:string) :ThunkAction<void,RootState,undefined,AnyAction> =>{
@@ -55,17 +57,23 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
       console.log(email,password)
 
         try{
-            // const formData = new FormData()
-            // formData.append('email',email)
-            // formData.append('password',password)
-            const response =await axios.post('/api/auth',{email,password})
+            const formData = new FormData()
+            formData.append('email',email)
+            formData.append('password',password)
+            const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             console.log(response)
+            setCookie('access_token', response.data.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             console.log(response.data)
             if(response.status == 200){
                 if(typeof window != undefined){
                     const parsed = queryString.parse(window.location.search);  
-                    window.location.replace(parsed.redirect as string)
+                    if(parsed.redirect != undefined){
+                        window.location.replace(parsed.redirect as string)
+                    }else{
+                        window.location.replace(window.location.origin)
+                    }
+
                 }
             }
         }catch(e:any){
