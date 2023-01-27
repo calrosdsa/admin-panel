@@ -12,6 +12,7 @@ const SplashPages = ()=>{
 
     useEffect(()=>{
         dispatch(getSplashPageList())
+         // eslint-disable-line react-hooks/exhaustive-deps
     },[])
 
     return(

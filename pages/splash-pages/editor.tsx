@@ -139,7 +139,8 @@ useEffect(() => {
       </div>
 
       <div className="flex px-2 mt-2 space-x-3">
-        <a href={splashState.splashPage.urlSplash} target="_blank" className="button" >Visitar pagina splash</a>
+        <a href={splashState.splashPage.urlSplash} target="_blank" rel="noreferrer" 
+        className="button" >Visitar pagina splash</a>
         <button onClick={()=>setConfirmDiscard(true)} className="button" >Descartar Cambios</button>
         <button onClick={()=>setConfirmSave(true)} className="button">Guardar Cambios</button>
       </div>

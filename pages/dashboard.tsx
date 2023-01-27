@@ -11,6 +11,7 @@ const Dashboard = () =>{
   
   useEffect(()=>{
     dispatch(getDataLikeForWeek())
+     // eslint-disable-line react-hooks/exhaustive-deps
 },[])
     return(
         <Layout title="Panel Admin">

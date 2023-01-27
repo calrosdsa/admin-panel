@@ -111,6 +111,7 @@ const deletedSubmitedImage = () =>{
   useEffect(()=>{
     console.log("rendering")
    updateHtmlCode()
+    // eslint-disable-line react-hooks/exhaustive-deps
   },[htmlCode,isCodeEditor])
 
 

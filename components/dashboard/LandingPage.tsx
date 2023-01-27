@@ -26,6 +26,7 @@ const LandingPage = () =>{
 
   useEffectOnce(()=>{
       getPosts()
+       // eslint-disable-line react-hooks/exhaustive-deps
   })
   
     return(
