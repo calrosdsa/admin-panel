@@ -17,11 +17,11 @@
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(216, 216, 216);
-  border-radius: 15px;
+  background-color: rgb(100, 100, 100);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
@@ -57,6 +57,11 @@
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
+
+.CodeMirror * {
+  font-family: Arial, monospace;
+  font-size: 36px;
+  }
 
 
 

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios"
-
+import queryString from "query-string";
 import { AnyAction } from "redux";
 // import 'react-toastify/dist/ReactToastify.css';
 import { ThunkAction } from "redux-thunk";
@@ -55,15 +55,18 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
       console.log(email,password)
 
         try{
-            const formData = new FormData()
-            formData.append('email',email)
-            formData.append('password',password)
+            // const formData = new FormData()
+            // formData.append('email',email)
+            // formData.append('password',password)
             const response =await axios.post('/api/auth',{email,password})
             console.log(response)
             // localStorage.setItem('token',response.data.access_token)
             console.log(response.data)
             if(response.status == 200){
-                window.location.replace("http://localhost:3000")
+                if(typeof window != undefined){
+                    const parsed = queryString.parse(window.location.search);  
+                    window.location.replace(parsed.redirect as string)
+                }
             }
         }catch(e:any){
             console.log(e)

@@ -1,24 +1,21 @@
 import axios from "axios"
-import { DetailedHTMLProps, ImgHTMLAttributes, useEffect, useState } from "react"
+import { DetailedHTMLProps, ImgHTMLAttributes, useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import EditBanner from "../components/editor/EditBanner"
-import EditParagraph from "../components/editor/EditParagraph"
-import EditText from "../components/editor/EditText"
-import ImageEdit from "../components/editor/ImageEdit"
-import UploadMedia from "../components/editor/UploadMedia"
-import Layout from "../components/Layout"
-import { useAppDispatch, useAppSelector } from "../context/reduxHooks"
-import { uiActions } from "../context/slices/ui-slice"
-import useEffectOnce from "../utils/hooks/useEffectOnce"
-import useUpdateEffect from "../utils/hooks/useUpdateEffect"
+import { useAppDispatch, useAppSelector } from "../../../context/reduxHooks"
+import useEffectOnce from "../../../utils/hooks/useEffectOnce"
+import useUpdateEffect from "../../../utils/hooks/useUpdateEffect"
+import EditBanner from "../../editor/EditBanner"
+import EditParagraph from "../../editor/EditParagraph"
+import EditText from "../../editor/EditText"
+import ImageEdit from "../../editor/ImageEdit"
+import UploadMedia from "../../editor/UploadMedia"
 
-
-const Editor = ()=>{
-  const base_url = process.env.PUBLIC_URL
-  const regex = /(\{{.*?\}}) */g
-  const dispatch  = useAppDispatch()
-  const uiState = useAppSelector(state=>state.ui)
-  const [ htmlCode,setHtmlCode ] = useState<string | undefined>(undefined)
+interface Props{
+  htmlCode: string | undefined
+  isCodeEditor:boolean
+}
+const NoCodeEditor = ({htmlCode,isCodeEditor}:Props)=>{
+   const base_url = process.env.PUBLIC_URL
   const [titulo,setTitulo] = useState({
     text:"",
     color:""
@@ -38,36 +35,7 @@ const Editor = ()=>{
   const [imageSrc,setImageSrc] = useState<string | undefined>(undefined)
   const [videoSrc,setVideoSrc] = useState<string | undefined>(undefined)
   const [imageFondo,setImageFondo] = useState<string | undefined>(undefined)
-
   
-  const getHtmlFromApi = async() =>{
-    // const response = await axios.get(`http://localhost:1323/transporte3/`)
-    const response = await axios.get(`https://teclu-portal.s3.sa-east-1.amazonaws.com/ypfb-transporte`)
-    const codeHtml = response.data
-    console.log(codeHtml)
-    setHtmlCode(codeHtml)
-    // updateHtmlCode()
-  }
-
-  const saveChanges = async() =>{
-    const html = document.getElementById("core")?.innerHTML
-    console.log(html)
-    const formData = new FormData()
-    if (html != undefined){
-      formData.append('html',html)
-      formData.append('filename',"ypfb-transporte")
-      const id = toast.loading("Porfavor espere...")
-      try{
-          const res =await axios.post(`${base_url}/upload/template/`,formData)
-          // const res =await axios.post(`http://localhost:1323/upload2`,formData)
-            toast.update(id, {render: res.data, type: "success", isLoading: false,autoClose:5000});
-      }catch(err:any){
-        console.log(err.response)
-        toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000});
-      }
-        }
-  }
-
   const updateHtmlCode = ()=>{
     if (htmlCode != undefined){
       const logoSource:any = document.querySelector("#logo")
@@ -84,6 +52,7 @@ const Editor = ()=>{
       setDescripcion(descripcionId.textContent)
     }
     if(imageB != undefined){
+      console.log(imageB)
       setImageSrc(imageB.src)
     }
     if(videoB != undefined){
@@ -139,18 +108,16 @@ const deletedSubmitedImage = () =>{
   image.src = portalData.imageFondo
 }
  
-  useUpdateEffect(()=>{
+  useEffect(()=>{
+    console.log("rendering")
    updateHtmlCode()
-  },[htmlCode])
+  },[htmlCode,isCodeEditor])
 
-  useEffectOnce(()=>{
-    getHtmlFromApi()
-  })
-  
-  return(
-    <Layout title="Panel Admin">
+
+
+    return(
         <div className={`grid grid-cols-2 w-full ${htmlCode == undefined? " transition-all opacity-0 duration-1000":
-        " transition-all opacity-100 duration-1000"}`}>
+        " transition-all opacity-100 duration-1000 bg-gray-100"}`}>
             {/* <textarea className="w-1/2" name="" id="" cols={30} rows={10}
             value={htmlString}></textarea> */}
             <div className="overflow-auto h-screen p-3 space-y-4" >
@@ -201,28 +168,16 @@ const deletedSubmitedImage = () =>{
              id="fondo"
              restore={deletedSubmitedImage}
              />
-              </div>
-
-              <div className="pt-10 flex justify-end space-x-3">
-                <button
-             onClick={()=>window.location.reload()}
-             className="button">Descartar Cambios</button>
-                <button
-                onClick={saveChanges}
-                className="button">Guardar Cambios</button>
-              </div>
-              <iframe className="w-full h-full" src="http://portal.teclumobility.com:8181/login.html/" 
-              referrerPolicy="unsafe-url"
-               allowFullScreen></iframe>
+              </div>     
            </div>
             <div
             id="core"
-            className="relative overflow-hidden"
+            className="relative "
             dangerouslySetInnerHTML={{__html:htmlCode as string}}
             />
              </div>
-      </Layout>
-      )
-    }
-    
-    export default Editor;
+    )
+}
+
+export default NoCodeEditor
+ 

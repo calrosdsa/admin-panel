@@ -1,8 +1,8 @@
-import { Post } from "../../types/facebook";
+import { Post } from "../../../types/facebook";
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
 import Image from "next/image";
-import DialogFilter from "../dialog/DialogFilter";
+import DialogFilter from "../../dialog/DialogFilter";
 import { useState } from "react";
 interface Props{
     post:Post
@@ -43,10 +43,8 @@ const PostItem = ({post}:Props) =>{
            <div className="sm:p-1 border-b-[1px]">
             <span className={`${hasPicture ? "text-2xl":"text-sm "} px-2`}>{post.message}</span>
             {hasPicture ||
-            <Image src={post.full_picture} alt={post.id}
-            height={100}
-            width={100}
-            className="rounded-lg"
+            <img src={post.full_picture} alt={post.id}
+            className="rounded-lg w-full"
             />
         }
            </div>

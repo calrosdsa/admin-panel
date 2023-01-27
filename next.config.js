@@ -7,7 +7,7 @@ const nextConfig = {
     PUBLIC_URL :process.env.PUBLIC_URL
   },
   images:{
-    domains:["portal.teclumobility.com","teclu-portal.s3.sa-east-1.amazonaws.com"]
+    domains:["portal.teclumobility.com","teclu-portal.s3.sa-east-1.amazonaws.com","scontent.fsrz3-1.fna.fbcdn.net"]
   }
 }
 

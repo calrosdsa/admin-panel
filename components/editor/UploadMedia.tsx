@@ -13,7 +13,6 @@ const UploadMedia = ({source,loading,onChange,text,isVideo=false,id,restore,orig
     console.log(id,typeof source)
     return(
         <div className="w-full">
-            
                 {source == undefined ?
                 <div className="h-64 borderC p-2 m-1 place-items-center grid">
                     <div className="grid ">

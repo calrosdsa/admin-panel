@@ -14,8 +14,8 @@
       @apply text-gray-500 italic text-lg cursor-default 
     }
     .button {
-      @apply  shadow-lg 2xl:py-2 2xl:px-4 px-3 py-1
-      rounded-lg  cursor-pointer font-semibold bg-primary text-white
+      @apply  shadow-lg 2xl:py-2 2xl:px-3 px-2 py-1
+      rounded-lg  cursor-pointer font-normal bg-primary text-white
     }
     .borderC {
       @apply border-gray-500 border-[2px] rounded-lg

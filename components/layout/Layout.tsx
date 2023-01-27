@@ -1,11 +1,11 @@
-import React, { ReactNode,useState,useEffect } from 'react'
+import React, { ReactNode,useState,useEffect, Suspense } from 'react'
 import Head from 'next/head'
-import Menu from './Menu'
-import { useAppDispatch, useAppSelector } from '../context/reduxHooks'
-import { uiActions } from '../context/slices/ui-slice'
-import Sidenav from './menu/Sidenav'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify'
+import { useAppDispatch, useAppSelector } from '../../context/reduxHooks';
+import { uiActions } from '../../context/slices/ui-slice';
+import Sidenav from '../menu/Sidenav';
+import { FallingLines } from 'react-loader-spinner';
 
 
 type Props = {
@@ -31,37 +31,52 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
       setOpen(true)
     }
   }
+
+//   useEffect(()=>{
+//     if(!uiState.loading){
+//       dispatch(uiActions.setInitAnimation(true))
+//       setTimeout(()=>{
+//         dispatch(uiActions.setInitAnimation(false))
+//       },200)
+//     }
+// },[uiState.loading])
   
-  useEffect(()=>{
-    // dispatch(uiActions.setInitAnimation(true))
-   
-  //   setTimeout(()=>{
-  //     dispatch(uiActions.setInitAnimation(false))
-  // },200)
-  },[])
 
 
   return(
     <>
     <Head>
       <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width"/>
-      <link rel="stylesheet" href="http://localhost:1323/view/portal.css"/>
       {/* <link rel="stylesheet" href="https://teclu-portal.s3.sa-east-1.amazonaws.com/css/portal.css"/> */}
     </Head>
     <ToastContainer
     />
+
   <div className={`flex  relative  min-w-[1200px] max-w-[1800px] mx-auto bg-gray`}>
       {/* <Menu open={open} setOpen={setOpen}/>  */}
       <Sidenav/>
     {/* {isDashboard && 
        isBigScreen||
-        <Menu open={open} setOpen={setOpen}/> 
-    } */}
+       <Menu open={open} setOpen={setOpen}/> 
+      } */}
+      {uiState.loading ?
+      <div className='grid place-content-center w-full'>
+      <FallingLines
+      color="#0406ee"
+      width="110"
+      visible={true}
+      // ariaLabel='falling-lines-loading'
+      />
+      </div>
+      :
+      <div  className={`px-1  sm:px-4  relative w-full mx-auto bg-gray-100 overflow-auto h-screen
+      `}>
+        {/* ${uiState.initAnimation ? " opacity-0 transform transition-all duration-500":
+        " opacity-100 transform transition-all duration-500"} */}
     {children}
+      </div>
+        }
   </div>
-  
   </>
   )
 }

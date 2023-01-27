@@ -1,5 +1,5 @@
 // import { login } from '../../context/actions/auth-actions'
-import RegisterLayer from '../../components/RegisterLayer'
+import RegisterLayer from '../../components/layout/RegisterLayer'
 // import useRouter from 'next/router'
 import { useState,useEffect,useRef } from 'react'
 import { useAppDispatch, useAppSelector } from '../../context/reduxHooks'
