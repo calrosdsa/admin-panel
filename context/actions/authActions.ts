@@ -60,11 +60,11 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             const formData = new FormData()
             formData.append('email',email)
             formData.append('password',password)
-            const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
+            // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
+            const response = await axios.post("/api/auth",{email,password})
             console.log(response)
-            setCookie('access_token', response.data.access_token, {maxAge:60 * 60 * 24});
+            // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
-            console.log(response.data)
             if(response.status == 200){
                 if(typeof window != undefined){
                     const parsed = queryString.parse(window.location.search);  

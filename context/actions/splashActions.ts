@@ -22,17 +22,12 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
 
         try{
             dispatch(uiActions.setLoading(true))
-            const access_token = getCookie("access_token")
-            const response = await axios.get(`${API_URL}/apiFB/public/splashPage/list`,{
-                headers:{
-                    'Authorization':`Bearer ${access_token}`
-                }
-            })
+            const response = await axios.get('/api/splash-pages')
+            console.log(response.data)
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
-            console.log(response.data.Likes)
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(splashActions.setSplashPages(response.data.Likes))
+            dispatch(splashActions.setSplashPages(response.data.portales))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -49,16 +44,12 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
             console.log(code)
             dispatch(uiActions.setLoading(true))
             const access_token = getCookie("access_token")
-            const response = await axios.get(`${API_URL}/apiFB/public/splashPage/findById/${code}`,{
-                headers:{
-                    'Authorization':`Bearer ${access_token}`
-                }
-            })
+            const response = await axios.post(`/api/splash-pages`,{code})
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
-            console.log(response.data.Likes)
+            console.log(response.data.portal)
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(splashActions.setSplashPage(response.data.Likes))
+            dispatch(splashActions.setSplashPage(response.data.portal))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){

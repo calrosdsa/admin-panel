@@ -40,7 +40,11 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
 //       },200)
 //     }
 // },[uiState.loading])
-  
+  useEffect(()=>{
+    if(typeof window != 'undefined'){
+      dispatch(uiActions.setPathName(window.location.pathname))
+    }
+  },[])
 
 
   return(

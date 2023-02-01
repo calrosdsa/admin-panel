@@ -14,6 +14,7 @@ import { appendQuery } from "../../utils/queryparser";
 import { useRouter } from "next/router";
 import DialogConfirmation from "../../components/dialog/DialogConfirmation";
 import Image from "next/image";
+import Head from "next/head";
 
 
 
@@ -51,7 +52,7 @@ const Editor = ()=>{
     const formData = new FormData()
     console.log(html)
       parsed.edit == "html" ? formData.append('html',value) : formData.append('html',html as string)
-      formData.append('filename',"ypfb-transporte")
+      formData.append('filename',splashState.splashPage?.name as string)
       const id = toast.loading("Porfavor espere...")
       try{
           const res =await axios.post(`${base_url}/upload/template/`,formData)
@@ -90,6 +91,11 @@ useEffect(() => {
 
   return(
     <>
+   <Head key={"head-editor"}>
+    <title>Editor</title>
+   <meta http-equiv="Cache-control" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+   </Head>
     {confirmSave &&
     <DialogConfirmation
     title="¿Desea guardar los cambios?"
@@ -110,7 +116,7 @@ useEffect(() => {
     descripcion="Si decide continuar, los cambios realizados serán descartados."
     openModal={confirmDiscard}
     closeModal={()=>setConfirmDiscard(false)}
-    buttonText2="Guardar cambios"
+    buttonText2="Descartar cambios"
     descartar={()=>setConfirmDiscard(false)}
     performAction={()=>window.location.reload()}
     />
@@ -118,7 +124,7 @@ useEffect(() => {
 
    <ToastContainer/>
     {splashState.splashPage != undefined &&
-    <div className={`relative  min-w-[1200px] max-w-[1800px] mx-auto`}>
+    <div className={`relative  min-w-[1200px] max-w-[1800px] mx-auto `}>
       <div className="p-4 flex justify-between">
     <div className="cursor-pointer flex items-center space-x-2">
       {/* <div onClick={()=>{}}>

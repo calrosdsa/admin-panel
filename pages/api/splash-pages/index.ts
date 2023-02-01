@@ -18,7 +18,27 @@ export default async function splashPages(req:NextApiRequest,res:NextApiResponse
                 portales:data.Likes
             })
         }catch(err:any){
-            console.log(err.response.status)
+            return res.status(err.response.status).json({
+                message:err.response.message
+            })
+        }
+    }
+
+    if(req.method == 'POST'){
+        const { code}  = req.body
+        console.log(code)
+        try{
+            const response = await axios.get(`${API_URL}/apiFB/public/splashPage/findById/${code}`,{
+                headers:{
+                    'Authorization':`Bearer ${access_token}`
+                }
+            })
+            const data = response.data
+            console.log(data)
+            return res.status(200).json({
+                portal:data.Likes
+            })
+        }catch(err:any){
             return res.status(err.response.status).json({
                 message:err.response.message
             })

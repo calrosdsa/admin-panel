@@ -15,7 +15,8 @@ export interface UiState {
     errorMessage:string,
     buttonText:string,
     isMobile:boolean,
-    initAnimation:boolean
+    initAnimation:boolean,
+    pathName:string
     // shouldFetch:boolean,
     // dialogLoading:boolean,
 }

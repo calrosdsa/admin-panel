@@ -7,7 +7,8 @@ const initialUiState :UiState ={
     errorMessage:"",
     buttonText:"Continuar con facebook",
     isMobile:false,
-    initAnimation:true
+    initAnimation:true,
+    pathName:''
 }
 
 const uiSlice = createSlice({
@@ -25,6 +26,9 @@ const uiSlice = createSlice({
         },
         setInitAnimation(state,action:PayloadAction<boolean>){
             state.initAnimation = action.payload
+        },
+        setPathName(state,action:PayloadAction<string>){
+            state.pathName = action.payload
         }
       
     }

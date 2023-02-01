@@ -23,17 +23,13 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
 
         try{
             dispatch(uiActions.setLoading(true))
-            const access_token = getCookie("access_token")
-            const response = await axios.get(`${API_URL}/apiFB/public/facebook/reactionSeven`,{
-                headers:{
-                    'Authorization':`Bearer ${access_token}`
-                }
-            })
+            // const access_token = getCookie("access_token")
+            const response = await axios.get('/api/dashboard/likes')
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
-            console.log(response.data)
+            console.log(response.data.res)
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(dashboardAction.setLikeDataForWeek(response.data.data))
+            dispatch(dashboardAction.setLikeDataForWeek(response.data.res))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -48,10 +44,10 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
     return async(dispatch)=>{
         try{
             dispatch(uiActions.setLoading(true))
-            const access_token = getCookie("access_token")
+            const response = await axios.get('/api/auth/token')
             await axios.get(`${API_URL}/apiFB/public/facebook/report`,{
                 headers:{
-                    'Authorization':`Bearer ${access_token}`
+                    'Authorization':`Bearer ${response.data.access_token}`
                 },
                 responseType:'blob',
                 onDownloadProgress: function(progressEvent){
@@ -83,10 +79,10 @@ export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefi
     return async(dispatch)=>{
         try{
             dispatch(uiActions.setLoading(true))
-            const access_token = getCookie("access_token")
+            const response = await axios.get('/api/auth/token')
             await axios.get(`${API_URL}/apiFB/public/facebook/report/${id}`,{
                 headers:{
-                    'Authorization':`Bearer ${access_token}`
+                    'Authorization':`Bearer ${response.data.access_token}`
                 },
                 responseType:'blob',
                 onDownloadProgress: function(progressEvent){
