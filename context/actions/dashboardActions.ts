@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios"
 import { getCookie } from "cookies-next";
+import { toast } from "react-toastify";
 
 import { AnyAction } from "redux";
 // import 'react-toastify/dist/ReactToastify.css';
@@ -42,8 +43,9 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
 
 export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
+        const id = toast.loading("Porfavor espere...")
         try{
-            dispatch(uiActions.setLoading(true))
+            // dispatch(uiActions.setLoading(true))
             const response = await axios.get('/api/auth/token')
             await axios.get(`${API_URL}/apiFB/public/facebook/report`,{
                 headers:{
@@ -60,13 +62,15 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
                 link.href = url;
                 link.setAttribute('download', `reporte.pdf`); //or any other extension
                 document.body.appendChild(link);
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
                 link.click();
             })
             
-            dispatch(uiActions.setLoading(false))
+            // dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)
         }catch(err:any){
-            dispatch(uiActions.setLoading(false))
+             toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
+            // dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
                 redirectToLogin()
             }
