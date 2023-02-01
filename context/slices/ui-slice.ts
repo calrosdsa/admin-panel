@@ -8,7 +8,8 @@ const initialUiState :UiState ={
     buttonText:"Continuar con facebook",
     isMobile:false,
     initAnimation:true,
-    pathName:''
+    pathName:'',
+    ongoingProcess:false
 }
 
 const uiSlice = createSlice({
@@ -29,6 +30,9 @@ const uiSlice = createSlice({
         },
         setPathName(state,action:PayloadAction<string>){
             state.pathName = action.payload
+        },
+        setOngoingProcess(state,action:PayloadAction<boolean>){
+            state.ongoingProcess = action.payload
         }
       
     }

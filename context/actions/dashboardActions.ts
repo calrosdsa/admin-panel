@@ -45,17 +45,13 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
     return async(dispatch)=>{
         const id = toast.loading("Porfavor espere...")
         try{
-            // dispatch(uiActions.setLoading(true))
+            dispatch(uiActions.setOngoingProcess(true))
             const response = await axios.get('/api/auth/token')
             await axios.get(`${API_URL}/apiFB/public/facebook/report`,{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
-                responseType:'blob',
-                onDownloadProgress: function(progressEvent){
-                    console.log(progressEvent)
-                    // let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total); // you can use this to show user percentage of file downloaded
-                }
+                responseType:'blob'
             }).then((response)=>{
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
@@ -65,10 +61,11 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
                 toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
                 link.click();
             })
-            
+            dispatch(uiActions.setOngoingProcess(false))
             // dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)
         }catch(err:any){
+            dispatch(uiActions.setOngoingProcess(false))
              toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
             // dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -81,8 +78,9 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
 
 export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
+        const id = toast.loading("Porfavor espere...")
         try{
-            dispatch(uiActions.setLoading(true))
+            dispatch(uiActions.setOngoingProcess(true))
             const response = await axios.get('/api/auth/token')
             await axios.get(`${API_URL}/apiFB/public/facebook/report/${id}`,{
                 headers:{
@@ -100,12 +98,13 @@ export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefi
                 link.setAttribute('download', `reporte-${id}.pdf`); //or any other extension
                 document.body.appendChild(link);
                 link.click();
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
             })
-            
-            dispatch(uiActions.setLoading(false))
+            dispatch(uiActions.setOngoingProcess(false))
             // localStorage.setItem('token',response.data.access_token)
         }catch(err:any){
-            dispatch(uiActions.setLoading(false))
+            toast.update(id, {render: err.response.message, type: "error", isLoading: false,autoClose:5000});
+            dispatch(uiActions.setOngoingProcess(false))
             if(err.response.status == 401){
                 redirectToLogin()
             }

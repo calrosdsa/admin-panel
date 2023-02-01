@@ -16,7 +16,8 @@ export interface UiState {
     buttonText:string,
     isMobile:boolean,
     initAnimation:boolean,
-    pathName:string
+    pathName:string,
+    ongoingProcess:boolean
     // shouldFetch:boolean,
     // dialogLoading:boolean,
 }

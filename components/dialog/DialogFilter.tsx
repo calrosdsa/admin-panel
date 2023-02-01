@@ -1,7 +1,8 @@
 import React,{ createElement, Fragment,SetStateAction,useEffect,useState } from 'react'
 import { Dialog,Transition } from '@headlessui/react'
-import { useAppDispatch } from '../../context/reduxHooks'
+import { useAppDispatch, useAppSelector } from '../../context/reduxHooks'
 import { donwloadReportById } from '../../context/actions/dashboardActions'
+import { toast } from 'react-toastify'
 
 interface Props {
     closeDialog:()=>void
@@ -12,6 +13,7 @@ interface Props {
 
 const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {   
   const dispatch = useAppDispatch()
+  const uiState = useAppSelector(state=>state.ui)
   
     const navigateToPost = ()=>{
       let link = document.createElement('a')
@@ -21,6 +23,14 @@ const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {
       link.click()
     }
     
+
+     const downloadReport = ()=>{
+      if(uiState.ongoingProcess){
+        toast.info("Hay una descarga en curso.")
+      }else{
+        dispatch(donwloadReportById(id))
+      }
+     }
     
 
     return(
@@ -64,7 +74,7 @@ const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {
                   <div className='flex flex-col pb-2'>
                     <span onClick={navigateToPost}
                     className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Ir a la publicacion</span>
-                    <span onClick={()=>dispatch(donwloadReportById(id))} 
+                    <span onClick={()=>downloadReport()} 
                     className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte</span>
             </div>
                 </Dialog.Panel>
