@@ -3,23 +3,26 @@ import { Disclosure,Transition } from '@headlessui/react'
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useEffect } from 'react';
-import { useAppSelector } from '../../context/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../context/reduxHooks';
+import { logout } from '../../context/actions/authActions';
 const SideNavContent = ()=>{
+  const dispatch = useAppDispatch()
   const uiState = useAppSelector(state=>state.ui)
+  const authState = useAppSelector(state=>state.auth)
     const router = useRouter()
     return(
       <>
-        <div className="space-y-2 pt-3">
+        <div className="space-y-2 pt-3 relative h-screen">
             {/* <Image
             src='/images/teclu-logo.png'
             height={100}
             width={350}
             /> */}
-            <div className='w-full px-2'>
+            <div className='w-full px-2 flex justify-center'>
               <Image
-            src='/images/teclu-logo.png'
-            height={30}
-            width={110} alt={''}            />
+            src='/images/logo_teclu_mobility.png'
+            height={90}
+            width={120} alt={''}            />
             </div>
             <div className='pt-4'/>
             <div onClick={()=>router.push('/dashboard')} 
@@ -29,9 +32,20 @@ const SideNavContent = ()=>{
               stroke="currentColor" className={`w-8 h-8`}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
             </svg>
-                <h3 className='pl-4 font-medium'>Dashboard</h3>
+                <h3 className='pl-4 font-medium'>Inicio</h3>
             </div>
 
+            <div onClick={()=>dispatch(logout())} 
+            className={`flex pl-2 cursor-pointer absolute bottom-5  w-full items-center overflow-hidden px-2 hover:bg-gray-200 p-1`}>
+           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+            className="w-7 h-7">
+   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+         </svg> 
+
+                <h3 className='pl-4 font-medium'>Cerrar session</h3>
+            </div>
+          {authState.rol != '1' &&  
+          <>
             <Disclosure defaultOpen>
           {({ open }) => (
             <>
@@ -53,7 +67,7 @@ const SideNavContent = ()=>{
   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
            </svg>
               </Disclosure.Button>
-              {/* <Disclosure.Panel className="pl-7 text-sm text-gray-500">
+              <Disclosure.Panel className="pl-7 text-sm text-gray-500">
               <div onClick={()=>router.push('/users/usuarios')} 
               className='flex cursor-pointer items-center hover:bg-gray-200 p-1 rounded-lg'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}
@@ -74,7 +88,7 @@ const SideNavContent = ()=>{
 
             </div>
 
-              </Disclosure.Panel> */}
+              </Disclosure.Panel>
             </>
           )}
         </Disclosure>
@@ -112,21 +126,23 @@ const SideNavContent = ()=>{
             </>
           )}
         </Disclosure>
+       </>
+       }
 
 
             {/* <Disclosure defaultOpen>
-          {({ open }) => (
-            <>
-            <Disclosure.Button className="flex px-2 items-center justify-between w-full
-            font-medium hover:bg-gray-200 p-1 focus:outline-none 
-            focus-visible:ring focus-visible:ring-opacity-75">
-            <div  className='cursor-pointer flex justify-center items-center overflow-hidden'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
-            stroke="currentColor" className="w-8 h-8 ">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-            </svg>
-            <h3 className='pl-4'>Account</h3>
-            </div>
+            {({ open }) => (
+              <>
+              <Disclosure.Button className="flex px-2 items-center justify-between w-full
+              font-medium hover:bg-gray-200 p-1 focus:outline-none 
+              focus-visible:ring focus-visible:ring-opacity-75">
+              <div  className='cursor-pointer flex justify-center items-center overflow-hidden'>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
+              stroke="currentColor" className="w-8 h-8 ">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+              </svg>
+              <h3 className='pl-4'>Account</h3>
+              </div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
             className={`w-6 h-6  ${open ? 'rotate-180 transform' : ''}`}>
   <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />

@@ -44,7 +44,6 @@ const NoCodeEditor = ({htmlCode,isCodeEditor}:Props)=>{
       const imageB:any = document.querySelector("#image-b")
       const videoB:any  = document.querySelector("#video-b")
       const imageFondo2:any =  document.querySelector("#image-fondo")
-      console.log(imageFondo2)
       if(logoSource != undefined){
       setSource(logoSource.src)
     }
@@ -52,7 +51,6 @@ const NoCodeEditor = ({htmlCode,isCodeEditor}:Props)=>{
       setDescripcion(descripcionId.textContent)
     }
     if(imageB != undefined){
-      console.log(imageB)
       setImageSrc(imageB.src)
     }
     if(videoB != undefined){
@@ -109,7 +107,6 @@ const deletedSubmitedImage = () =>{
 }
  
   useEffect(()=>{
-    console.log("rendering")
    updateHtmlCode()
     // eslint-disable-line react-hooks/exhaustive-deps
   },[htmlCode,isCodeEditor])

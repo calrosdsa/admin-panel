@@ -5,7 +5,6 @@ import { useAppSelector } from "../../context/reduxHooks";
 const Solicitudes = ()=>{
     const uiState = useAppSelector(state=>state.ui)
 
-    
 
     return(
         <>

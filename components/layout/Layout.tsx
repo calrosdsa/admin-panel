@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../context/reduxHooks';
 import { uiActions } from '../../context/slices/ui-slice';
 import Sidenav from '../menu/Sidenav';
 import { FallingLines } from 'react-loader-spinner';
+import { getUserData } from '../../context/actions/authActions';
 
 
 type Props = {
@@ -19,6 +20,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
   const [open,setOpen] = useState(false)
   const [closeMenu,setCloseMenu] = useState(false)
   const uiState=useAppSelector(state=>state.ui);
+  const authState = useAppSelector(state=>state.auth)
   // const setLogin = (bool:boolean) => dispatch(uiActions.setLoginDialog(bool))
   const [showSideBar,setShowSideBar] = useState(true)
   // const [showProfile,setShowProfile] = useState(false)
@@ -41,6 +43,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
 //     }
 // },[uiState.loading])
   useEffect(()=>{
+    dispatch(getUserData())
     if(typeof window != 'undefined'){
       dispatch(uiActions.setPathName(window.location.pathname))
     }
@@ -55,7 +58,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
     </Head>
     <ToastContainer
     />
-
+    {authState.rol != undefined &&
   <div className={`flex  relative  min-w-[1200px] max-w-[1800px] mx-auto bg-gray`}>
       {/* <Menu open={open} setOpen={setOpen}/>  */}
       <Sidenav/>
@@ -81,6 +84,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
       </div>
         }
   </div>
+    }
   </>
   )
 }

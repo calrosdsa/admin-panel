@@ -28,7 +28,6 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
             const response = await axios.get('/api/dashboard/likes')
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
-            console.log(response.data.res)
             // localStorage.setItem('token',response.data.access_token)
             dispatch(dashboardAction.setLikeDataForWeek(response.data.res))
         }catch(err:any){
@@ -41,13 +40,16 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
     }
 }
 
-export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
+export const donwloadReportLastTenDays = (userwifi:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         const id = toast.loading("Porfavor espere...")
         try{
+            const formData = new FormData()
+            formData.append("idpost","0")
+            formData.append("userwifi",userwifi)
             dispatch(uiActions.setOngoingProcess(true))
             const response = await axios.get('/api/auth/token')
-            await axios.get(`${API_URL}/apiFB/public/facebook/report`,{
+            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
@@ -65,32 +67,33 @@ export const donwloadReportLastTenDays = () :ThunkAction<void,RootState,undefine
             // dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)
         }catch(err:any){
+            console.log(err)
             dispatch(uiActions.setOngoingProcess(false))
              toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
             // dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
                 redirectToLogin()
             }
-            console.log(err)
         }
     }
 }
 
-export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+
+
+export const donwloadReportById = (idPost:string,userwifi:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         const id = toast.loading("Porfavor espere...")
         try{
+            const formData = new FormData()
+            formData.append("idpost",idPost)
+            formData.append("userwifi",userwifi)
             dispatch(uiActions.setOngoingProcess(true))
             const response = await axios.get('/api/auth/token')
-            await axios.get(`${API_URL}/apiFB/public/facebook/report/${id}`,{
+            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
                 responseType:'blob',
-                onDownloadProgress: function(progressEvent){
-                    console.log(progressEvent)
-                    // let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total); // you can use this to show user percentage of file downloaded
-                }
             }).then((response)=>{
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
@@ -103,7 +106,7 @@ export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefi
             dispatch(uiActions.setOngoingProcess(false))
             // localStorage.setItem('token',response.data.access_token)
         }catch(err:any){
-            toast.update(id, {render: err.response.message, type: "error", isLoading: false,autoClose:5000});
+            // toast.update(id, {render: err.response.message, type: "error", isLoading: false,autoClose:5000});
             dispatch(uiActions.setOngoingProcess(false))
             if(err.response.status == 401){
                 redirectToLogin()
@@ -112,6 +115,10 @@ export const donwloadReportById = (id:string) :ThunkAction<void,RootState,undefi
         }
     }
 }
+
+
+
+  
 
 
 

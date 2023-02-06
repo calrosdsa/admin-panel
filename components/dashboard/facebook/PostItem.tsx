@@ -2,7 +2,7 @@ import { Post } from "../../../types/facebook";
 import { formatDistanceToNow } from 'date-fns'
 import moment from 'moment'
 import Image from "next/image";
-import DialogFilter from "../../dialog/DialogFilter";
+import PostOptions from "../../dialog/DialogFilter";
 import { useState } from "react";
 interface Props{
     post:Post
@@ -13,7 +13,7 @@ const PostItem = ({post}:Props) =>{
 
     return(
         <>
-        <DialogFilter
+        <PostOptions
         open={openDialog}
         closeDialog={()=>setOpenDialog(false)}
         permalink={post.permalink_url}

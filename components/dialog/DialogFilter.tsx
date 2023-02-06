@@ -11,7 +11,7 @@ interface Props {
     permalink:string
 }
 
-const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {   
+const PostOptions = ({closeDialog,open,id,permalink}:Props) => {   
   const dispatch = useAppDispatch()
   const uiState = useAppSelector(state=>state.ui)
   
@@ -24,11 +24,11 @@ const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {
     }
     
 
-     const downloadReport = ()=>{
+     const downloadReport = (userwifi:string)=>{
       if(uiState.ongoingProcess){
         toast.info("Hay una descarga en curso.")
       }else{
-        dispatch(donwloadReportById(id))
+        dispatch(donwloadReportById(id,userwifi))
       }
      }
     
@@ -73,9 +73,11 @@ const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {
                   </Dialog.Title>
                   <div className='flex flex-col pb-2'>
                     <span onClick={navigateToPost}
-                    className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Ir a la publicacion</span>
-                    <span onClick={()=>downloadReport()} 
-                    className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte</span>
+                    className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Ir a la publicacion.</span>
+                    <span onClick={()=>downloadReport("0")} 
+                    className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte general.</span>
+                     <span onClick={()=>downloadReport("1")} 
+                    className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte (solo usuarios de la red).</span>
             </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -87,4 +89,4 @@ const DialogFilter = ({closeDialog,open,id,permalink}:Props) => {
     )
 }
 
-export default DialogFilter;
+export default PostOptions;

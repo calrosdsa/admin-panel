@@ -20,7 +20,7 @@ export default function Home() {
     <div className={`grid place-items-center h-screen
     `}>
           <Image
-            src='/images/teclu-logo.png'
+            src='/images/logo_teclu_mobility.png'
             alt="splash-logo"
             height={100}
             width={200}

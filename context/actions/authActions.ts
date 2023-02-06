@@ -12,43 +12,29 @@ import { useCookies } from "react-cookie";
 import { uiActions } from "../slices/ui-slice";
 import { API_URL } from "../../config";
 import { setCookie } from "cookies-next";
+import { redirectToLogin } from ".";
 
 export const authActions = authSlice.actions
-export const initAuth = (accessToken:string) :ThunkAction<void,RootState,undefined,AnyAction> =>{
+
+
+export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
     return async(dispatch)=>{
-        // const [cookies ,setCookie] = useCookies<any>(['name'])
-        // console.log(cookies.name)
         try{
-            console.log("INIT AUTH")
-            dispatch(authActions.setAuthLoading(true))
-            const userRes =await axios.get(`https://graph.facebook.com/v15.0/me?fields=id%2Cname&access_token=${accessToken}`)
-            console.log(userRes)
-            const username = userRes.data.name
-            dispatch(authActions.setUsername(username))
-            dispatch(authActions.setAuthLoading(false))
-            dispatch(authActions.setAuthenticated(true))
-            const name = username.replace(/ /g,"_")
-            const existUser = await axios.get('https://teclu.com/ApiFb_userexists.php?name='+name)
-            console.log('Userexist?',existUser.data)
+            const response = await axios.get("/api/auth/token")
+            dispatch(authActions.setRol(response.data.rol))
         }catch(err:any){
-            dispatch(authActions.setAuthLoading(false))
-            console.log('fail auth')
+            if(err.response.status == 401){
+                redirectToLogin()
+            }
             console.log('ERROR',err.response.data.success)
         }
     }
 }
 
-export const getLink = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
+export const logout = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
     return async(dispatch)=>{
-        try{
-            const urlRes = await axios.get('https://teclu.com/ApiFb_LinkPost.php')
-            const url = urlRes.data
-            dispatch(authActions.setPostUrl(url))
-            console.log(url)
-        }catch(err:any){
-            console.log('fail fetch url ')
-            console.log('ERROR',err.response.data.success)
-        }
+        await axios.get("/api/auth/logout")
+        redirectToLogin()
     }
 }
 
@@ -62,7 +48,6 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             formData.append('password',password)
             // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             const response = await axios.post("/api/auth",{email,password})
-            console.log(response)
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             if(response.status == 200){

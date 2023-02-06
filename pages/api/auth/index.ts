@@ -4,7 +4,6 @@ import cookie from 'cookie';
 import { getCookies, getCookie, setCookie, deleteCookie } from 'cookies-next';
 export default async function auth(req:NextApiRequest,res:NextApiResponse){
     if (req.method === 'POST') {
-        console.log(req.body)
         const rp = require('request-promise');
         const { email,password } = req.body;
         // const formData = new FormData()
@@ -21,12 +20,18 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
             };
             const response = await rp.post(options)
             const data = JSON.parse(response);
-            console.log(data)
             setCookie('access_token', data.access_token, { req, res,
                 httpOnly:true,
                 secure: process.env.NODE_ENV !== 'development',
                 maxAge: 60 * 60 * 24,
-                sameSite: 'strict',
+                // sameSite: 'strict',
+                path:"/api/",
+                });
+            setCookie('rol', data.user.idRol, { req, res,
+                httpOnly:true,
+                secure: process.env.NODE_ENV !== 'development',
+                maxAge: 60 * 60 * 24,
+                // sameSite: 'strict',
                 path:"/api/",
                 });
             res.status(200).json({

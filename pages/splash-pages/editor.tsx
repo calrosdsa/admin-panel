@@ -34,7 +34,6 @@ const Editor = ()=>{
   const getHtmlFromApi = async() =>{
     // const response = await axios.get(`http://localhost:1323/transporte3/`)
     const response = await axios.get(splashState.splashPage?.urlSplash as string)
-    console.log(response.data)
     const codeHtml = response.data
     setHtmlCode(codeHtml)
     setValue(codeHtml)
@@ -50,17 +49,14 @@ const Editor = ()=>{
     const html = document.getElementById("core")?.innerHTML
     const parsed = queryString.parse(window.location.search);  
     const formData = new FormData()
-    console.log(html)
       parsed.edit == "html" ? formData.append('html',value) : formData.append('html',html as string)
       formData.append('filename',splashState.splashPage?.name as string)
       const id = toast.loading("Porfavor espere...")
       try{
           const res =await axios.post(`${base_url}/upload/template/`,formData)
           // const res =await axios.post(`http://localhost:1323/upload2`,formData)
-          console.log(res.data)
             toast.update(id, {render: res.data, type: "success", isLoading: false,autoClose:5000});
       }catch(err:any){
-        console.log(err.response)
         toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000});
       }
   }
