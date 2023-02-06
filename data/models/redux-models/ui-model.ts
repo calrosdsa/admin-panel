@@ -5,6 +5,8 @@ export interface ToastData {
 }
 
 
+
+
 export interface UiState {
     // showLoginDialog:boolean,
     // showSignUpDialog:boolean,
@@ -17,7 +19,6 @@ export interface UiState {
     isMobile:boolean,
     initAnimation:boolean,
     pathName:string,
-    ongoingProcess:boolean
     // shouldFetch:boolean,
     // dialogLoading:boolean,
 }

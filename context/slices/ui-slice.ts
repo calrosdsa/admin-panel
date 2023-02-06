@@ -9,7 +9,6 @@ const initialUiState :UiState ={
     isMobile:false,
     initAnimation:true,
     pathName:'',
-    ongoingProcess:false
 }
 
 const uiSlice = createSlice({
@@ -31,10 +30,6 @@ const uiSlice = createSlice({
         setPathName(state,action:PayloadAction<string>){
             state.pathName = action.payload
         },
-        setOngoingProcess(state,action:PayloadAction<boolean>){
-            state.ongoingProcess = action.payload
-        }
-      
     }
 })
 

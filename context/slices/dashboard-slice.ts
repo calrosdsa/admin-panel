@@ -4,6 +4,7 @@ import { DashBoardState, LikeData } from "../../data/models/redux-models/dashboa
 
 const initialDashboardState :DashBoardState ={
     likesForWeek:[],
+    ongoingProcess:[],
 }
 
 const dashboardSlice = createSlice({
@@ -12,6 +13,12 @@ const dashboardSlice = createSlice({
     reducers:{
         setLikeDataForWeek(state,action:PayloadAction<LikeData[]>){
             state.likesForWeek = action.payload
+        },
+        setOngoingProcess(state,action:PayloadAction<number>){
+            state.ongoingProcess = [...state.ongoingProcess,action.payload]
+        },
+        removeOngoingProcess(state,action:PayloadAction<number>){
+            state.ongoingProcess = state.ongoingProcess.filter(item=>item != action.payload)
         },
     }
 })

@@ -3,6 +3,7 @@ import { Dialog,Transition } from '@headlessui/react'
 import { useAppDispatch, useAppSelector } from '../../context/reduxHooks'
 import { donwloadReportById } from '../../context/actions/dashboardActions'
 import { toast } from 'react-toastify'
+import { ReporteId } from '../../data/models/redux-models/dashboard-model'
 
 interface Props {
     closeDialog:()=>void
@@ -13,7 +14,7 @@ interface Props {
 
 const PostOptions = ({closeDialog,open,id,permalink}:Props) => {   
   const dispatch = useAppDispatch()
-  const uiState = useAppSelector(state=>state.ui)
+  const dashboardState = useAppSelector(state=>state.dashboard)
   
     const navigateToPost = ()=>{
       let link = document.createElement('a')
@@ -24,11 +25,11 @@ const PostOptions = ({closeDialog,open,id,permalink}:Props) => {
     }
     
 
-     const downloadReport = (userwifi:string)=>{
-      if(uiState.ongoingProcess){
+     const downloadReport = (userwifi:string,idProgress:number)=>{
+      if(dashboardState.ongoingProcess.includes(idProgress)){
         toast.info("Hay una descarga en curso.")
       }else{
-        dispatch(donwloadReportById(id,userwifi))
+        dispatch(donwloadReportById(id,userwifi,idProgress))
       }
      }
     
@@ -74,9 +75,9 @@ const PostOptions = ({closeDialog,open,id,permalink}:Props) => {
                   <div className='flex flex-col pb-2'>
                     <span onClick={navigateToPost}
                     className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Ir a la publicacion.</span>
-                    <span onClick={()=>downloadReport("0")} 
+                    <span onClick={()=>downloadReport("0",ReporteId.ALL_USER_POST)} 
                     className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte general.</span>
-                     <span onClick={()=>downloadReport("1")} 
+                     <span onClick={()=>downloadReport("1",ReporteId.USER_RED_POST)} 
                     className='p-3 hover:bg-gray-100 border-b-[1px] cursor-pointer'>Descargar reporte (solo usuarios de la red).</span>
             </div>
                 </Dialog.Panel>
