@@ -1,4 +1,5 @@
 import axios, { AxiosResponse, CancelTokenSource } from "axios"
+import 'moment/locale/es'
 import { getCookie } from "cookies-next";
 import moment from "moment";
 import { Id, toast } from "react-toastify";
@@ -68,10 +69,11 @@ export const donwloadReportLastTenDays = (userwifi:string,
     id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
-        // const date = moment().format('LLLL');
-        const date = moment();
-        date.locale('es')
-        date.format('LLLL')
+        moment.locale("es")
+        const date = moment().format('LLLL');
+     
+        // date.locale('es')
+        // date.format('MMMM')
         // console.log(date1)
       
         try{
@@ -90,7 +92,12 @@ export const donwloadReportLastTenDays = (userwifi:string,
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', `${date}.pdf`); //or any other extension
+                if(idProgress == ReporteId.ALL_USER){
+                    link.setAttribute('download', `${date} - Reporte (general).pdf`); //or any other extension
+                }else{
+                    link.setAttribute('download', `${date} - Reporte (usuarios de la red).pdf`); //or any other extension
+                }
+                // link.setAttribute('download', `${date}.pdf`); //or any other extension
                 document.body.appendChild(link);
                 toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
                 link.click();
@@ -121,10 +128,11 @@ export const donwloadReportById = (idPost:string,userwifi:string,idProgress:numb
     return async(dispatch)=>{
         const id = toast.loading("Porfavor espere...")
         // const date = new Date().toLocaleString().replaceAll(":","-").replaceAll("/",";")
-        // const date = moment().format('LLLL');
-        const date = moment();
-        date.locale('es')
-        date.format('LLLL')
+        moment.locale("es")
+        const date = moment().format('LLLL');
+        // const date = moment();
+        // date.locale('es')
+        // date.format('LLLL')
 
         try{
             const formData = new FormData()
