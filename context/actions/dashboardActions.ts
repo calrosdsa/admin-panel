@@ -68,7 +68,10 @@ export const donwloadReportLastTenDays = (userwifi:string,
     id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
-        const date = moment().format('LLLL');
+        // const date = moment().format('LLLL');
+        const date = moment();
+        date.locale('es')
+        date.format('LLLL')
         // console.log(date1)
       
         try{
@@ -118,7 +121,10 @@ export const donwloadReportById = (idPost:string,userwifi:string,idProgress:numb
     return async(dispatch)=>{
         const id = toast.loading("Porfavor espere...")
         // const date = new Date().toLocaleString().replaceAll(":","-").replaceAll("/",";")
-        const date = moment().format('LLLL');
+        // const date = moment().format('LLLL');
+        const date = moment();
+        date.locale('es')
+        date.format('LLLL')
 
         try{
             const formData = new FormData()
