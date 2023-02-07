@@ -70,7 +70,7 @@ export const donwloadReportLastTenDays = (userwifi:string,
     return async(dispatch)=>{
         // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
         moment.locale("es")
-        const date = moment().format('LLLL');
+        const date = moment().format('LLLL').replace(":",";");
      
         // date.locale('es')
         // date.format('MMMM')
@@ -129,7 +129,7 @@ export const donwloadReportById = (idPost:string,userwifi:string,idProgress:numb
         const id = toast.loading("Porfavor espere...")
         // const date = new Date().toLocaleString().replaceAll(":","-").replaceAll("/",";")
         moment.locale("es")
-        const date = moment().format('LLLL');
+        const date = moment().format('LLLL').replace(":",";");
         // const date = moment();
         // date.locale('es')
         // date.format('LLLL')
