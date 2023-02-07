@@ -13,6 +13,7 @@ export enum ReporteId{
 
 export interface DashBoardState {
     likesForWeek:LikeData[]
+    likesForWeekUserWifi:LikeData[]
     ongoingProcess:number[]
 
 }

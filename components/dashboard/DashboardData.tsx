@@ -34,7 +34,7 @@ const DashboardData = ()=>{
    
 
     return(
-        <div className="w-full flex flex-col">
+        <div className="w-full flex flex-col h-screen overflow-auto">
         <div className='mt-10'>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">
@@ -56,8 +56,20 @@ const DashboardData = ()=>{
 
 
         </div>
-        <div className=" text-center mt-10">
+
+
+        <div className=" text-center mt-10 grid">
         <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
+        <span className="font-semibold">(usuarios de la red)</span>
+        <LikeWeekChart
+        data={dashboardState.likesForWeekUserWifi}
+        />
+        </div>
+
+
+        <div className=" text-center mt-10 grid">
+        <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
+        <span className="font-semibold">(general)</span>
         <LikeWeekChart
         data={dashboardState.likesForWeek}
         />

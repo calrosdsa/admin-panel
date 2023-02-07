@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import DashboardData from '../components/dashboard/DashboardData';
 import LandingPage from '../components/dashboard/LandingPage';
 import Layout from '../components/layout/Layout';
-import { getDataLikeForWeek } from '../context/actions/dashboardActions';
+import { getDataLikeForWeek, getDataLikeForWeekUserWifi } from '../context/actions/dashboardActions';
 import { useAppDispatch } from '../context/reduxHooks';
 
 const Dashboard = () =>{
@@ -11,6 +11,7 @@ const Dashboard = () =>{
   
   useEffect(()=>{
     dispatch(getDataLikeForWeek())
+    dispatch(getDataLikeForWeekUserWifi())
      // eslint-disable-line react-hooks/exhaustive-deps
 },[])
     return(
