@@ -18,9 +18,7 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
                     password: password
                 },
             };
-            const formData = new FormData()
-            formData.append("email",email)
-            formData.append("password",password)
+           
             const response = await rp.post(options)
             const data = JSON.parse(response);
             setCookie('access_token', data.access_token, { req, res,
