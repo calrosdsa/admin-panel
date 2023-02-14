@@ -72,9 +72,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
                 password:data.error.password,
                 email:data.error.email
             }))
-            toast.error(data.error.password)
-            console.log(data)
-            console.log(e.response.data)
+            // toast.error(data.error.password)
         }
     }
 }
