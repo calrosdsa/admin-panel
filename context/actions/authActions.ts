@@ -13,6 +13,7 @@ import { uiActions } from "../slices/ui-slice";
 import { API_URL } from "../../config";
 import { setCookie } from "cookies-next";
 import { redirectToLogin } from ".";
+import { toast } from "react-toastify";
 
 export const authActions = authSlice.actions
 
@@ -43,9 +44,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
       console.log(email,password)
 
         try{
-            const formData = new FormData()
-            formData.append('email',email)
-            formData.append('password',password)
+            dispatch(uiActions.setLoading(true))
             // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             const response = await axios.post("/api/auth",{email,password})
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
@@ -61,8 +60,17 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
 
                 }
             }
+            dispatch(uiActions.setLoading(false))
         }catch(e:any){
-            console.log(e)
+            dispatch(uiActions.setLoading(false))
+            const data = e.response.data
+            dispatch(authActions.setErrrorLogin({
+                password:data.error.password,
+                email:data.error.email
+            }))
+            toast.error(data.error.password)
+            console.log(data)
+            console.log(e.response.data)
         }
     }
 }

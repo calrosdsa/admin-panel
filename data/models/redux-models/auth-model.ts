@@ -12,6 +12,11 @@ export interface UserAuth{
     token:string,
 }
 
+export interface ErrorLogin {
+    password?:string
+    email?:string
+}
+
 // export interface Profile{
 //     name:string,
 //     id:number,
@@ -32,6 +37,7 @@ export interface AuthModel{
     isAuthenticated:boolean,
     authLoading:boolean,
     rol?:string,
+    errorLogin?:ErrorLogin
     username:string,
     postUrl:string
     // user?:UserAuth,

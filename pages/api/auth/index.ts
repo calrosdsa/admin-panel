@@ -18,6 +18,9 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
                     password: password
                 },
             };
+            const formData = new FormData()
+            formData.append("email",email)
+            formData.append("password",password)
             const response = await rp.post(options)
             const data = JSON.parse(response);
             setCookie('access_token', data.access_token, { req, res,
@@ -39,22 +42,12 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
             })
         } 
         catch(err:any) {
-            console.log(err)
-            const errorMessage =  err.response.data
-           if(err.response.status === 400){
-               return res.status(400).json({
-                   error: 'Credenciales incorrectas.'
-                });
-           }
-           else if(err.response.status == 401){
-                res.status(401).json({
+            // console.log(err.response.statusCode)
+            // console.log(err.response.body)
+            const errorMessage = JSON.parse(err.response.body);
+                res.status(err.response.statusCode).json({
                     error: errorMessage
                  });
-           } else{
-            return res.status(500).json({
-                error: 'Something went wrong when authenticating'
-             });
-           }
         }
     } else {
         res.setHeader('Allow', ['POST']);

@@ -35,9 +35,11 @@ const InputComponent = (
               <label htmlFor={props.name} className="absolute left-2  text-gray-500 transition-all
                peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  -top-1
                peer-placeholder-shown:top-4
-                peer-focus:-top-1 peer-focus:text-gray-500 peer-focus:text-sm">{props.titulo}</label>
-                 <span className="text-red-500 pl-2 absolute left-0 text-sm -bottom-6 line-clamp-1"
-         >{props.errorMessage}</span>
+               peer-focus:-top-1 peer-focus:text-gray-500 peer-focus:text-sm">{props.titulo}</label>
+               {props.errorMessage != undefined &&
+                 <span className="text-red-500 pl-2 absolute left-0 text-sm -bottom-5 line-clamp-1"
+                 >*{props.errorMessage}</span>
+                }
             </div>
        </div>
     )
