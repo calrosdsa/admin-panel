@@ -44,6 +44,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
       console.log(email,password)
 
         try{
+            dispatch(uiActions.setLoading(true))
             const formData = new FormData()
             formData.append('email',email)
             formData.append('password',password)
