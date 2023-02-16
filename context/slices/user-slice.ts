@@ -4,7 +4,7 @@ import { Order, UserSolicitud, UserState } from "../../data/models/redux-models/
 
 const initialUserState:UserState ={
     solicitudes:[],
-    params:"All",
+    params:"Todos",
     ids:[]
 }
 
