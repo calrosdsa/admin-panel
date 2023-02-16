@@ -37,6 +37,17 @@ const userSlice = createSlice({
                     return moment.utc(right.dateRequest).diff(moment.utc(left.dateRequest))
                 });
             }
+        },
+        orderSolicitudListByName(state,action:PayloadAction<Order>){
+            if(action.payload == Order.ASCENDENTE){
+                state.solicitudes =  state.solicitudes.sort(function (a, b) {
+                    return ('' + a.fullName).localeCompare(b.fullName);
+                });
+            }else if(action.payload == Order.DESCENDENTE){
+                state.solicitudes =  state.solicitudes.sort(function (a, b) {
+                    return ('' + b.fullName).localeCompare(a.fullName);
+                });
+            }
         }
     }
 })

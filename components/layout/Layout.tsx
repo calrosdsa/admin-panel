@@ -62,7 +62,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
     {authState.rol != undefined &&
   <div className={`xl:flex  relative  max-w-[1800px] mx-auto bg-gray`}>
     <nav className='xl:hidden w-full bg-secondary p-2 fixed top-0 z-10'>
-    <svg onClick={()=>setOpen(true)}
+    <svg onClick={()=>setOpen(!open)}
      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
      className="w-7 h-7 text-gray-200">
   <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />

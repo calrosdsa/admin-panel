@@ -41,7 +41,7 @@ export default function DropDown({ids}:Props) {
               {({ active }) => (
                 <button
                 disabled={isDisabled}
-                onClick={()=>dispatch(changeSolicitudState("En revicion"))}
+                onClick={()=>dispatch(changeSolicitudState("Pendiente"))}
                   className={classNames(
                     active ? 'bg-gray-200 text-gray-900' : 'text-gray-700',
                     'block px-4 py-2 text-sm w-full text-left',

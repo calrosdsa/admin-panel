@@ -11,11 +11,11 @@ import { uiActions } from "../slices/ui-slice";
 import { userActions } from "../slices/user-slice";
 import { RootState } from "../store";
 
-export const getSolicitudList =() :ThunkAction<void,RootState,undefined,AnyAction>=>{
+export const getSolicitudList =(param:string="Todos") :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
        try{
         dispatch(uiActions.setInnerLoading(true))
-        const response = await axios.get("/api/user/solicitud")
+        const response = await axios.get(`/api/user/solicitud?param=${param}`)
         dispatch(uiActions.setInnerLoading(false))
         dispatch(userActions.setSolicitudList(response.data.solicitudes))        
        }catch(err:any){

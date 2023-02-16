@@ -7,8 +7,9 @@ import { getCookie } from 'cookies-next';
 export default async function splashPages(req:NextApiRequest,res:NextApiResponse){
     const access_token = getCookie("access_token", { req, res })
     if(req.method == 'GET'){
+        const { param } = req.query
         try{
-            const response = await axios.get(`${API_URL}/apiFB/public//solicitud/list`,{
+            const response = await axios.get(`${API_URL}/apiFB/public//solicitud/list/${param}`,{
                 headers:{
                     'Authorization':`Bearer ${access_token}`
                 }
