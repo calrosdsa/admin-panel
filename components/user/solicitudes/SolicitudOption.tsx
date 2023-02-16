@@ -16,7 +16,7 @@ const SolicitudOption = ({params,ids}:Props)=>{
     }
     return(
         <div>
-            <div className={`flex border-b-[1px] border-gray-500 `}>
+            <div className={`flex border-b-[1px] border-gray-500 overflow-x-auto overflow-hidden scrollhidden`}>
             <span onClick={()=>changeParam("Todos")}
             className={`textOption ${params == "Todos" && "text-primary border-b-2 pb-3 border-primary"}`}>Todo</span>
                 <span onClick={()=>changeParam("Habilitado")}
