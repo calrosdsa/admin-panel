@@ -14,6 +14,7 @@ export interface UiState {
     // showMenuDialog:boolean,
     // openCreateUserDialog:boolean,
     loading:boolean,
+    innerLoading:boolean,
     errorMessage:string,
     buttonText:string,
     isMobile:boolean,

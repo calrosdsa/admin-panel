@@ -1,4 +1,12 @@
 
+export enum SolicitudState {
+
+}
+
+export enum Order {
+    ASCENDENTE,
+    DESCENDENTE
+}
 
 export type UserSolicitud  = {
     id:string
@@ -10,5 +18,7 @@ export type UserSolicitud  = {
 }
 
 export interface UserState {
-    solicitudes:UserSolicitud[]
+    solicitudes:UserSolicitud[],
+    params:string,
+    ids:string[]
 }

@@ -24,7 +24,7 @@ const SplashPages = ()=>{
           </div>
             // ariaLabel='falling-lines-loading'
             :
-            <div className="px-10 mt-10">
+            <div className="pl-3 xl:px-10 mt-12 xl:mt-10">
             <SplashPagesList
             splasPagesList={splashState.splashPages}
             />

@@ -14,8 +14,31 @@ const LikeWeekChart = ({data}:Props) =>{
     
 
     return(
-        <div className="">
+        <div  className="">
         <VictoryChart
+        // events={[
+        //   {
+        //     target:"parent",
+        //     eventHandlers:{
+        //       onClick:()=>{
+        //         // console.log(window.hei)
+        //         const el = document.querySelector('#dash')?.getBoundingClientRect().top // Y
+        //         var height = document.documentElement.clientHeight;
+        //         console.log(height)
+        //         if(el != undefined){
+        //           // window.scrollY + el
+        //           window.scroll(0,el + 80)
+        //         }
+        //         console.log(el)
+        //         // window.scroll({
+        //         //   top: 100,
+        //         //   behavior: 'smooth'
+        //         // });
+        //         return 
+        //       }
+        //     }
+        //   }
+        // ]}
         // padding={38}
       domainPadding={{x: 25, y: 20}}
         >
@@ -37,6 +60,7 @@ const LikeWeekChart = ({data}:Props) =>{
             }
           />
           <VictoryBar
+          
            labelComponent={<VictoryTooltip/>}
         //    labelComponent={<VictoryLabel angle={270} dy={10}/>}
           data={data}

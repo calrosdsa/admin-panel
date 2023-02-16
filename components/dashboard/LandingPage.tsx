@@ -30,14 +30,14 @@ const LandingPage = () =>{
   })
   
     return(
-      <div className="mx-auto max-w-6xl ">
+      <div  className="mx-auto max-w-6xl ">
       
               {loading?
-              <div className="max-w-xl mx-auto mt-10 rounded-lg grid gap-y-2">
+              <div className="max-w-xl mx-auto rounded-lg grid gap-y-2">
               <EsqueletonPost/>
               </div>
               :
-            <div className="mt-10 mx-auto max-w-xl ">
+            <div className="mx-auto max-w-xl ">
          {posts.map((item:Post)=> (
            <div className="p-1" key={item.id}>
            <PostItem

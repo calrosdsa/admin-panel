@@ -12,18 +12,19 @@ const Dashboard = () =>{
   useEffect(()=>{
     dispatch(getDataLikeForWeek())
     dispatch(getDataLikeForWeekUserWifi())
+
      // eslint-disable-line react-hooks/exhaustive-deps
 },[])
-    return(
-        <Layout title="Panel Admin">
-      <div className={`relative grid grid-cols-2  w-full`}>
+  return(
+    <Layout title="Panel Admin">
+      <div className={`relative lg:grid  lg:grid-cols-2 w-full xl:h-screen`}>
         <DashboardData/>
-        <div className='h-screen overflow-y-auto'>
+        <div className='lg:h-screen lg:overflow-y-auto'>
       <LandingPage/>
         </div>
         </div>
-        </Layout>   
-    )
+    </Layout>   
+  )
 }
 
 export default Dashboard;

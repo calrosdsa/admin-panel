@@ -3,6 +3,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import uiSlice from "./slices/ui-slice";
 import splashSlice from "./slices/splash-slice";
 import dashboardSlice from "./slices/dashboard-slice";
+import userSlice from "./slices/user-slice";
 
 const store = configureStore(
     {
@@ -11,6 +12,7 @@ const store = configureStore(
             ui:uiSlice.reducer,
             splash:splashSlice.reducer,
             dashboard:dashboardSlice.reducer,
+            user:userSlice.reducer,
         }
     }
 )

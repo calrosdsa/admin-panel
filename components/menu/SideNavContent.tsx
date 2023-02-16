@@ -12,17 +12,17 @@ const SideNavContent = ()=>{
     const router = useRouter()
     return(
       <>
-        <div className="space-y-2 pt-3 relative h-screen">
+        <div className="space-y-2 pt-3 relative h-screen ">
             {/* <Image
             src='/images/teclu-logo.png'
             height={100}
             width={350}
             /> */}
-            <div className='w-full px-2 flex justify-center'>
-              <Image
+            <div className='w-full  flex justify-center px-14'>
+              <img
             src='/images/logo_teclu_mobility.png'
-            height={90}
-            width={120} alt={''}            />
+            className='w-32 h-[44px]'
+            alt={''}/>
             </div>
             <div className='pt-4'/>
             <div onClick={()=>router.push('/dashboard')} 
@@ -36,7 +36,8 @@ const SideNavContent = ()=>{
             </div>
 
             <div onClick={()=>dispatch(logout())} 
-            className={`flex pl-2 cursor-pointer absolute bottom-5  w-full items-center overflow-hidden px-2 hover:bg-gray-200 p-1`}>
+            className={`flex pl-2 cursor-pointer absolute xl:bottom-12 bottom-20
+             w-full items-center overflow-hidden px-2 hover:bg-gray-200 p-1`}>
            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
             className="w-7 h-7">
    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
@@ -216,6 +217,7 @@ const SideNavContent = ()=>{
         </svg>
         <h3 className='pl-4 font-medium'>Dashboard</h3>
       </div> */}
+      <span className='absolute xl:bottom-3 bottom-12 px-2 text-xs  mx-auto text-center'>Todos los derechos reservados ©2023</span>
 
         </div>
       </>

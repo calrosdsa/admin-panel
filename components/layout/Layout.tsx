@@ -7,6 +7,7 @@ import { uiActions } from '../../context/slices/ui-slice';
 import Sidenav from '../menu/Sidenav';
 import { FallingLines } from 'react-loader-spinner';
 import { getUserData } from '../../context/actions/authActions';
+import Menu from '../Menu';
 
 
 type Props = {
@@ -59,15 +60,27 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
     <ToastContainer
     />
     {authState.rol != undefined &&
-  <div className={`flex  relative  min-w-[1200px] max-w-[1800px] mx-auto bg-gray`}>
+  <div className={`xl:flex  relative  max-w-[1800px] mx-auto bg-gray`}>
+    <nav className='xl:hidden w-full bg-secondary p-2 fixed top-0 z-10'>
+    <svg onClick={()=>setOpen(true)}
+     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+     className="w-7 h-7 text-gray-200">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
+</svg>
+
+    </nav>
       {/* <Menu open={open} setOpen={setOpen}/>  */}
       <Sidenav/>
+      <Menu
+      open={open}
+      setOpen={setOpen}
+      />
     {/* {isDashboard && 
        isBigScreen||
        <Menu open={open} setOpen={setOpen}/> 
       } */}
       {uiState.loading ?
-      <div className='grid place-content-center w-full'>
+      <div className='grid place-content-center w-full h-screen'>
       <FallingLines
       color="#0406ee"
       width="110"
@@ -76,12 +89,14 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
       />
       </div>
       :
-      <div  className={`px-1  sm:px-4  relative w-full mx-auto bg-gray-100 overflow-auto h-screen
+      <>
+      <div  className={`px-1 pt-14 xl:pt-0 w-full mx-auto bg-gray-100 h-full  xl:overflow-auto xl:h-screen
       `}>
         {/* ${uiState.initAnimation ? " opacity-0 transform transition-all duration-500":
         " opacity-100 transform transition-all duration-500"} */}
     {children}
       </div>
+        </>
         }
   </div>
     }

@@ -10,9 +10,11 @@ module.exports = {
         'facebook': '#039be5',
         'primary':'#0406ee',
         'teclu2':'#e50108',
-        
+        'secondary':'#002347',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

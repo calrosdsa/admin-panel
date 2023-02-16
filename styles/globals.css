@@ -16,8 +16,21 @@
     .button {
       @apply  border-2 cursor-pointer border-gray-500 text-gray-500 p-1 2xl:px-2
     }
+
     .borderC {
       @apply border-gray-500 border-[2px] rounded-lg
+    }
+    .textOption {
+      @apply font-semibold text-base px-2 sm:px-3 text-gray-500 cursor-pointer
+    }
+    .itemHover {
+      @apply hover:bg-gray-200 py-1 px-2  border-[1px] hover:border-gray-500
+    }
+    .disabled {
+      @apply cursor-not-allowed opacity-50
+    }
+    .paddingTable {
+      @apply px-6 py-3
     }
     .primary {
       @apply text-indigo-500 

@@ -130,14 +130,7 @@ const LoginPage = () => {
         </button>
     </form>
 
-   <div className='mt-2'>
-    <span onClick={()=>{
-      // router.push('/auth/reset-password')
-      // axios.post(`${API_URL}/auth/reset-request/`,{email})
-    }} 
-    className=' font-semibold primary cursor-pointer'>forgot you password?</span >
-    {/* <div className=" border-b-2 w-full py-2"/> */}
-    </div>
+   
   </div>
 </div>
 

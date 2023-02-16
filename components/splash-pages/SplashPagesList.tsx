@@ -39,8 +39,8 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
                     {item.name}
                 </td>
                 <th scope="row" className="px-6 py-4  underline cursor-pointer">
-                 <a className=" font-normal" href={item.urlSplash} target="_blank"  rel="noreferrer" 
-                 >https://teclu-portal.s3.sa-east-1.amazonaws.com/ypfb-transporte</a>
+                 <a className=" font-normal whitespace-nowrap" href={item.urlSplash} target="_blank"  rel="noreferrer" 
+                 >{item.urlSplash}</a>
                 </th>
                 <td className="px-6 py-4">
                     {isSplashPageActive(item.status)}

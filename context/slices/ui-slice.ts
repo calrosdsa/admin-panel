@@ -4,6 +4,7 @@ import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 const initialUiState :UiState ={
     loading:false,
+    innerLoading:false,
     errorMessage:"",
     buttonText:"Continuar con facebook",
     isMobile:false,
@@ -17,6 +18,9 @@ const uiSlice = createSlice({
     reducers:{
         setLoading(state,action:PayloadAction<boolean>){
             state.loading = action.payload
+        },
+        setInnerLoading(state,action:PayloadAction<boolean>){
+            state.innerLoading = action.payload
         },
         setButtonText(state,action:PayloadAction<string>){
             state.buttonText = action.payload
