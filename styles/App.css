@@ -46,6 +46,11 @@
   border: none;
 }
 
+.VictoryContainer {
+  /* user-select: auto !important; */
+  /* pointer-events: auto !important; */
+  touch-action: auto !important;
+  }
 
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */

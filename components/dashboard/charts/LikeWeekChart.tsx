@@ -14,7 +14,7 @@ const LikeWeekChart = ({data}:Props) =>{
     
 
     return(
-        <div  className="">
+        <div  className="bg-white">
         <VictoryChart
         // events={[
         //   {

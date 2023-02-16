@@ -90,7 +90,7 @@ const Layout = ({ children, title = 'This is the default title',isDashboard = tr
       </div>
       :
       <>
-      <div  className={`px-1 pt-14 xl:pt-0 w-full mx-auto bg-gray-100 h-full  xl:overflow-auto xl:h-screen
+      <div  className={`px-1 pt-14 xl:pt-0 w-full mx-auto bg-gray-100   xl:overflow-auto h-screen
       `}>
         {/* ${uiState.initAnimation ? " opacity-0 transform transition-all duration-500":
         " opacity-100 transform transition-all duration-500"} */}
