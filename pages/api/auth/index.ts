@@ -40,8 +40,8 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
             })
         } 
         catch(err:any) {
-            // console.log(err.response.statusCode)
-            // console.log(err.response.body)
+            console.log(err.response.statusCode)
+            console.log(err.response.body)
             const errorMessage = JSON.parse(err.response.body);
                 res.status(err.response.statusCode).json({
                     error: errorMessage
