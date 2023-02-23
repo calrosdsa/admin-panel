@@ -18,9 +18,12 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
                     password: password
                 },
             };
-           
-            const response = await rp.post(options)
-            const data = JSON.parse(response);
+           const formData = new FormData()
+           formData.append("email",email)
+           formData.append("password",password)
+            const response = await axios.post('https://teclu.com/apiFB/public/auth/login',formData)
+            // const data = JSON.parse(response);
+            const data = response.data
             setCookie('access_token', data.access_token, { req, res,
                 httpOnly:true,
                 secure: process.env.NODE_ENV !== 'development',
