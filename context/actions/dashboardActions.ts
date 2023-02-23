@@ -136,9 +136,10 @@ export const donwloadReportLastTenDaysExcel = (userwifi:string,
         // console.log(date1)
       
         try{
+            console.log("userWifi:",userwifi)
             const formData = new FormData()
             formData.append("idpost","0")
-            formData.append("userwifi","0")
+            formData.append("userwifi",userwifi)
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
             await axios.post(`${API_URL}/apiFB/public/facebook/reportexcel`,formData,{

@@ -8,7 +8,10 @@ export enum ReporteId{
     ALL_USER,
     USER_RED,
     ALL_USER_POST,
-    USER_RED_POST
+    USER_RED_POST,
+    ALL_USER_EXCEL,
+    USER_RED_EXCEL,
+
 }
 
 export interface DashBoardState {
