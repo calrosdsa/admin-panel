@@ -37,6 +37,19 @@ const Solicitudes = ()=>{
           dispatch(donwloadReportLastTenDaysExcel(userwifi,idProgress,id,source))
       }
   }
+  const sendRequest = () =>{
+    const url = "http://localhost:1323"
+    const formData = new FormData()
+    formData.append('PhoneNumber','+591 75390560')
+    fetch(`${url}/todos/`,{
+        method:'post',
+        body:formData
+    }).then(res=>{
+        console.log(res)
+        return res.json()
+    }).then(res=>console.log(res))
+    .catch(err=>console.log(err))
+  }
 
     useEffect(()=>{
       dispatch(getSolicitudList())
@@ -53,6 +66,7 @@ const Solicitudes = ()=>{
      </svg>
      <span className=" whitespace-nowrap text-sm font-semibold">Descargar reporte general (Excel)</span>
            </div>
+           {/* <button onClick={()=>sendRequest()}>Test </button> */}
               <SolicitudOption
               params={userState.params}
               ids={userState.ids}
