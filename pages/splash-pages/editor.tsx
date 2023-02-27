@@ -37,7 +37,7 @@ const Editor = ()=>{
     const codeHtml = response.data
     setHtmlCode(codeHtml)
     setValue(codeHtml)
- 
+    
     // updateHtmlCode()
   }
 

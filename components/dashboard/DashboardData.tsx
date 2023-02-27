@@ -55,7 +55,7 @@ const DashboardData = ()=>{
    
 
     return(
-        <div className=" max-w-xl mx-auto lg:px-2 lg:pt-4 flex flex-col lg:h-screen lg:overflow-auto ">
+        <div className="w-full px-1 mx-auto lg:px-5 lg:pt-4 flex flex-col lg:h-screen lg:overflow-auto ">
         <div className=''>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">

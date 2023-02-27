@@ -55,7 +55,7 @@ const PostItem = ({post}:Props) =>{
             width={21}
             alt={post.id}
             />
-               <span>{post.likes.summary.total_count}</span>
+               <span>{post.reactions.summary.total_count}</span>
            </div>
         </div>
     </>

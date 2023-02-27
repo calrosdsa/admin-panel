@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../context/reduxHooks'
 import InputComponent from '../../components/InputComponent';
 import { login } from '../../context/actions/authActions';
 import { authActions } from '../../context/slices/auth-slice';
+import Image from 'next/image';
 
 const LoginPage = () => {
     // const dispatch=useAppDispatch();
@@ -42,9 +43,16 @@ const LoginPage = () => {
         <RegisterLayer>
 <div className="bg-white opacity-90 ">
 
-  <div className="px-3 sm:px-10  pt-4 pb-8 bg-white rounded-tr-4xl">
-      <div className='flex  md:grid-cols-3  pb-5 items-center'>
-    <h1 className="text-xl mx-auto font-semibold text-gray-900">Log in</h1>
+  <div className="px-3 sm:px-10  pt-4 pb-8 shadow-xl  rounded-tr-4xl rounded-lg">
+      <div className='flex  md:grid-cols-3 flex-col  pb-5 items-center'>
+    {/* <Image
+    src="/images/logo_teclu_mobility.png"
+    alt='teclu-mobility'
+    height={30}
+    width={100}
+    priority
+    /> */}
+    <span className="text-xl mx-auto font-semibold text-gray-900">Log in</span>
       </div>
  {
    uiState.errorMessage !=null &&
@@ -52,7 +60,7 @@ const LoginPage = () => {
   }
     <form
     onSubmit={onSubmit}
-    className="mt-2 ">
+    className="mt-2">
 
     <InputComponent
     onChange={onChange}
@@ -68,21 +76,6 @@ const LoginPage = () => {
     value={email}
     ref={emailRef}
     />
-
-{/* <InputComponent
-    onChange={onChange}
-    tipo='password'
-    onKeyPress={(e)=>{
-      if(e.key == 'Enter'){
-          // passwordRef.current?.focus()
-      }
-    }}
-    name='password'
-    titulo='Password'
-    value={password}
-    ref={passwordRef}
-    />
-       */}
       <div className="relative mt-7">
         <input 
         required

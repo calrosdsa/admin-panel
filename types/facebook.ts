@@ -22,7 +22,7 @@ export type Post = {
     created_time: string
     id:string
     full_picture:string
-    likes:Like
+    reactions:Like
     comments?:Comment
     from:From
     permalink_url:string
