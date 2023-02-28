@@ -14,7 +14,7 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
     const { t, lang } = useTranslation('common')
 
 
-    const isSplashPageActive = (estado:string)=>{
+    const isSplashPageActive = (estado:string | undefined)=>{
         return estado == "0" ? "Activo":"Inactivo"
     }
 
