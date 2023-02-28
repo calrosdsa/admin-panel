@@ -57,11 +57,11 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
                             dispatch(splashActions.setSplashPage(undefined))
                             router.push(`/splash/edit?code=${item.code}`)
                         }} 
-                        className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
+                        className="whitespace-nowrap font-medium text-gray-900 dark:text-white cursor-pointer">
                             {item.name}
                         </Table.Cell>
                         <Table.Cell>
-                            {item.urlSplash}
+                            <a href={item.urlSplash} target="_blank">{item.urlSplash}</a>
                         </Table.Cell>
                         <Table.Cell>
                             {isSplashPageActive(item.status)}

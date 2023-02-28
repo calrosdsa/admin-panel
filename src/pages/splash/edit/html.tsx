@@ -87,7 +87,7 @@ const HtmlCode = ()=>{
          src="/transporte2.html"></iframe> */}
          {splashState.htmlCode != undefined &&
          <iframe className= "w-full h-screen flex relative"
-         src="https://teclu-portal.s3.sa-east-1.amazonaws.com/ypfb-transporte"
+         src={splashState.splashPage?.urlSplash}
          id="myiframe"></iframe>
         }
       </div>
