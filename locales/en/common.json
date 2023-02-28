@@ -1,0 +1,20 @@
+{
+    "title": "Hello world",
+    "variable-example": "Using a variable {{count}}",
+    "language":"Language",
+    "home":"Home",
+    "about":"About",
+    "services":"Services",
+    "pricing":"Pricing",
+    "contact":"Contact",
+    "dashboard":"Dashboard",
+    "users":"Users",
+    "users-wifi":"Users wi-fi",
+    "splash-pages":"Splash Pages",
+    "portal":"Splash pages",
+    "requests":"Requests",
+    "name":"Name",
+    "state":"State",
+    "edit":"Edit"   
+
+  }

@@ -1,0 +1,21 @@
+  @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .text {
+      @apply dark:text-gray-400 text-gray-900
+    }
+    .bg {
+        @apply bg-white dark:bg-gray-900
+    }
+    .hoverText {
+        @apply hover:bg-gray-200 dark:hover:bg-gray-400
+    }
+    .button {
+      @apply   rounded-none
+    }
+    .textOption {
+      @apply font-semibold text-base px-2 sm:px-3 text-gray-500 cursor-pointer
+    }
+  }

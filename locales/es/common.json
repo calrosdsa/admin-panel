@@ -1,0 +1,20 @@
+{
+    "title": "Hola Mundo",
+    "variable-example": "Usando una variable {{count}}",
+    "language":"Language",
+    "home":"Inicio",
+    "about":"Sobre",
+    "services":"Servicios",
+    "pricing":"Precios",
+    "contact":"Contactos",
+    "dashboard":"Panel",
+    "users":"Usuarios",
+    "users-wifi":"Usuarios wifi",
+    "splash-pages":"Paginas splash",
+    "portal":"Portales",
+    "requests":"Solicitudes",
+    "name":"Nombre",
+    "state":"Estado",
+    "edit":"Editar"
+
+  }
