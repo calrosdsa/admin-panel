@@ -1,4 +1,4 @@
-  @tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -9,13 +9,20 @@
     .bg {
         @apply bg-white dark:bg-gray-900
     }
+    .title {
+      @apply font-semibold text-xl
+    }
     .hoverText {
         @apply hover:bg-gray-200 dark:hover:bg-gray-400
     }
     .button {
-      @apply   rounded-none
+      @apply   flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+       active:ring-blue-300 active:ring-2 px-3
     }
     .textOption {
       @apply font-semibold text-base px-2 sm:px-3 text-gray-500 cursor-pointer
+    }
+    .disabled {
+      @apply opacity-50 cursor-not-allowed
     }
   }

@@ -11,6 +11,21 @@ import { uiActions } from "../slices/ui-slice";
 import { userActions } from "../slices/user-slice";
 import { RootState } from "../store";
 
+export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setInnerLoading(true))
+        const response = await axios.get(`/api/user`)
+        dispatch(uiActions.setInnerLoading(false))
+        dispatch(userActions.setUsersWifi(response.data.users))        
+       }catch(err:any){
+        dispatch(uiActions.setInnerLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
+
 export const getSolicitudList =(param:string="Todos") :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
        try{

@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../../context/reduxHooks";
 import { userActions } from "../../../context/slices/user-slice";
-import { Order, UserSolicitud } from "../../../data/models/redux-models/user-models";
-import { formatDate } from "../../../utils/converter/date";
+import { Order, UserSolicitud, UserWifi } from "../../../data/models/redux-models/user-models";
+import { formatDate, formatShortDate } from "../../../utils/converter/date";
 import LongText from "../../LongText";
 
 interface Props{
-    solicitudes:UserSolicitud[]
+    users:UserWifi[]
     ids:string[]
 }
-const TableSolicitudes = ({solicitudes,ids}:Props) =>{
+const TableUserWifi = ({users,ids}:Props) =>{
     const dispatch = useAppDispatch()
     const [ orderState, setOrderState ] = useState(Order.DESCENDENTE)
     const [ orderStateName,setOrderStateName ] = useState(Order.DESCENDENTE)
@@ -69,7 +69,7 @@ const TableSolicitudes = ({solicitudes,ids}:Props) =>{
             </tr>
         </thead>
         <tbody>
-            {solicitudes.map((item)=>{
+            {users.map((item)=>{
                 return(
                     <tr key={item.id} className="bg-white border-b hover:bg-gray-100"
                     onClick={()=>selectSolicitud(item.id)}>
@@ -87,16 +87,19 @@ const TableSolicitudes = ({solicitudes,ids}:Props) =>{
                     {item.mail}
                 </td>
                 <td className="paddingTable whitespace-nowrap">
-                    {item.status}
+                    {item.cantConexion}
                 </td>
                 <td className="paddingTable whitespace-nowrap">
-                    {formatDate(item.dateRequest)}
+                    {item.gender}
+                    {/* {formatDate(item.)} */}
                 </td>
                 <td  className="paddingTable font-medium text-gray-900 w-[200px] text-xs">
-                    <LongText
-                    content={item.message}
-                    limit={140}
-                    />
+                    {/* <LongText */}
+                    {/* content={item.message} */}
+                    {/* limit={140} */}
+                    {/* /> */}
+                    {formatShortDate(item.birthday)}
+
                 </td>
             </tr>
                 )})}
@@ -107,4 +110,4 @@ const TableSolicitudes = ({solicitudes,ids}:Props) =>{
     )
 }
 
-export default TableSolicitudes;
+export default TableUserWifi;

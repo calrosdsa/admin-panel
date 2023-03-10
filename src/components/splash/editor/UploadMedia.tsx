@@ -9,8 +9,7 @@ interface Props {
     restore?:()=>void
 }
 
-const UploadMedia = ({source,loading,onChange,text,isVideo=false,id,restore,originSource}:Props) =>{
-    console.log(id,typeof source)
+const UploadMedia = ({source,loading,onChange,text,id,restore,originSource}:Props) =>{
     return(
         <div className="w-full">
                 {source == undefined ?
@@ -50,21 +49,21 @@ const UploadMedia = ({source,loading,onChange,text,isVideo=false,id,restore,orig
                  <div className="w-4 h-4 rounded-full animate-pulse bg-gray-400"></div>
              </div>
                 :
-                isVideo ?
+//                 isVideo ?
                 
-                <div>
-            <input type="file" id={id} className="hidden" onChange={onChange}/>
-                <label htmlFor={id}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
-                className="w-8 h-8 cursor-pointer absolute top-1/2 left-1/2 -mt-3 z-10 bg-gray-200 rounded-lg p-1">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-            </svg>
-                    </label>
+//                 <div>
+//             <input type="file" id={id} className="hidden" onChange={onChange}/>
+//                 <label htmlFor={id}>
+//                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
+//                 className="w-8 h-8 cursor-pointer absolute top-1/2 left-1/2 -mt-3 z-10 bg-gray-200 rounded-lg p-1">
+//   <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+//             </svg>
+//                     </label>
                     
-                    <video controls className="h-64 m-2 mx-auto"
-                    src={source}></video>
-                    </div>
-                    :
+//                     <video controls className="h-64 m-2 mx-auto"
+//                     src={source}></video>
+//                     </div>
+//                     :
                     <div>
                 <input type="file" id={id} className="hidden" onChange={onChange}/>
                 <label htmlFor={id}>

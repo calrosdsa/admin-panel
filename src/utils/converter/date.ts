@@ -7,3 +7,9 @@ export const formatDate = (date:string | undefined):string=>{
     if(date == undefined) return "N/A"
     return moment(date).format('lll');
 }
+
+export const formatShortDate = (date:string):string =>{
+    moment.locale("es")
+    if(date == undefined) return "N/A"
+    return moment(date).format('LL');
+}

@@ -66,9 +66,6 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                 const imgHref = response.data
                 setContentBase64ForVideo(imgHref)
                 video.src = imgHref
-                video.id = "video-b"
-                video.style ="width: 100%; max-height: 280px;object-fit: contain;border-radius: 0.5rem;"
-                video.className = "image_placeholder"
                 // video.className = "object-contain rounded-lg"
                 video.controls = true
                 const parent  = image?.parentNode
@@ -98,6 +95,7 @@ const EditBanner = ({imageSource,videoSource}:Props)=>{
                     const imgHref = response.data
                     setContentBase64(imgHref)
                     imagePortada.src = imgHref
+                    console.log(imagePortada)
                 }catch(err){
                     dispatch(uiActions.setLoading(false))
                 }

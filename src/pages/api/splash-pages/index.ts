@@ -26,7 +26,7 @@ export default async function splashPages(req:NextApiRequest,res:NextApiResponse
 
     if(req.method == 'POST'){
         const { code}  = req.body
-        console.log(code)
+        console.log("code.......",code)
         try{
             const response = await axios.get(`${API_URL}/apiFB/public/splashPage/findById/${code}`,{
                 headers:{
@@ -34,7 +34,7 @@ export default async function splashPages(req:NextApiRequest,res:NextApiResponse
                 }
             })
             const data = response.data
-            console.log(data)
+            // console.log(data)
             return res.status(200).json({
                 portal:data.Likes
             })

@@ -28,7 +28,7 @@ const DeskTopView = () =>{
 
                     </div>
                 :
-                <iframe className="h-screen w-full"
+                <iframe className="h-screen w-full pt-20"
                 src={splashState.splashPage?.urlSplash}
                 id="myiframe"></iframe>
             }

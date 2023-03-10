@@ -7,7 +7,6 @@ interface Props {
 }
 const EditParagraph = ({descripcion,setValue,id}:Props)=>{
     const onChange=(e:ChangeEvent<HTMLTextAreaElement>)=>{
-        console.log(e)
         setValue(e.target.value)
         const textValue:any = document.querySelector(id)
         if(textValue != undefined){

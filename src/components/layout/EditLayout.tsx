@@ -26,9 +26,17 @@ const EditLayout = ({children,saveChanges}:Props) =>{
    
     return(
         <>
-        <ToastContainer/>
-        <div className=" min-w-[1300px] max-w-[1800px] mx-auto">
-            <div className="flex justify-center p-2 relative  ">
+        <ToastContainer
+        position={"bottom-center"}
+        />
+        <div className=" min-w-[1300px] relative max-w-[1800px] mx-auto">
+            <div className="fixed left-0 top-0 flex justify-between p-2 w-full bg-white shadow-md z-20">
+            <Button color="light"  onClick={()=>router.push("/splash/pages")}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
+                    stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                  </Button>
             <Button.Group>
                     {/* <Button color="light" onClick={()=>router.push("")}
                     className={`${router.pathname == "" && "text-primary"}`}>
@@ -61,13 +69,11 @@ const EditLayout = ({children,saveChanges}:Props) =>{
                         Html
                     </Button>
                   </Button.Group>
-                  {showSaveButton &&
-                  <Button color="light" className="absolute right-2" onClick={()=>{
+                  <Button disabled={!showSaveButton} color="light" onClick={()=>{
                     dispatch(uiActions.setOpenDialog(true))
                     }}>
                     Guardar Cambios
                   </Button>
-                }
             </div>
             <div className={`${uiState.loading ? " opacity-0 transition-all":" opacity-100 transition-all"}`}>
             {children}

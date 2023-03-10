@@ -30,6 +30,7 @@ const ImageEdit = ({src,id}:Props)=>{
       // const imgHref = URL.createObjectURL(e.target.files[0])
       setContentBase64(imgHref)
       imgLogo.src = imgHref
+      console.log(imgLogo)
       const fileN = getInputFileName()
       setFileName(fileN)
     }

@@ -49,6 +49,7 @@ const Solicitudes = ()=>{
             <div className=" xl:pt-4 noselect">
            {/* <button onClick={()=>sendRequest()}>Test </button> */}
               <SolicitudOption
+              refreshList={()=>dispatch(getSolicitudList())}
               params={userState.params}
               ids={userState.ids}
               />

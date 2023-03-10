@@ -22,8 +22,13 @@ const Edit = ()=>{
     try{
         dispatch(uiActions.setLoading(true))
         // const response = await axios.get(`http://localhost:1323/transporte3/`)
-        const response = await axios.get(splashState.splashPage?.urlSplash as string)
-        console.log(response.data)
+        const response = await axios.get(splashState.splashPage?.urlSplash as string,{
+          headers:{
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            'Expires': '0',
+          }
+        })
         const codeHtml = response.data
         setHtmlCode(codeHtml)
         dispatch(splashActions.setHtmlCode(codeHtml))
@@ -35,6 +40,7 @@ const Edit = ()=>{
 
   const saveChanges = async() =>{
     const html = document.getElementById("core")?.innerHTML
+    console.log(html)
     const formData = new FormData()
     formData.append('html',html as string)
     formData.append('filename',splashState.splashPage?.name as string)
@@ -43,7 +49,9 @@ const Edit = ()=>{
           const res =await axios.post(`${base_url}/upload/template/`,formData)
           // const res =await axios.post(`http://localhost:1323/upload2`,formData)
             toast.update(id, {render: res.data, type: "success", isLoading: false,autoClose:5000});
+            dispatch(uiActions.setOpenDialog(false))
       }catch(err:any){
+            dispatch(uiActions.setOpenDialog(false))
         toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000});
       }
   }
@@ -58,10 +66,12 @@ const Edit = ()=>{
   })
   return(
       <EditLayout saveChanges={saveChanges}>
+        <div className="">
         <NoCodeEditor
         htmlCode={htmlCode}
         isCodeEditor={false}
         />
+        </div>
         </EditLayout>
     )
 }

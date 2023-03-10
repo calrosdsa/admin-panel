@@ -33,5 +33,5 @@ export function middleware(req: NextRequest) {
   return NextResponse.rewrite(req.nextUrl)
 }
 export const config = {
-  matcher: ['/:path',"/splash/:path*"],
+  matcher: ['/:path',"/splash/:path*","/dashboard/:path*","/user/:path*"],
 }

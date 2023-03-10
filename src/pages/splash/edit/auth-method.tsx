@@ -69,8 +69,11 @@ const AuthMethod = () =>{
               const res =await axios.post(`${base_url}/upload/template/`,formData)
               // const res =await axios.post(`http://localhost:1323/upload2`,formData)
                 toast.update(id, {render: res.data, type: "success", isLoading: false,autoClose:5000});
+                dispatch(uiActions.setOpenDialog(false))
+
           }catch(err:any){
-            toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000});
+                dispatch(uiActions.setOpenDialog(false))
+                toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000});
           }
       }
 
@@ -94,9 +97,9 @@ const AuthMethod = () =>{
         <EditLayout
         saveChanges={saveChanges}>
             <div>
-                <div className="mx-auto max-w-xl">
+                <div className="mx-auto max-w-xl pt-20">
                 <div
-                    className="flex flex-col gap-4 py-5 px-3 grid-cols-2 col-span-1"
+                    className="flex flex-col gap-4 py-5  px-3 grid-cols-2 col-span-1"
                     id="toggle"
                     >
                 <SwitchComponent

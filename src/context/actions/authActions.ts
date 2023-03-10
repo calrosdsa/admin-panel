@@ -20,6 +20,7 @@ export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =
     return async(dispatch)=>{
         try{
             const response = await axios.get("/api/auth/token")
+            console.log(response.data)
             dispatch(authActions.setRol(response.data.rol))
         }catch(err:any){
             if(err.response.status == 401){
@@ -53,7 +54,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             if(response.status == 200){
-               setCookie("_auth","0")
+               setCookie("_auth","0", {maxAge: 60 * 60 * 24})
                 if(typeof window != undefined){
                     const parsed = queryString.parse(window.location.search);  
                     if(parsed.redirect != undefined){

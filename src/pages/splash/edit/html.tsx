@@ -74,9 +74,12 @@ const HtmlCode = ()=>{
     return(
        <EditLayout 
        saveChanges={saveChanges}>
-         <div className={`grid grid-cols-5 ${splashState.htmlCode == undefined? " transition-all opacity-0 duration-1000":
+         <div className={` pt-16 grid grid-cols-5 ${splashState.htmlCode == undefined? " transition-all opacity-0 duration-1000":
         " transition-all opacity-100 duration-1000"}`}>
-        <div className={`col-span-3`}>
+        <div className={`col-span-3 `}>
+          <div className="">
+
+          </div>
             <CodeEditor
             value={splashState.htmlCode}
             onChange={onChange}

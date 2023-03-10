@@ -3,6 +3,10 @@ import Head from 'next/head'
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from 'react-toastify'
 import Image from 'next/image'
+// import { useAppDispatch } from '@/context/reduxHooks';
+// import { getUserData } from '@/context/actions/authActions';
+// import { useRouter } from 'next/router';
+// import { getCookie } from 'cookies-next';
 type Props = {
     children?: ReactNode
     title?: string
@@ -12,7 +16,24 @@ type Props = {
       children,title
     }:Props) =>{
     const [initialAnimation,setInitialAnimation ] = useState(false)
+    // const dispatch = useAppDispatch()
+    // const router = useRouter()
+    // const {redirect} = router.query
     useEffect(()=>{
+        // dispatch(getUserData())
+        // if(typeof window != 'undefined'){
+        //   const isAuth = getCookie("_auth")
+        //   if(isAuth){
+        //     if(redirect != undefined){
+        //       window.location.replace(redirect as string)
+        //     }else{
+        //       window.location.replace(window.location.origin)
+        //     }
+        //   }
+        // }
+        // if(redirect != undefined){
+
+        // }
         setInitialAnimation(true)
 },[])
 

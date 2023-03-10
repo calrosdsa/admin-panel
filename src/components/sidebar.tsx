@@ -15,6 +15,7 @@ export  const SideBarApp = () =>{
 return(
     <div className="w-fit relative h-screen">
     <Sidebar aria-label="Sidebar with logo branding example">
+      <a href="/dashboard">
       <Image
       src="/images/logo.png"
       alt="logo-teclu"
@@ -22,6 +23,7 @@ return(
       height={70}
       priority
       />
+      </a>
       <Sidebar.Items className="mt-3">
         <Sidebar.ItemGroup>
           <Sidebar.Item
@@ -50,13 +52,19 @@ return(
             }}
             label={t("users")}
           >
-            <Sidebar.Item href="#">
+            <Sidebar.Item 
+            className="cursor-pointer"
+            active={router.pathname == "/user"}
+            onClick={()=>router.push("/user")}
+            >
               {t("users-wifi")}
             </Sidebar.Item>
             <Sidebar.Item 
             className="cursor-pointer"
             active={router.pathname == "/user/solicitudes"}
-            onClick={()=>router.push("/user/solicitudes")}>
+            onClick={()=>router.push("/user/solicitudes")}
+            // href="/user/solicitudes"
+            >
               {t("requests")}
             </Sidebar.Item>
           </Sidebar.Collapse>
@@ -77,7 +85,9 @@ return(
             <Sidebar.Item 
             className="cursor-pointer"
             active={router.pathname == "/splash/pages"}
-            onClick={()=>router.push("/splash/pages")}>
+            // href={"/splash/pages"}
+            onClick={()=>router.push("/splash/pages")}
+            >
               {t("portal")}
             </Sidebar.Item>
           </Sidebar.Collapse>

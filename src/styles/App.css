@@ -4,15 +4,14 @@
     touch-action: auto !important;
     }
   
-    .scrollhidden::-webkit-scrollbar {
+    /* .scrollhidden::-webkit-scrollbar {
       display: none;
     }
     
-    /* Hide scrollbar for IE, Edge and Firefox */
     .scrollhidden {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;  /* Firefox */
-    }
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }  */
   
     .noselect {
       -webkit-touch-callout: none; /* iOS Safari */
@@ -24,7 +23,7 @@
                                       supported by Chrome, Edge, Opera and Firefox */
     }
 
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     width: 8px;               
   }
   
@@ -36,4 +35,4 @@
     background-color: gainsboro;  
     border-radius: 10px;       
   }
-  
+   */

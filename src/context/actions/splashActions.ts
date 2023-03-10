@@ -43,10 +43,11 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
 export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         try{
+            console.log("code////")
             dispatch(uiActions.setLoading(true))
             const access_token = getCookie("access_token")
             const response = await axios.post(`/api/splash-pages`,{code})
-            console.log(response)
+            // console.log(response)
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)

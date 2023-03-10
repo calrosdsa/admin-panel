@@ -34,6 +34,8 @@ const Home:NextPage<Props>=({userAgent,language}) => {
   }
 
   
+
+  
   return (
     <>
     <RegistroLayer>
