@@ -3,6 +3,7 @@ import { useAppDispatch } from "@/context/reduxHooks"
 import { Sidebar } from "flowbite-react"
 import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
+import Link from "next/link"
 import { useRouter } from "next/router"
 
 
@@ -15,7 +16,7 @@ export  const SideBarApp = () =>{
 return(
     <div className="w-fit relative h-screen">
     <Sidebar aria-label="Sidebar with logo branding example">
-      <a href="/dashboard">
+      <Link href="/dashboard">
       <Image
       src="/images/logo.png"
       alt="logo-teclu"
@@ -23,7 +24,7 @@ return(
       height={70}
       priority
       />
-      </a>
+      </Link>
       <Sidebar.Items className="mt-3">
         <Sidebar.ItemGroup>
           <Sidebar.Item

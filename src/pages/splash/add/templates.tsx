@@ -72,7 +72,7 @@ const Templates = () =>{
             <div className="grid gap-3 sm:grid-cols-2 px-3">
             {templates.map((item)=>{
                 return(
-                    <div onClick={()=>setTemplate(item)}
+                    <div key={item.id} onClick={()=>setTemplate(item)}
                     className={`shadow-xl grid rounded-xl border-[1px] ${item.id == template?.id && "border-2 border-primary"}`}>
 
                         <Image

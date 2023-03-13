@@ -128,8 +128,9 @@ const deletedSubmitedImage = () =>{
               src={source}
               />
               </div>
+              {titulo.text != "" &&
               <div>
-              <span className="text-xl font-semibold">Editar Titulo</span>
+                <span className="text-xl font-semibold">Editar Titulo</span>
               <EditText
               titulo={titulo.text}
               colorValue = {titulo.color}
@@ -137,6 +138,8 @@ const deletedSubmitedImage = () =>{
               setValueText={(s,c)=>setTitulo({text:s,color:c})}
               />
               </div>
+            }
+            {descripcion != ""  && 
               <div>
               <span className="text-xl font-semibold">Editar Descripcion</span>
               <EditParagraph
@@ -145,6 +148,7 @@ const deletedSubmitedImage = () =>{
               id="#descripcion"
               />
               </div>
+            }
               {imageSrc != undefined &&
               <div>
               <span className="text-xl font-semibold">Editar Portada</span>
