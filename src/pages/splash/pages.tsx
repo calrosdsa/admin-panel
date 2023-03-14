@@ -35,9 +35,9 @@ const Pages = () =>{
       
             <div className="">
               <div className="mb-3">
-                <Button color={'light'} onClick={()=>router.push(`/splash/add?splash_url=${splashState.splashBaseUrl}`)}>
+                {/* <Button color={'light'} onClick={()=>router.push(`/splash/add?splash_url=${splashState.splashBaseUrl}`)}>
                 Crear
-                </Button>
+                </Button> */}
               </div>
               {uiState.innerLoading ?
                <div className='grid place-content-center w-full h-[50vh]'>
