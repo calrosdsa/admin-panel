@@ -1,4 +1,5 @@
 import { useAppSelector } from '@/context/reduxHooks';
+import { uploadImage } from '@/utils/uploadImage';
 import axios from 'axios';
 import { Button, Card, TextInput } from 'flowbite-react';
 import Image from 'next/image';
@@ -53,15 +54,22 @@ import UploadMedia from './UploadMedia';
             const id = toast.loading("Porfavor espere...",{position:"bottom-center"})
             try{
               const formData = new FormData()
-              formData.append("file",e.target.files[0])
-              const response = await axios.post(`${base_url}/upload/media/`,formData)
+              const filename = e.target.files[0].name
+              const lastdot = filename.lastIndexOf(".")
+              const imagewebp = filename.slice(0,lastdot) +".webp"
+              formData.append("file",e.target.files[0])   
+              formData.append("filename",imagewebp)
+              uploadImage(formData).then(res=>{
+                const imgHref:string = res.data
+                const image = {...images[idx],url:imgHref}
+                const newArray = images.filter((_,index)=>index != idx)
+                setImages([image,...newArray])
+                imageBack.src = imgHref
+              })
+            
               toast.update(id, {render:"La carga de la imagen se ha realizado con éxito.",type: "success", isLoading: false,autoClose:5000,
               position:"bottom-center"});
-              const imgHref:string = response.data
-              const image = {...images[idx],url:imgHref}
-              const newArray = images.filter((_,index)=>index != idx)
-              setImages([image,...newArray])
-              imageBack.src = imgHref
+              
             }catch(err:any){
                toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000,position:"bottom-center"});
             }

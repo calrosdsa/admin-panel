@@ -20,12 +20,17 @@ const AuthMethod = () =>{
     const [htmlCode,setHtmlCode] = useState("")
     const [facebookLogin,setFacebookLogin] = useState(false)
     const [formLogin,setFormLogin] = useState(false)
+    const [phoneNumberLogin,setPhoneNumberLogin] = useState(false)
+    const [instagramLogin,setInstagramLogin ] = useState(false)
+    const [linkedinLogin,setLinkedinLogin] = useState(false)
     
     const getButtonLogins = ()=>{
-        const facebookButtonLogin = document.getElementById("buttonLoginFacebook") != undefined && setFacebookLogin(true)
-        console.log(facebookButtonLogin)
-        const emailButtonLogin = document.getElementById("buttonLoginEmail") != undefined && setFormLogin(true)
-        console.log(emailButtonLogin)
+        document.getElementById("buttonLoginFacebook") != undefined && setFacebookLogin(true)
+        document.getElementById("buttonLoginEmail") != undefined && setFormLogin(true)
+        document.getElementById("buttonLoginPhoneNumber") != undefined && setPhoneNumberLogin(true)
+        document.getElementById("buttonLoginInstagram") != undefined && setInstagramLogin(true)
+        document.getElementById("buttonLoginLinkedin") != undefined && setLinkedinLogin(true)
+        
     }
 
 
@@ -33,7 +38,13 @@ const AuthMethod = () =>{
         try{
             dispatch(uiActions.setLoading(true))
             // const response = await axios.get(`http://localhost:1323/transporte3/`)
-            const response = await axios.get(splashState.splashPage?.urlSplash as string)
+            const response = await axios.get(splashState.splashPage?.urlSplash as string,{
+                headers:{
+                  'Cache-Control': 'no-cache',
+                  'Pragma': 'no-cache',
+                  'Expires': '0',
+                }
+              })
             const codeHtml = response.data
             setHtmlCode(codeHtml)
             dispatch(splashActions.setHtmlCode(codeHtml))
@@ -43,20 +54,24 @@ const AuthMethod = () =>{
         }
       }
 
-    const enabledButton = (id:string,bool:boolean,htmlContent:string) => {
+    const enabledButton = (id:string,bool:boolean,clickfunction:string,titulo?:string,src?:string) => {
+            const portal = document.querySelector('#portal')
             if(bool){
                 document.getElementById(id)?.remove();
-                // const ele =  elementButton?.parentElement?.removeChild(elementButton);
-                const core = document.getElementById("core")
-                // console.log(ele)
-                console.log(core)
             }else{
-                const wrapper = document.getElementById("wrapper-button")
-                wrapper?.insertAdjacentHTML('beforeend',htmlContent)
-                console.log(wrapper)
-
+                if(portal == undefined){
+                    const wrapper = document.getElementById("wrapperButton")
+                    wrapper?.insertAdjacentHTML('beforeend',`<button id="${id}"
+                    onclick="${clickfunction}" class="button button1 noselect">
+                    ${titulo}
+                    </button>`)
+                }else{
+                    const wrapper = document.getElementById("wrapperButton")
+                    wrapper?.insertAdjacentHTML('beforeend',`<button id="${id}" onclick="${clickfunction}">
+                    <img style="width: 48px;height: 48px;"  src="${src}" alt="">
+                  </button>`)
+                }
             }
-
     }
 
     const saveChanges = async() =>{
@@ -106,14 +121,19 @@ const AuthMethod = () =>{
                 isChecked={facebookLogin}
                 onChange={(e)=>{
                     setFacebookLogin(e)
-                    enabledButton("buttonLoginFacebook",facebookLogin,`<div id="buttonLoginFacebook" onclick="loginFacebook()" tabindex="-1" style="display: flex;" class="loginButton">
-                    <svg id="facebooksvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="40px" height="37px"><path fill="#039be5" d="M24 5A19 19 0 1 0 24 43A19 19 0 1 0 24 5Z"></path><path fill="#fff" d="M26.572,29.036h4.917l0.772-4.995h-5.69v-2.73c0-2.075,0.678-3.915,2.619-3.915h3.119v-4.359c-0.548-0.074-1.707-0.236-3.897-0.236c-4.573,0-7.254,2.415-7.254,7.917v3.323h-4.701v4.995h4.701v13.729C22.089,42.905,23.032,43,24,43c0.875,0,1.729-0.08,2.572-0.194V29.036z"></path></svg>
-                    <span id="buttonText" style="font-weight: 600;color: white;font-size: 15px;">Continuar con facebook</span>
-                  </div>`)
+                    enabledButton("buttonLoginFacebook",facebookLogin,`getAccessWithFacebook()`,"Facebook","https://teclu-portal.s3.sa-east-1.amazonaws.com/media/facebook-square.png")
                 }}
                 title="Login con Facebook"
                 />
-                    <SwitchComponent
+                <SwitchComponent
+                isChecked={phoneNumberLogin}
+                onChange={(e)=>{
+                    setPhoneNumberLogin(e)
+                    enabledButton("buttonLoginPhoneNumber",phoneNumberLogin,`getAccessWithPhone()`,"Phone Number","https://teclu-portal.s3.sa-east-1.amazonaws.com/media/phone-square.png")
+                }}
+                title="Login con Phone Number"
+                />
+                <SwitchComponent
                 isChecked={formLogin}
                 onChange={(e)=>{
                     setFormLogin(e)
@@ -125,6 +145,22 @@ const AuthMethod = () =>{
                   </div> `)
                 }}
                 title="Login con email"
+                />
+                <SwitchComponent
+                isChecked={instagramLogin}
+                onChange={(e)=>{
+                    setInstagramLogin(e)
+                    enabledButton("buttonLoginInstagram",instagramLogin,`getAccessWithInstagram()`,"Instagram","https://teclu-portal.s3.sa-east-1.amazonaws.com/media/instagram-square.png")
+                }}
+                title="Login con Instagram"
+                />
+                <SwitchComponent
+                isChecked={linkedinLogin}
+                onChange={(e)=>{
+                    setLinkedinLogin(e)
+                    enabledButton("buttonLoginLinkedin",linkedinLogin,'getAccessWithLinkedin()',"Linkedin","https://teclu-portal.s3.sa-east-1.amazonaws.com/media/linkdin-square.png")
+                }}
+                title="Login con Linkedin"
                 />
         </div>
                 <Button onClick={getButtonLogins}>

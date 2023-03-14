@@ -1,3 +1,4 @@
+import { uploadImage } from "@/utils/uploadImage"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { toast } from "react-toastify"
@@ -78,17 +79,21 @@ const NoCodeEditor = ({htmlCode,isCodeEditor}:Props)=>{
           const id = toast.loading("Porfavor espere...",{position:"bottom-center"})
           try{
             const formData = new FormData()
-            formData.append("file",e.target.files[0])
-            // setLoading(true)
-            
-            const response = await axios.post(`${base_url}/upload/media/`,formData)
-            toast.update(id, {render:"La carga de la imagen se ha realizado con éxito.",type: "success", isLoading: false,autoClose:5000,
-            position:"bottom-center"});
-            // setLoading(false)
-            const imgHref = response.data
-            // setImageFondo(imgHref)
-            callback(imgHref)
-            imageBack.src = imgHref
+            const filename = e.target.files[0].name
+            const lastdot = filename.lastIndexOf(".")
+            const imagewebp = filename.slice(0,lastdot) +".webp"
+            formData.append("file",e.target.files[0])   
+            formData.append("filename",imagewebp)
+            // const response = await axios.post(`${base_url}/upload/media/`,formData)
+            toast.update(id, {render:"La carga de la imagen se ha realizado con éxito.",type: "success", isLoading: false,autoClose:5000,position:"bottom-center"});
+            setLoading(false)
+            uploadImage(formData).then(res=>{
+              console.log(res)
+              const imgHref = res.data
+              // setImageSrc(imgHref)
+              callback(imgHref)
+              imageBack.src = imgHref
+            })
           }catch(err:any){
              toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000,position:"bottom-center"});
           }
