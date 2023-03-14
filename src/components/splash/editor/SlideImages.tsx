@@ -59,7 +59,7 @@ import UploadMedia from './UploadMedia';
               const imagewebp = filename.slice(0,lastdot) +".webp"
               formData.append("file",e.target.files[0])   
               formData.append("filename",imagewebp)
-              uploadImage(formData).then(res=>{
+              uploadImage   (formData).then(res=>{
                 const imgHref:string = res.data
                 const image = {...images[idx],url:imgHref}
                 const newArray = images.filter((_,index)=>index != idx)
