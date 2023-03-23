@@ -1,3 +1,4 @@
+import DashboardData2 from "@/components/dashboard/DashboardData2";
 import Layout from "@/components/layout/layout";
 import TableUserWifi from "@/components/user/user-wifi/TableUserWifi";
 import { getUserList } from "@/context/actions/userActions";
@@ -16,6 +17,7 @@ const Users = () =>{
     return(
         <Layout>
             <div className="xl:pt-4 ">
+                <DashboardData2/>
             {uiState.innerLoading ?
       <div className='grid place-content-center w-full h-[50vh]'>
           <FallingLines

@@ -82,7 +82,7 @@ export const donwloadReportLastTenDays = (userwifi:string,
             formData.append("userwifi",userwifi)
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
-            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportt`,formData,{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
