@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Button } from "flowbite-react";
 import { Id, toast } from "react-toastify";
-import { donwloadReportLastTenDays, donwloadReportLastTenDaysExcel } from "../../context/actions/dashboardActions";
+import { donwloadReportLastTenDaysExcelTest, donwloadReportLastTenDaysTest } from "../../context/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
 import { ReporteId } from "../../data/models/redux-models/dashboard-model";
 import LikeWeekChart from "./charts/LikeWeekChart";
@@ -30,7 +30,7 @@ const DashboardData2 = ()=>{
                    className="text-xs button">Cancelar Descarga</button>
                 </div>
                 )
-            dispatch(donwloadReportLastTenDays(userwifi,idProgress,id,source))
+            dispatch(donwloadReportLastTenDaysTest(userwifi,idProgress,id,source))
         }
     }
 
@@ -50,7 +50,7 @@ const DashboardData2 = ()=>{
                    className="text-xs button">Cancelar Descarga</button>
                 </div>
                 )
-            dispatch(donwloadReportLastTenDaysExcel(userwifi,idProgress,id,source))
+            dispatch(donwloadReportLastTenDaysExcelTest(userwifi,idProgress,id,source))
         }
     }
    

@@ -82,7 +82,7 @@ export const donwloadReportLastTenDays = (userwifi:string,
             formData.append("userwifi",userwifi)
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
-            await axios.post(`${API_URL}/apiFB/public/facebook/reportt`,formData,{
+            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
@@ -156,6 +156,125 @@ export const donwloadReportLastTenDaysExcel = (userwifi:string,
                     link.setAttribute('download', `${date} - Reporte (general).xlsx`); //or any other extension
                 }else{
                     link.setAttribute('download', `${date} - Reporte (usuarios de la red).xlsx`); //or any other extension
+                }
+                // link.setAttribute('download', `${date}.pdf`); //or any other extension
+                document.body.appendChild(link);
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
+                link.click();
+            })
+            dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            // dispatch(uiActions.setLoading(false))
+            // localStorage.setItem('token',response.data.access_token)
+        }catch(err:any){
+            console.log(err)
+            if (axios.isCancel(err)) {
+                toast.update(id, {render:"Descarga Cancelada", type: "info", isLoading: false ,autoClose:5000});
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            }else{
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+                toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
+                // dispatch(uiActions.setLoading(false))
+                if(err.response.status == 401){
+                    redirectToLogin()
+                }
+            }
+        }
+    }
+}
+
+export const donwloadReportLastTenDaysExcelTest = (userwifi:string,
+    idProgress:number,
+    id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+        // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
+        moment.locale("es")
+        const date = moment().format('LLLL').replace(":",";");
+     
+        // date.locale('es')
+        // date.format('MMMM')
+        // console.log(date1)
+      
+        try{
+            console.log("userWifi:",userwifi)
+            const formData = new FormData()
+            formData.append("idpost","0")
+            formData.append("userwifi",userwifi)
+            dispatch(dashboardAction.setOngoingProcess(idProgress))
+            const response = await axios.get('/api/auth/token')
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportexcell`,formData,{
+                headers:{
+                    'Authorization':`Bearer ${response.data.access_token}`
+                },
+                cancelToken:source.token,
+                responseType:'blob'
+            }).then((response)=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                if(idProgress == ReporteId.ALL_USER){
+                    link.setAttribute('download', `${date} - Reporte (general).xlsx`); //or any other extension
+                }else{
+                    link.setAttribute('download', `${date} - Reporte (usuarios de la red).xlsx`); //or any other extension
+                }
+                // link.setAttribute('download', `${date}.pdf`); //or any other extension
+                document.body.appendChild(link);
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
+                link.click();
+            })
+            dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            // dispatch(uiActions.setLoading(false))
+            // localStorage.setItem('token',response.data.access_token)
+        }catch(err:any){
+            console.log(err)
+            if (axios.isCancel(err)) {
+                toast.update(id, {render:"Descarga Cancelada", type: "info", isLoading: false ,autoClose:5000});
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            }else{
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+                toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
+                // dispatch(uiActions.setLoading(false))
+                if(err.response.status == 401){
+                    redirectToLogin()
+                }
+            }
+        }
+    }
+}
+
+
+
+export const donwloadReportLastTenDaysTest = (userwifi:string,
+    idProgress:number,
+    id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+        // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
+        moment.locale("es")
+        const date = moment().format('LLLL').replace(":",";");
+     
+        // date.locale('es')
+        // date.format('MMMM')
+        // console.log(date1)
+      
+        try{
+            const formData = new FormData()
+            formData.append("idpost","0")
+            formData.append("userwifi",userwifi)
+            dispatch(dashboardAction.setOngoingProcess(idProgress))
+            const response = await axios.get('/api/auth/token')
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportt`,formData,{
+                headers:{
+                    'Authorization':`Bearer ${response.data.access_token}`
+                },
+                cancelToken:source.token,
+                responseType:'blob'
+            }).then((response)=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                if(idProgress == ReporteId.ALL_USER){
+                    link.setAttribute('download', `${date} - Reporte (general).pdf`); //or any other extension
+                }else{
+                    link.setAttribute('download', `${date} - Reporte (usuarios de la red).pdf`); //or any other extension
                 }
                 // link.setAttribute('download', `${date}.pdf`); //or any other extension
                 document.body.appendChild(link);
