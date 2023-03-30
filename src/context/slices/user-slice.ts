@@ -1,18 +1,40 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
-import { Order, UserSolicitud, UserState, UserWifi } from "../../data/models/redux-models/user-models";
+import { Conexiones, Dispositivo, Order, UserSolicitud, UserState, UserTabDetail, UserWifi } from "../../data/models/redux-models/user-models";
 
 const initialUserState:UserState ={
     solicitudes:[],
     params:"Todos",
     ids:[],
     users:[],
+    conexiones:[],
+    dispositivos:[],
+    user:undefined,
+    userTabDetail:UserTabDetail.CONEXIONES
 }
 
 const userSlice = createSlice({
     name:"user",
     initialState:initialUserState,
     reducers:{
+        resetForUserDetail(state){
+            state.user = undefined
+            state.conexiones = []
+            state.dispositivos = []
+            state.userTabDetail = UserTabDetail.CONEXIONES
+        }, 
+        setUserWifi(state,action:PayloadAction<UserWifi | undefined>){
+            state.user = action.payload
+        },
+        setUserTabDetail(state,action:PayloadAction<UserTabDetail>){
+            state.userTabDetail = action.payload
+        },
+        setDispositivos(state,action:PayloadAction<Dispositivo[]>){
+            state.dispositivos = action.payload
+        },
+        setConexiones(state,action:PayloadAction<Conexiones[]>){
+            state.conexiones = action.payload
+        },
         setUsersWifi(state,action:PayloadAction<UserWifi[]>){
             state.users = action.payload
         },

@@ -26,11 +26,58 @@ export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>
 }
 }
 
+export const getUserWifi =(id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setLoading(true))
+        const response = await axios.get(`/api/user/user-detail?id=${id}`)
+        dispatch(uiActions.setLoading(false))
+        dispatch(userActions.setUserWifi(response.data.result))        
+       }catch(err:any){
+        dispatch(uiActions.setLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
+
+export const getDispositivos =(id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setInnerLoading(true))
+        const response = await axios.get(`/api/user/user-detail/dispositivos?id=${id}`)
+        console.log(response.data)
+        dispatch(uiActions.setInnerLoading(false))
+        dispatch(userActions.setDispositivos(response.data.result))        
+       }catch(err:any){
+        dispatch(uiActions.setInnerLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
+
+export const getConexiones =(id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setInnerLoading(true))
+        const response = await axios.get(`/api/user/user-detail/conexiones?id=${id}`)
+        dispatch(uiActions.setInnerLoading(false))
+        dispatch(userActions.setConexiones(response.data.result))        
+       }catch(err:any){
+        dispatch(uiActions.setInnerLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
+
 export const getSolicitudList =(param:string="Todos") :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
        try{
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user/solicitud?param=${param}`)
+        console.log(response.data)
         dispatch(uiActions.setInnerLoading(false))
         dispatch(userActions.setSolicitudList(response.data.solicitudes))        
        }catch(err:any){

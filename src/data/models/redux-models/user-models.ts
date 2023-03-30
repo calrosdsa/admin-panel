@@ -1,5 +1,6 @@
 export type UserWifi = {
     id:string
+    idFb?:string
     fullName:string
     mail:string
     birthday:string
@@ -9,6 +10,33 @@ export type UserWifi = {
     image:string
     cantConexion:number
     cantDispositivo:number  
+    firstStart:string
+    created_at:string
+    updated_at:string
+}
+
+export type Dispositivo = {
+    id:string
+    idSistemaOperativo?:string
+    idMarca?:string
+    idTipo?:string
+    modelo?:string
+    macAddress?:string
+    idUserWifi?:string
+}
+
+export type Conexiones = {
+    dateConnection?:string
+    accesspoint?:string
+    ssid?:string
+    tipoconexion?:string
+    navegador?:string
+    versionNavegador?:string
+    modelo?:string
+    SO?:string
+    versionSO?:string
+    tipoDispositivo?:string
+    macDispositivo?:string
 }
 
 export enum SolicitudState {
@@ -20,6 +48,11 @@ export enum Order {
     DESCENDENTE
 }
 
+export enum UserTabDetail {
+    DISPOSITIVOS,
+    CONEXIONES,
+}
+
 export type UserSolicitud  = {
     id:string
     fullName:string
@@ -29,9 +62,15 @@ export type UserSolicitud  = {
     dateRequest:string
 }
 
+
+
 export interface UserState {
     solicitudes:UserSolicitud[],
     params:string,
     ids:string[]
     users:UserWifi[]
+    user?:UserWifi
+    dispositivos:Dispositivo[]
+    conexiones:Conexiones[]
+    userTabDetail:UserTabDetail
 }

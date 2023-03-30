@@ -12,9 +12,12 @@ const Users = () =>{
     const uiState = useAppSelector(state=>state.ui)
     const dispatch = useAppDispatch()
     useEffect(()=>{
-        dispatch(getUserList())
+        if(userState.users.length == 0){
+            dispatch(getUserList())
+        }
     },[])
     return(
+
         <Layout>
             <div className="xl:pt-4 ">
                 <DashboardData2/>

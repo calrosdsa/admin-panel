@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useAppDispatch } from "../../../context/reduxHooks";
 import { userActions } from "../../../context/slices/user-slice";
@@ -13,6 +14,7 @@ const TableUserWifi = ({users,ids}:Props) =>{
     const dispatch = useAppDispatch()
     const [ orderState, setOrderState ] = useState(Order.DESCENDENTE)
     const [ orderStateName,setOrderStateName ] = useState(Order.DESCENDENTE)
+    const router = useRouter()
     const changeOrderList = (order:Order)=>{
         if(order == Order.ASCENDENTE) setOrderState(Order.DESCENDENTE); else setOrderState(Order.ASCENDENTE)
         dispatch(userActions.orderSolicitudList(order))
@@ -28,6 +30,11 @@ const TableUserWifi = ({users,ids}:Props) =>{
         }else{
             dispatch(userActions.addId(id))
         }
+    }
+
+    const navigateToUserProfilePage= (id:string)=>{
+        dispatch(userActions.resetForUserDetail())
+        router.push(`/user/${id}`)
     }
 
     return(
@@ -53,11 +60,11 @@ const TableUserWifi = ({users,ids}:Props) =>{
                 <th scope="col" className="paddingTable">
                     Mail
                 </th>
-                <th scope="col" className="paddingTable">
+                <th scope="col" className="paddingTable text-center">
                     Conexiones
                 </th>
                
-                <th scope="col" className="px-20 xl:px-10 py-3 w-[200px]">
+                <th scope="col" className="paddingTable text-center">
                     Dispositivos
                 </th>
             </tr>
@@ -65,28 +72,28 @@ const TableUserWifi = ({users,ids}:Props) =>{
         <tbody>
             {users.map((item)=>{
                 return(
-                    <tr key={item.id} className="bg-white border-b hover:bg-gray-100"
-                    onClick={()=>selectSolicitud(item.id)}>
+                    <tr key={item.id} className="bg-white border-b hover:bg-gray-100">
             <td className="w-4 p-4">
                     <div className="flex items-center">
                         <input id="checkbox-table-search-1" type="checkbox" className="h-4 w-4"
-                        checked={ids.includes(item.id)} onChange={(e)=>console.log(e)}/>
+                        checked={ids.includes(item.id)} onChange={(e)=>selectSolicitud(item.id)}/>
                         <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
                     </div>
                 </td>
-                <td className="paddingTable whitespace-nowrap">
+                <td onClick={()=>navigateToUserProfilePage(item.id)}
+                className="paddingTable whitespace-nowrap text-primary cursor-pointer">
                     {item.fullName}
                 </td>
                 <td className="paddingTable">
                     {item.mail}
                 </td>
-                <td className="paddingTable whitespace-nowrap">
+                <td className="paddingTable whitespace-nowrap text-center">
                     {item.cantConexion}
                 </td>
                 {/* <td className="paddingTable whitespace-nowrap">
                     {item.gender}
                 </td> */}
-                <td  className="paddingTable font-medium text-gray-900 w-[200px] text-xs">
+                <td  className="paddingTable font-medium text-gray-900 text-center">
                     {/* <LongText */}
                     {/* content={item.message} */}
                     {/* limit={140} */}

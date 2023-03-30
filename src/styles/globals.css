@@ -25,4 +25,26 @@
     .disabled {
       @apply opacity-50 cursor-not-allowed
     }
+    .card {
+      @apply rounded-xl shadow-lg p-3 grid place-content-center border-[2px]
+    }
+
+    .detailInfo {
+      @apply grid grid-cols-2 place-items-start py-2 border-b-2 items-center gap-x-2
+    }
+
+    .tab {
+      @apply p-4  hover:border-b-2 cursor-pointer border-gray-400
+     }
+     .paddingTable {
+      @apply p-2
+     }
+  }
+
+  
+  @layer base {
+    span {
+      @apply text-sm;
+    }
+  
   }
