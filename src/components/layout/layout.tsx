@@ -59,7 +59,7 @@ export default function Layout({ children }:Props) {
         setOpen={()=>setOpenSideBar(false)}
         />
         <div className='h-screen overflow-auto w-full'>
-          <div className='mx-auto px-2 xl:px-10 xl:pt-2'>    
+          <div className='mx-auto px-2 xl:px-10 '>    
         {children}
           </div>
         </div>

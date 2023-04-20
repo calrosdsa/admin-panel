@@ -5,7 +5,7 @@ export default function Document() {
     <Html lang="en">
       <Head />
       {/* <meta http-equiv="cache-control" content="no-cache" /> */}
-      <body className='text'>
+      <body>
         <Main />
         <NextScript />
       </body>

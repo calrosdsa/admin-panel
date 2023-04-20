@@ -29,7 +29,7 @@ const LandingPage = () =>{
   })
   
     return(
-      <div  className="mx-auto max-w-6xl ">
+      <div  className="mx-auto max-w-6xl pt-2">
       
               {loading?
               <div className="max-w-xl mx-auto rounded-lg grid gap-y-2">

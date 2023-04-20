@@ -39,12 +39,12 @@ const EditText = ({titulo,id,setValueText,colorValue    }:Props) =>{
         }
         <div className="grid gap-y-2 p-1">
            <input type="text" onChange={onChangeTitulo} name="titulo" value={titulo}
-           className=" font-semibold borderC p-2 focus:outline-primary rounded-lg "/>
-           <div className="rounded-lg borderC  flex items-center space-x-2 w-min whitespace-nowrap p-1">
+           className="borderC p-2  rounded-lg "/>
+           {/* <div className="rounded-lg borderC  flex items-center space-x-2 w-min whitespace-nowrap p-1">
             <div style={{background:colorValue}} className={`w-14 h-8 rounded-lg`}/>
             <span className="underline">{color.hex}</span>
             <span className="cursor-pointer" onClick={()=>setOpenPalette(true)}>Escoger color</span>
-           </div>
+           </div> */}
         </div>
         </>
     )

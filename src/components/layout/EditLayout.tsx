@@ -26,10 +26,10 @@ const EditLayout = ({children,saveChanges}:Props) =>{
    
     return(
         <>
+        <div className=" min-w-[1300px] relative max-w-[1800px] mx-auto">
         <ToastContainer
         position={"bottom-center"}
         />
-        <div className=" min-w-[1300px] relative max-w-[1800px] mx-auto">
             <div className="fixed left-0 top-0 flex justify-between p-2 w-full bg-white shadow-md z-20">
             <Button color="light"  onClick={()=>router.push("/splash/pages")}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 

@@ -118,13 +118,15 @@ const deletedSubmitedImage = () =>{
 
 
     return(
+      <>
+      {/* <h1 className="pt-20 mt-20">dskadmaksmkasm</h1> */}
         <div className={`max-w-6xl mx-auto ${htmlCode == undefined? " transition-all opacity-0 duration-1000":
-        " transition-all opacity-100 duration-1000"}`}>
+        " transition-all opacity-100 duration-1000 "}`}>
             {/* <textarea className="w-1/2" name="" id="" cols={30} rows={10}
             value={htmlString}></textarea> */}
             <div className="overflow-auto h-screen p-3 space-y-4" >
-              <div className="p-2 flex justify-between pt-16">
-            <span className="text-2xl font-semibold">Portal Cautivo</span>
+              <div className="p-2 flex justify-between pt-16 mt-2">
+            <span className="text-xl font-semibold">Portal Cautivo</span>
               </div>
               <div className="">
               <span className="text-xl font-semibold">Editar Logo</span>
@@ -196,7 +198,7 @@ const deletedSubmitedImage = () =>{
               {/* <div className="pt-2 pb-20">
               <span className="text-xl font-semibold">Metodos de authenticacion</span>
               <ButtonsLogin/>
-              </div>   */}
+            </div>   */}
            </div>
 
        
@@ -206,6 +208,7 @@ const deletedSubmitedImage = () =>{
             dangerouslySetInnerHTML={{__html:htmlCode as string}}
             />
              </div>
+            </>
     )
 }
 

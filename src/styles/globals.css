@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer components{
-    .text {
-      @apply dark:text-gray-400 text-gray-900
-    }
     .bg {
         @apply bg-white dark:bg-gray-900
     }
