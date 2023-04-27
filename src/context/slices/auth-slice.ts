@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { AuthModel, ErrorLogin } from "../../data/models/redux-models/auth-model";
+import { AuthModel, ErrorLogin, Settings } from "../../data/models/redux-models/auth-model";
 
 
 
@@ -10,6 +10,7 @@ const initialAuthState:AuthModel = {
     errorLogin:undefined,
     username:'',
     postUrl:'https://www.facebook.com/667567951730217/posts/625859722567707',
+    settings:undefined,
 }
 
 const authSlice = createSlice({
@@ -33,6 +34,9 @@ const authSlice = createSlice({
         },
         setErrrorLogin(state,action:PayloadAction<ErrorLogin | undefined>){
             state.errorLogin = action.payload
+        },
+        setSettings(state,action:PayloadAction<Settings>){
+            state.settings = action.payload
         }
     }
 })

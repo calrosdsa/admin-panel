@@ -5,11 +5,13 @@ import axios from 'axios'
 import React, { useEffect } from "react";
 import { getDataLikeForWeek, getDataLikeForWeekUserWifi } from '../context/actions/dashboardActions';
 import { useAppDispatch } from '../context/reduxHooks';
+import { getSettings } from '@/context/actions/authActions';
 
 const Dashboard = () =>{
   const dispatch = useAppDispatch()
   
   useEffect(()=>{
+    dispatch(getSettings())
     dispatch(getDataLikeForWeek())
     dispatch(getDataLikeForWeekUserWifi())
 

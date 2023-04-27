@@ -20,9 +20,24 @@ export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =
     return async(dispatch)=>{
         try{
             const response = await axios.get("/api/auth/token")
-            console.log(response.data)
+            // console.log(response.data)
             dispatch(authActions.setRol(response.data.rol))
         }catch(err:any){
+            if(err.response.status == 401){
+                redirectToLogin()
+            }
+            console.log('ERROR',err.response.data.success)
+        }
+    }
+}
+
+export const getSettings = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
+    return async(dispatch)=>{
+        try{
+            const response = await axios.get("/api/auth/settings")
+            // console.log(response.data)
+            dispatch(authActions.setSettings(response.data.data))
+        }catch(err:any){    
             if(err.response.status == 401){
                 redirectToLogin()
             }

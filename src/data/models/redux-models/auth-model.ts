@@ -16,7 +16,12 @@ export interface ErrorLogin {
     password?:string
     email?:string
 }
-
+export type Settings = {
+    id:string
+    idClient:string
+    idPageFacebook:string
+    tokenPageFacebook:string
+}
 // export interface Profile{
 //     name:string,
 //     id:number,
@@ -39,7 +44,8 @@ export interface AuthModel{
     rol?:string,
     errorLogin?:ErrorLogin
     username:string,
-    postUrl:string
+    postUrl:string,
+    settings?:Settings
     // user?:UserAuth,
     // errorRegistration?:ErrorRegistration
 }
