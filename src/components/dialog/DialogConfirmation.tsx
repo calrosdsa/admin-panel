@@ -5,10 +5,10 @@ import { Dialog,Transition } from '@headlessui/react'
  interface Props{
    openModal:boolean,
    closeModal:(bool:boolean)=>void,
-   title:string,
-   descripcion:string,
+   title?:string,
+   descripcion?:string,
    buttonText?:string,
-   buttonText2:string,
+   buttonText2?:string,
    descartar:()=>void,
    performAction?:()=>void
   //  providers:Record<LiteralUnion<BuiltInProviderType, string>,ClientSafeProvider>
@@ -17,9 +17,10 @@ import { Dialog,Transition } from '@headlessui/react'
 
 const DialogConfirmation:React.FC<Props>=({
   openModal,closeModal,
-  title,descripcion,
+  title = "¿Desea continuar con la acción solicitada?",
+  descripcion = "Por favor, confirme si desea continuar.r",
   buttonText="Descartar",
-  buttonText2,
+  buttonText2="Confirmar",
   descartar,performAction
 })=> {
 //   const onChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
@@ -38,7 +39,7 @@ const DialogConfirmation:React.FC<Props>=({
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
       </Transition.Child>
-        <div className='fixed top-1/3 inset-x-0 max-w-lg  mx-auto '>
+        <div className='fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 max-w-lg  mx-auto '>
       <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-200"

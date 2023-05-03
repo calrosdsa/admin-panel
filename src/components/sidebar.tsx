@@ -7,13 +7,15 @@ import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import ResetPasswordDialog from "./dialog/account/ResetPasswordDialog"
 
 
 export  const SideBarApp = () =>{
   const { t, lang } = useTranslation('common')
   const router = useRouter()
   const rol = useAppSelector(state=>state.auth.rol)
+  const [openDialogReset,setOpenDialogReset ] = useState(false)
     // const role = useAppSelector(getRole)
     // const isFuncionario = isFuncionarioRole(role)
     const dispatch = useAppDispatch()
@@ -24,6 +26,13 @@ useEffect(()=>{
 },[])
 
 return(
+  <>
+  {openDialogReset&&
+  <ResetPasswordDialog
+  openModal={openDialogReset}
+  closeModal={()=>setOpenDialogReset(false)}
+  />
+  }
   <div className="space-y-2 pt-3 relative bg-white w-[200px] h-screen ">
             {/* <Image
             src='/images/teclu-logo.png'
@@ -128,19 +137,33 @@ return(
         </>
         }
 
-      <div onClick={()=>dispatch(logout())} 
-                className={`flex pl-2 cursor-pointer absolute xl:bottom-12 bottom-32
-                w-full items-center overflow-hidden px-2 hover:bg-gray-200 p-1`}>
+     <div className=" absolute xl:bottom-12 bottom-32
+                w-full items-center">
+
+      <div onClick={()=>setOpenDialogReset(true)} 
+                className={`flex pl-2 cursor-pointer items-center overflow-hidden px-2 hover:bg-gray-200 p-2`}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+</svg>
+
+
+                    <h3 className='pl-4 text-sm font-medium truncate'>Cambiar contraseña</h3>
+        </div>
+        
+
+          <div onClick={()=>dispatch(logout())} 
+                className={`flex pl-2 items-center cursor-pointer overflow-hidden px-2 hover:bg-gray-200 p-2`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
                 className="w-6 h-6">
         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
             </svg> 
 
-                    <h3 className='pl-4 font-medium'>Cerrar session</h3>
+                    <h3 className='pl-4 font-medium text-sm'>Cerrar session</h3>
+        </div>
         </div>
         
-
-        </div>
+      </div>
+      </>
     )
 }
 
