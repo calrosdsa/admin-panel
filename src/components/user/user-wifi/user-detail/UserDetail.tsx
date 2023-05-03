@@ -1,5 +1,6 @@
 import { UserWifi } from "@/data/models/redux-models/user-models";
 import Image from "next/image";
+import { useEffect } from "react";
 
 
 
@@ -15,10 +16,13 @@ const UserDetail = ({user}:Props)=>{
 
     }
 
+    useEffect(()=>{
+        console.log("User image",user.image)
+    })
     return(
         <div className="grid gap-y-4">
             <div className="flex flex-col justify-center items-center">
-            {user.idFb == undefined ?
+            {user.image == "" ?
             <Image
             src={validateImageNullOrBlank(user.image)}
             width={100}
@@ -28,10 +32,10 @@ const UserDetail = ({user}:Props)=>{
             />
             :
             <Image
-            src={`https://graph.facebook.com/${user.idFb}/picture?width=150&height=150`}
+            src={user.image}
             width={100}
             height={100}
-            alt={user.image}
+            alt={""}
             className="rounded-full"
             />
            
