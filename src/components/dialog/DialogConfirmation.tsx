@@ -18,7 +18,7 @@ import { Dialog,Transition } from '@headlessui/react'
 const DialogConfirmation:React.FC<Props>=({
   openModal,closeModal,
   title = "¿Desea continuar con la acción solicitada?",
-  descripcion = "Por favor, confirme si desea continuar.r",
+  descripcion = "Por favor, confirme si desea continuar.",
   buttonText="Descartar",
   buttonText2="Confirmar",
   descartar,performAction
@@ -39,7 +39,7 @@ const DialogConfirmation:React.FC<Props>=({
           >
             <div className="fixed inset-0 bg-black bg-opacity-25" />
       </Transition.Child>
-        <div className='fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 max-w-lg  mx-auto '>
+        <div className='fixed left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-full max-w-sm'>
       <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-200"
