@@ -34,6 +34,7 @@ export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =
 export const resetPassword = (
     currentPassword:string,
     newPassword:string,
+    close:()=>void
 ) :ThunkAction<void,RootState,undefined,AnyAction> =>{
     return async(dispatch)=>{
         try{
@@ -43,12 +44,13 @@ export const resetPassword = (
             formData.append("passwordNew",newPassword)
             const resToken = await axios.get('/api/auth/token')
             console.log(resToken)
-            const response = await axios.post("https://teclu.com/apiFB/public/userbusiness/updatePassword",formData,{
+            await axios.post("https://teclu.com/apiFB/public/userbusiness/updatePassword",formData,{
                 headers:{
                     'Authorization':`Bearer ${resToken.data.access_token}`
                 }
             })
-            toast.success("Success")
+            toast.success("Actualizado correctamente")
+            close()
             dispatch(uiActions.setLoading(false))
             // console.log(response.data)
             // console.log(response.data)

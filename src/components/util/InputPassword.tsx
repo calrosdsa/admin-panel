@@ -5,8 +5,9 @@ interface Props{
     password:string
     label:string
     name:string
+    error?:string
 }
-const InputPassword = ({onChange,password,label,name}:Props) =>{
+const InputPassword = ({onChange,password,label,name,error}:Props) =>{
     const [show,setShow] = useState(false)
 
     return(
@@ -34,8 +35,8 @@ onClick={()=>setShow(!show)}
         border-gray-400 mt-1 pl-9 text-sm
         text-gray-900 focus:outline-blue-600"
         placeholder="" />
-          {/* <span className="text-red-500 pl-2 absolute left-0 -bottom-6 truncate"
-         >{authState.errorRegistration.username != null && authState.errorRegistration.username[0]}</span> */}
+          <span className="text-red-500 pl-2 absolute left-0 -bottom-4 font-medium text-xs truncate"
+         >{error}</span>
       </div>  
     )
 }

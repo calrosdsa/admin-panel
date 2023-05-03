@@ -6,7 +6,7 @@ import InputPassword from '@/components/util/InputPassword'
 import ButtonSubmit from '@/components/util/ButtonSubmit'
 import DialogConfirmation from '../DialogConfirmation'
 import { resetPassword } from '@/context/actions/authActions'
-import { useAppDispatch } from '@/context/reduxHooks'
+import { useAppDispatch, useAppSelector } from '@/context/reduxHooks'
 
  interface Props{
    openModal:boolean,
@@ -19,6 +19,8 @@ const ResetPasswordDialog:React.FC<Props>=({
 })=> {
     const [openDialogConfirm,setOpenDialogConfirm] = useState(false)
     const dispatch = useAppDispatch()
+    const loading = useAppSelector(state=>state.ui.loading)
+    const [errorPassword,setErrorPassword] = useState("")
     const [formData,setFormData]=useState({
         password:"",
         newPassword:"",
@@ -26,15 +28,17 @@ const ResetPasswordDialog:React.FC<Props>=({
     })
     const {password,newPassword,newPasswordConfirm} = formData
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    setErrorPassword("")
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
   const onSubmit = (e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     if(newPassword != newPasswordConfirm){
-        window.alert("Contraseña no coinciden")
+        setErrorPassword("Contraseña no coinciden")
+        // window.alert("Contraseña no coinciden")
         return
     }
-   dispatch(resetPassword(password,newPassword))
+   dispatch(resetPassword(password,newPassword,closeModal))
   }
   return (
     <>
@@ -83,17 +87,19 @@ const ResetPasswordDialog:React.FC<Props>=({
              <InputPassword
             onChange={onChange}
             password={newPassword}
+            error={errorPassword}
             name='newPassword'
             label='Nueva Contraseña'
             />
              <InputPassword
             onChange={onChange}
             password={newPasswordConfirm}
+            error={errorPassword}
             name='newPasswordConfirm'
             label='Confirmar Contraseña'
             />
             <ButtonSubmit
-            loading={false}
+            loading={loading}
             title='Confirmar'
             />
             </form>
