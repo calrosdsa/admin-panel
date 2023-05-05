@@ -12,7 +12,7 @@ export default function Home() {
     dispatch(uiActions.setInitAnimation(false))
     setTimeout(()=>{
       router.push('./dashboard')
-    },1500)
+    },500)
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 

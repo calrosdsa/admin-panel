@@ -2,7 +2,6 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { useAppDispatch } from '../../../context/reduxHooks'
 import { changeSolicitudState } from '../../../context/actions/userActions'
-import { Button } from 'flowbite-react'
 
 function classNames(...classes:any) {
   return classes.filter(Boolean).join(' ')

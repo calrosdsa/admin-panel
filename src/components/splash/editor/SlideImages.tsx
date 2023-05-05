@@ -1,10 +1,6 @@
-import { useAppSelector } from '@/context/reduxHooks';
 import { uploadImage } from '@/utils/uploadImage';
-import axios from 'axios';
-import { Button, Card, TextInput } from 'flowbite-react';
-import Image from 'next/image';
+// import { Button, div, TextInput } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
-import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import { toast } from 'react-toastify';
 import UploadMedia from './UploadMedia';
@@ -129,7 +125,7 @@ import UploadMedia from './UploadMedia';
            images.sort((a,b)=>a.index - b.index).map((item, index)=> (
              <div key={index} className="">
                 <div className=' flex justify-center items-center'>
-                  <Card className='flex items-center relative'>
+                  <div className='flex items-center relative'>
                     <div className='w-64 h-64 p-2'>
                     {index > 1 && images.length == (index + 1) && 
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -153,13 +149,13 @@ import UploadMedia from './UploadMedia';
                       />
                     </div>
                     <div>
-                      <TextInput
+                      <input
                       className='p-2'
                       defaultValue={item.titulo as string}
                       onChange={(e)=>onChangeText(e,`#img-t-${item.index}`)}
                       // value={item.titulo as string}
                       />
-                      <TextInput
+                      <input
                       defaultValue={item.titulo as string}
                       className='p-2'
                       onChange={(e)=>onChangeText(e,`#img-d-${item.index}`)}
@@ -167,13 +163,13 @@ import UploadMedia from './UploadMedia';
                       />
                   </div>
 
-                  </Card>
+                  </div>
                 </div>
               </div>
             ))
           }
           {images.length < 4 &&
-        <Card onClick={()=>addNewCard(`<div id="image-content-${images.length}" 
+        <div onClick={()=>addNewCard(`<div id="image-content-${images.length}" 
         class="u-carousel-item u-effect-fade u-gallery-item u-carousel-item-${images.length + 1}" data-image-width="1280" 
         data-image-height="640">
         <div class="u-back-slide">
@@ -192,7 +188,7 @@ import UploadMedia from './UploadMedia';
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
         </div>
-        </Card>
+        </div>
         }
 
         </div>

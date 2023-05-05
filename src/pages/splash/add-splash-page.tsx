@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 import NoCodeEditor from "@/components/splash/editor/NoCodeEditor";
 import useEffectOnce from "@/utils/hooks/useEffectOnce";
 import axios from "axios";
-import { Button } from "flowbite-react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";

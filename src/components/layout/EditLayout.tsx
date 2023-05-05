@@ -2,7 +2,6 @@ import { getSplashPageByCode } from "@/context/actions/splashActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import { splashActions } from "@/context/slices/splash-slice";
 import { uiActions } from "@/context/slices/ui-slice";
-import { Button } from "flowbite-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify"
@@ -26,54 +25,61 @@ const EditLayout = ({children,saveChanges}:Props) =>{
    
     return(
         <>
-        <div className=" min-w-[1300px] relative max-w-[1800px] mx-auto">
+        <div className=" min-w-[1300px] relative max-w-[1800px] mx-auto text-sm">
         <ToastContainer
         position={"bottom-center"}
         />
             <div className="fixed left-0 top-0 flex justify-between p-2 w-full bg-white shadow-md z-20">
-            <Button color="light"  onClick={()=>router.push("/splash/pages")}>
+            <button className=" flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+       active:ring-blue-300 active:ring-2 px-3"  onClick={()=>router.push("/splash/pages")}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
                     stroke="currentColor" className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                     </svg>
-                  </Button>
-            <Button.Group>
-                    {/* <Button color="light" onClick={()=>router.push("")}
+                  </button>
+            <div className="flex flex-wrap">
+                    {/* <button  onClick={()=>router.push("")}
                     className={`${router.pathname == "" && "text-primary"}`}>
                         Crear Portal
-                    </Button> */}
-                    <Button color="light" onClick={()=>router.push(`/splash/edit/desktop-view?code=${code}`)}
-                       className={`${router.pathname == "/splash/edit/desktop-view" && "text-primary"}`}>
+                    </button> */}
+                    <button  onClick={()=>router.push(`/splash/edit/desktop-view?code=${code}`)}
+                       className={` flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+                       active:ring-blue-300 active:ring-2 px-3 ${router.pathname == "/splash/edit/desktop-view" && "text-primary"}`}>
                         Desktop View
-                    </Button>
-                    <Button color="light" onClick={()=>router.push(`/splash/edit/mobile-view?code=${code}`)} 
-                       className={`${router.pathname == "/splash/edit/mobile-view" && "text-primary"}`}>
+                    </button>
+                    <button  onClick={()=>router.push(`/splash/edit/mobile-view?code=${code}`)} 
+                       className={` flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+                       active:ring-blue-300 active:ring-2 px-3 ${router.pathname == "/splash/edit/mobile-view" && "text-primary"}`}>
                         Mobile View
-                    </Button>
-                    <Button color="light" onClick={()=>router.push(`/splash/edit/auth-method?code=${code}`)}
-                       className={`${router.pathname == "/splash/edit/auth-method" && "text-primary"}`}>
+                    </button>
+                    <button  onClick={()=>router.push(`/splash/edit/auth-method?code=${code}`)}
+                       className={` flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+                       active:ring-blue-300 active:ring-2 px-3 ${router.pathname == "/splash/edit/auth-method" && "text-primary"}`}>
                         Method
-                    </Button>
-                    <Button color="light" onClick={()=>{
+                    </button>
+                    <button  onClick={()=>{
                         router.push(`/splash/edit?code=${code}`)
                         dispatch(splashActions.setHtmlCode(undefined))
                     }}
-                       className={`${router.pathname == "/splash/edit" && "text-primary"}`}>
+                       className={` flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+                       active:ring-blue-300 active:ring-2 px-3 ${router.pathname == "/splash/edit" && "text-primary"}`}>
                         Editar
-                    </Button>
-                    <Button color="light" onClick={()=>{
+                    </button>
+                    <button  onClick={()=>{
                         router.push(`/splash/edit/html?code=${code}`)
                         dispatch(splashActions.setHtmlCode(undefined))
                     }}
-                       className={`${router.pathname == "/splash/edit/html" && "text-primary"}`}>
+                       className={` flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+                       active:ring-blue-300 active:ring-2 px-3 ${router.pathname == "/splash/edit/html" && "text-primary"}`}>
                         Html
-                    </Button>
-                  </Button.Group>
-                  <Button disabled={!showSaveButton} color="light" onClick={()=>{
+                    </button>
+                  </div>
+                  <button disabled={!showSaveButton} className=" flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
+       active:ring-blue-300 active:ring-2 px-3" onClick={()=>{
                     dispatch(uiActions.setOpenDialog(true))
                     }}>
                     Guardar Cambios
-                  </Button>
+                  </button>
             </div>
             <div className={`${uiState.loading ? " opacity-0 transition-all":" opacity-100 transition-all"}`}>
             {children}

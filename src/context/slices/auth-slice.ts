@@ -2,7 +2,6 @@ import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { AuthModel, ErrorLogin, Settings } from "../../data/models/redux-models/auth-model";
 
 
-
 const initialAuthState:AuthModel = {
     authLoading:false,
     isAuthenticated:false,

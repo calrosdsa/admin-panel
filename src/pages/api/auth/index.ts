@@ -36,7 +36,7 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
                 path:"/api/",
                 });
             res.status(200).json({
-                res:data
+                result:data
             })
         } 
         catch(err:any) {

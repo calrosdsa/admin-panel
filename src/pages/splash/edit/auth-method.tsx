@@ -6,7 +6,6 @@ import { splashActions } from "@/context/slices/splash-slice";
 import { uiActions } from "@/context/slices/ui-slice";
 import useEffectOnce from "@/utils/hooks/useEffectOnce";
 import axios from "axios";
-import { Button } from "flowbite-react";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -111,7 +110,7 @@ const AuthMethod = () =>{
     return(
         <EditLayout
         saveChanges={saveChanges}>
-            <div>
+            <div className="relative">
                 <div className="mx-auto max-w-xl pt-20">
                 <div
                     className="flex flex-col gap-4 py-5  px-3 grid-cols-2 col-span-1"
@@ -163,16 +162,16 @@ const AuthMethod = () =>{
                 title="Login con Linkedin"
                 />
         </div>
-                <Button onClick={getButtonLogins}>
+                <button onClick={getButtonLogins}>
                     Guardar Cambios
-                </Button>
+                </button>
                 </div>
-            </div>
             <div
             id="core"
             className="hidden"
             dangerouslySetInnerHTML={{__html:htmlCode as string}}
             />
+            </div>
         </EditLayout>
     )
 }

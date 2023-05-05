@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Button } from "flowbite-react";
 import { Id, toast } from "react-toastify";
 import { donwloadReportLastTenDays, donwloadReportLastTenDaysExcel } from "../../context/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
@@ -60,7 +59,7 @@ const DashboardData = ()=>{
         <div className=''>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">
-          <Button color="light" onClick={()=>downloadReport("1",ReporteId.USER_RED)}
+          <button onClick={()=>downloadReport("1",ReporteId.USER_RED)}
            className='button w-min flex items-center space-x-2 rounded-none'>
             <svg height="25px" width="25px" version="1.1" id="Layer_1" className="fill-white p-[1px] mr-1"
             xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
@@ -107,8 +106,8 @@ const DashboardData = ()=>{
 </g>
 </svg>
      <span className=" whitespace-nowrap text-sm font-semibold">Usarios de la red</span>
-           </Button>
-           <Button color="light" onClick={()=>downloadReport("0",ReporteId.ALL_USER)}
+           </button>
+           <button onClick={()=>downloadReport("0",ReporteId.ALL_USER)}
            className='button w-min flex items-center space-x-2 rounded-none'>
              <svg height="25px" width="25px" version="1.1" id="Layer_1" className=" fill-white p-[1px] mr-1"
              xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
@@ -155,7 +154,7 @@ const DashboardData = ()=>{
 </g>
 </svg>
      <span className=" whitespace-nowrap text-sm font-semibold">General</span>
-           </Button>
+           </button>
 
            {/* <div onClick={()=>downloadReportExcel("0",ReporteId.ALL_USER)}
            className='button w-min flex  space-x-2'>
@@ -165,7 +164,7 @@ const DashboardData = ()=>{
      <span className=" whitespace-nowrap text-sm font-semibold">Descargar reporte general (Excel)</span>
            </div> */}
 
-          <Button color="light" onClick={()=>downloadReportExcel("1",ReporteId.USER_RED_EXCEL)}
+          <button onClick={()=>downloadReportExcel("1",ReporteId.USER_RED_EXCEL)}
            className='button w-min rounded-none'>
            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="25px" height="25px" className="mr-1">
 <path fill="#4CAF50" d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z"/>
@@ -175,8 +174,8 @@ const DashboardData = ()=>{
  0.541-0.324,0.979L13.652,31H9.895l4.462-7.001L10.274,17h3.837l2.001,4.196c0.156,0.331,0.296,0.725,0.42,1.179h0.0
  4c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z"/></svg>
      <span className=" whitespace-nowrap text-sm font-semibold">Usarios de la red</span>
-           </Button>
-           <Button color="light" onClick={()=>downloadReportExcel("0",ReporteId.ALL_USER_EXCEL)}
+           </button>
+           <button onClick={()=>downloadReportExcel("0",ReporteId.ALL_USER_EXCEL)}
            className='button w-min rounded-none'>
         <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="25px" height="25px" className="mr-1">
 <path fill="#4CAF50" d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z"/>
@@ -186,7 +185,7 @@ const DashboardData = ()=>{
  0.541-0.324,0.979L13.652,31H9.895l4.462-7.001L10.274,17h3.837l2.001,4.196c0.156,0.331,0.296,0.725,0.42,1.179h0.0
  4c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z"/></svg>
      <span className=" whitespace-nowrap text-sm font-semibold">General</span>
-           </Button>
+           </button>
 
            {/* <div onClick={()=>downloadReportExcel("0",ReporteId.ALL_USER)}
            className='button w-min flex  space-x-2'>

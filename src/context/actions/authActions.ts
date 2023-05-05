@@ -9,7 +9,7 @@ import { RootState } from "../store";
 // import { uiActions } from "../slices/ui-slice";
 // import { NextRouter } from "next/router";
 import { uiActions } from "../slices/ui-slice";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { redirectToLogin } from ".";
 import { toast } from "react-toastify";
 
@@ -19,9 +19,11 @@ export const authActions = authSlice.actions
 export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
     return async(dispatch)=>{
         try{
-            const response = await axios.get("/api/auth/token")
+            const rol =localStorage.getItem("_rol")
+            console.log(rol)
+            dispatch(authActions.setRol(rol as string))
+            // const response = await axios.get("/api/auth/token")
             // console.log(response.data)
-            dispatch(authActions.setRol(response.data.rol))
         }catch(err:any){
             if(err.response.status == 401){
                 redirectToLogin()
@@ -103,10 +105,14 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             const response = await axios.post("/api/auth",{email,password})
             console.log(response)
+            const rol = response.data.result.user.idRol
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             if(response.status == 200){
                setCookie("_auth","0", {maxAge: 60 * 60 * 24})
+               localStorage.setItem('_rol',rol)
+                dispatch(authActions.setRol(rol))
+                // setCookie('rol', response.data.result.user.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
                 if(typeof window != undefined){
                     const parsed = queryString.parse(window.location.search);  
                     if(parsed.redirect != undefined){
@@ -120,6 +126,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             dispatch(uiActions.setLoading(false))
 
         }catch(e:any){
+            console.log(e.response.data)
             dispatch(uiActions.setLoading(false))
             const data = e.response.data
             dispatch(authActions.setErrrorLogin({

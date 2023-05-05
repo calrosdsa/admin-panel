@@ -1,5 +1,4 @@
 
-import { useThemeMode } from 'flowbite-react';
 import React, { useEffect, useState } from 'react'
 import { SideBarApp } from '../sidebar';
 import "react-toastify/dist/ReactToastify.css";
@@ -10,7 +9,6 @@ interface Props{
     children:React.ReactNode
 }
 export default function Layout({ children }:Props) {
-    const [mode, setMode, toggleMode] = useThemeMode(true); // -> ["light", ..]
     const [openSideBar,setOpenSideBar ] = useState(true)
     const closeSideBar = (bool:boolean)=>{
       
@@ -29,20 +27,12 @@ export default function Layout({ children }:Props) {
       //     setOpenSideBar(true)
       //    }
     }
-    useEffect(()=>{
-        console.log(mode)
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            // dark mode
-            console.log("isDarkMode")
-            setMode("light")
-            // setMode("dark")
-        }
-    },[mode])
+   
   return (
     <>
       {/* <Header /> */}
       <ToastContainer/>
-      <main className='h-screen flex bg-gray-100 dark:bg-gray-900 max-w-[1800px] '>
+      <main className='h-screen flex bg-gray-100  max-w-[1800px] '>
         <div className='xl:hidden w-full bg-secondary p-2 fixed top-0 z-10'>
       <svg onClick={()=>setOpenSideBar(!openSideBar)}
         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"

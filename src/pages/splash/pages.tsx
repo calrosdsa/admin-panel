@@ -4,7 +4,6 @@ import SplashPagesList from "@/components/splash/SplashPagesList";
 import { getSplashPageList } from "@/context/actions/splashActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import axios from "axios";
-import { Button, Spinner, TextInput } from "flowbite-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FallingLines } from "react-loader-spinner";

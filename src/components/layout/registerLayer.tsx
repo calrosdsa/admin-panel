@@ -46,7 +46,7 @@ return(
     </Head>
     <ToastContainer
     />
-        <div className='w-full relative h-screen grid xl:grid-cols-2 place-items-center max-w-[1800px] mx-auto'>
+        <div className='w-full relative h-screen grid xl:grid-cols-2 border-2 place-content-center place-items-center'>
         <Image
         src='/images/fondo5.jpeg'
         alt="image"
@@ -54,11 +54,14 @@ return(
         width={1000}
         className='w-full hidden xl:block h-screen'
         />
+        <div className='relative'>
         <div
-    className={`mt-2 w-[100%] sm:w-[60%] xl:w-2/3 2xl:w-[55%] grid grid-cols-1 place-content-center 
+    className={`
      ${initialAnimation?'transition-all translate-x-0 duration-1000 opacity-100':
     "transition-all transform opacity-0"}`}>
           {children}
+      <a href='https://teclu.com' target='_blank' className='absolute bottom-0 left-1/2 -translate-x-1/2 text-primary underline'>By Teclu</a>
+    </div>
     </div>
         </div>
 
