@@ -53,7 +53,7 @@ const Home:NextPage<Props>=({userAgent,language}) => {
 
   <Input
    label='Email'
-   password={email}
+   value={email}
    name='email'
    error={authtate.errorLogin?.email}
    onChange={onChange}

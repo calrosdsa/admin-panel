@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 
 interface Props{
     onChange:(e:ChangeEvent<HTMLInputElement>)=>void
-    password:string
+    value:string
     label:string
     name:string
     type?:string
@@ -10,7 +10,7 @@ interface Props{
     icon:()=>JSX.Element
     className?:string
 }
-const Input = ({onChange,password,label,name,type="text",error,icon,className}:Props) =>{
+const Input = ({onChange,value,label,name,type="text",error,icon,className}:Props) =>{
 
     return(
         <div className={`relative mt-3 ${className}`}>
@@ -19,7 +19,7 @@ const Input = ({onChange,password,label,name,type="text",error,icon,className}:P
     <input id="password" name={name}  type={type}
       required
         onChange={onChange} 
-        value={password}
+        value={value}
         minLength={8}
         className=" border-[1px] rounded-lg  peer rounded-b-lg   p-2 h-10 w-full
         border-gray-400 mt-1 pl-9 text-sm

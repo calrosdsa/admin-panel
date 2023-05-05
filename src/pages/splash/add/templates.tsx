@@ -1,7 +1,9 @@
 import CreatePortalLayout from "@/components/layout/CreatePortalLayout";
+import ButtonSubmit from "@/components/util/ButtonSubmit";
+import ButtonWithLoader from "@/components/util/ButtonWithLoader";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import axios from "axios";
-import { Button, Card, Spinner } from "flowbite-react";
+// import { Button, Card, Spinner } from "flowbite-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -110,12 +112,19 @@ const Templates = () =>{
             </div>
     </div>
     <div className=" absolute bottom-2 w-full border-t-2 pt-2 flex justify-end z-10 bg-white">
+        <ButtonWithLoader
+        title="Crear portal"
+        loading={loading}
+        disabled={template == undefined}
+        onClick={createPortal}
+        />
+        {/* <ButtonSubmit/>
             <Button disabled={template == undefined} onClick={createPortal}
             className="right-3 mx-3">
                 {loading ?
                  <Spinner/> 
                  :"Crear portal"}
-            </Button>
+            </Button> */}
     </div>
     </CreatePortalLayout> 
     )
