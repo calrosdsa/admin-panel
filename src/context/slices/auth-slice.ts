@@ -5,7 +5,7 @@ import { AuthModel, ErrorLogin, Settings } from "../../data/models/redux-models/
 const initialAuthState:AuthModel = {
     authLoading:false,
     isAuthenticated:false,
-    rol:undefined,
+    rol: undefined,
     errorLogin:undefined,
     username:'',
     postUrl:'https://www.facebook.com/667567951730217/posts/625859722567707',

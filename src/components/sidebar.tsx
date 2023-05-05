@@ -141,6 +141,8 @@ return(
         </>
         }
 
+</>
+}        
      <div className=" absolute xl:bottom-12 bottom-32
                 w-full items-center">
 
@@ -165,8 +167,6 @@ return(
                     <h3 className='pl-4 font-medium text-sm'>Cerrar session</h3>
         </div>
         </div>
-        </>
-}        
       </div>
       </>
     )
