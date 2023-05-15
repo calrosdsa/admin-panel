@@ -1,11 +1,11 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { AuthModel, ErrorLogin, Settings } from "../../data/models/redux-models/auth-model";
-
+import { AuthModel, ErrorLogin, Settings, User } from "../../data/models/redux-models/auth-model";
 
 const initialAuthState:AuthModel = {
     authLoading:false,
     isAuthenticated:false,
     rol: undefined,
+    user: undefined,
     errorLogin:undefined,
     username:'',
     postUrl:'https://www.facebook.com/667567951730217/posts/625859722567707',
@@ -18,6 +18,9 @@ const authSlice = createSlice({
     reducers:{
         setRol(state,action:PayloadAction<string>){
             state.rol = action.payload
+        },
+        setUser(state,action:PayloadAction<User>){
+            state.user = action.payload
         },
         setAuthLoading(state,action:PayloadAction<boolean>){
             state.authLoading = action.payload

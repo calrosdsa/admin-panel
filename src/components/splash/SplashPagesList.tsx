@@ -52,19 +52,22 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
                 <td onClick={()=>{
                     dispatch(splashActions.setSplashPage(undefined))
                     router.push(`/splash/edit?code=${item.code}`)
-                }}  className="paddingTable whitespace-nowrap">
+                }}  className="paddingTable whitespace-nowrap cursor-pointer text-primary">
                     {item.name}
                 </td>
                 <td className="paddingTable">
+                    <a href={item.urlSplash} className="underline" target="_blank">
                     {item.urlSplash}
+                    </a>
                 </td>
                 <td className="paddingTable whitespace-nowrap">
                 {isSplashPageActive(item.status)}
                 </td>
-                <td>
-                <a href="/tables"
-                    className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-                    >{t("edit")}</a>
+                <td className="text-primary font-semibold cursor-pointer" onClick={()=>{
+                     dispatch(splashActions.setSplashPage(undefined))
+                     router.push(`/splash/edit?code=${item.code}`)
+                }}> 
+                    {t("edit")}
                 </td>
                 
             </tr>

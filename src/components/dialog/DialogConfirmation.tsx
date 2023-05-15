@@ -48,26 +48,26 @@ const DialogConfirmation:React.FC<Props>=({
                 
               >
       <Dialog.Panel>
-        <div className='rounded-lg bg-white p-2'>
+        <div className='rounded-lg bg-white '>
              <div className=' space-y-3'>
-              <div className='flex justify-between items-center'>
-                  <span className="font-semibold p-2 text-lg">{title}</span>             
+              <div className='flex justify-between p-2'>
+                  <span className="font-semibold text-lg">{title}</span>             
                   <svg onClick={()=>closeModal(false)} 
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" 
             stroke="currentColor" className="w-7 h-7 cursor-pointer">
                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                    </svg>
              </div>
-                   <span>{descripcion}</span>
+                   <span className='px-2'>{descripcion}</span>
                    <div className='grid grid-cols-2 place-items-center border-t-[1px] text-lg'>
                        <span  onClick={()=>descartar()}
-                        className='cursor-pointer hover:bg-gray-200 w-full justify-center border-r-[1px] flex p-2'>{buttonText}</span>
+                        className='cursor-pointer hover:bg-gray-200 w-full rounded-bl-lg justify-center border-r-[1px] flex p-2'>{buttonText}</span>
                        <span onClick={()=>{
                         if(performAction != undefined){
                           performAction()}
                         }
                       } 
-                       className='cursor-pointer hover:bg-gray-200 w-full justify-center flex p-2'>{buttonText2}</span>
+                       className='cursor-pointer rounded-br-lg hover:bg-gray-200 w-full justify-center flex p-2'>{buttonText2}</span>
                    </div>
              </div>
         </div>

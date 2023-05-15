@@ -9,9 +9,12 @@ export function middleware(req: NextRequest) {
   const language =  lang?.substring(1+lastIndex)
   const isAuth = req.cookies.get('_auth')?.value
   console.log(isAuth)
+  console.log(req.nextUrl.pathname)
   if (isAuth == undefined){
-    console.log(req.nextUrl.origin)
     return NextResponse.redirect(req.nextUrl.origin+"/auth/login")
+  }
+  if(req.nextUrl.pathname == "/") {
+    return NextResponse.redirect(req.nextUrl.origin+"/dashboard")
   }
   // console.log(cookie) // => 'fast'
   // const allCookies = req.cookies.getAll()

@@ -4,6 +4,7 @@ import { donwloadReportLastTenDays, donwloadReportLastTenDaysExcel } from "../..
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
 import { ReporteId } from "../../data/models/redux-models/dashboard-model";
 import LikeWeekChart from "./charts/LikeWeekChart";
+import Example from "./charts/LikeWeekChart";
 
 const DashboardData = ()=>{
     const dashboardState = useAppSelector(state=>state.dashboard)
@@ -55,8 +56,8 @@ const DashboardData = ()=>{
    
 
     return(
-        <div className="w-full mt-12 px-1 xl:mt-0 lg:pr-5 lg:pt-4 flex flex-col lg:h-screen lg:overflow-auto">
-        <div className=''>
+        <div className="w-full px-1 xl:mt-0 lg:pr-5 lg:pt-4 flex flex-col lg:h-screen lg:overflow-auto">
+        <div className='pt-10 xl:pt-0'>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">
           <button onClick={()=>downloadReport("1",ReporteId.USER_RED)}
@@ -200,20 +201,21 @@ const DashboardData = ()=>{
         </div>
 
 
-        <div className=" text-center mt-10 grid">
+        <div className=" text-center mt-10 grid ">
         <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
         <span className="font-semibold">(usuarios de la red)</span>
         <LikeWeekChart
-        data={dashboardState.likesForWeekUserWifi}
+        dataLike={dashboardState.likesForWeekUserWifi}
         />
         </div>
 
 
-        <div className=" text-center mt-10 grid">
+        <div className=" text-center mt-10 grid ">
         <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
         <span className="font-semibold">(general)</span>
         <LikeWeekChart
-        data={dashboardState.likesForWeek}
+        dataLike={dashboardState.likesForWeekUserWifi}
+        // data={dashboardState.likesForWeek}
         />
         </div>
         </div>

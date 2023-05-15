@@ -88,7 +88,7 @@ const TableUserWifi = ({users,ids}:Props) =>{
                     {item.mail}
                 </td>
                 <td className="paddingTable whitespace-nowrap text-center">
-                    {item.cantConexion}
+                    {item.cantConexion} conexiones
                 </td>
                 {/* <td className="paddingTable whitespace-nowrap">
                     {item.gender}
@@ -99,7 +99,7 @@ const TableUserWifi = ({users,ids}:Props) =>{
                     {/* limit={140} */}
                     {/* /> */}
                     {/* {formatShortDate(item.birthday)} */}
-                    {item.cantDispositivo}
+                    {item.cantDispositivo} dispositivos
 
                 </td>
             </tr>

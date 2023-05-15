@@ -22,22 +22,17 @@ export type Settings = {
     idPageFacebook:string
     tokenPageFacebook:string
 }
-// export interface Profile{
-//     name:string,
-//     id:number,
-//     avatar:string
-// }
-
-// export interface ErrorRegistration {
-//     username?:string[],
-//     email?:string[],
-//     phoneNumber?:string,
-//     password?:string,
-//     apellido?:string,
-//     telefono?:string,
-    
-// }
-
+export type User = {
+    id:string
+    fullName:string
+    email:string
+    telephone?:string
+    created_at:string
+    idClient:string
+    idRol:string
+    idTipoUsuarios:string
+    status:string
+}
 export interface AuthModel{
     isAuthenticated:boolean,
     authLoading:boolean,
@@ -46,6 +41,7 @@ export interface AuthModel{
     username:string,
     postUrl:string,
     settings?:Settings
+    user?:User
     // user?:UserAuth,
     // errorRegistration?:ErrorRegistration
 }

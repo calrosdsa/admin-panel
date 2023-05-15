@@ -9,6 +9,7 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import ResetPasswordDialog from "./dialog/account/ResetPasswordDialog"
 import { getCookie } from "cookies-next"
+import { getUser } from "@/context/selectors"
 
 
 export  const SideBarApp = () =>{
@@ -16,6 +17,7 @@ export  const SideBarApp = () =>{
   const router = useRouter()
   // const rol = getCookie("rol")
   const rol = useAppSelector(state=>state.auth.rol)
+  const user = useAppSelector(getUser)
   const [openDialogReset,setOpenDialogReset ] = useState(false)
     // const role = useAppSelector(getRole)
     // const isFuncionario = isFuncionarioRole(role)
@@ -35,8 +37,36 @@ return(
   closeModal={()=>setOpenDialogReset(false)}
   />
   }
-  <div className="space-y-2 pt-3 relative bg-white w-[200px] h-screen pb-2">
-            <div className='w-full flex justify-center '>
+  <div className="space-y-2 pt-3 relative bg-white w-[220px] h-screen pb-2">
+    <div className="px-2 py-1 flex items-center space-x-3 border-b-[1px] hover:bg-gray-200 cursor-pointer">
+      <img src="/images/user-icon-placeholder.webp" alt="" className="rounded-full h-7 w-7"/>
+      <div className="grid">
+      <span className="text-sm font-medium truncate">{user?.fullName}</span>
+      <span className="text-xs truncate">{user?.email}</span>
+      </div>
+    </div>
+    
+    <div onClick={()=>setOpenDialogReset(true)} 
+                className={`flex smallButton w-10/12  cursor-pointer justify-center mx-auto hover:bg-gray-200 space-x-2`}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
+              className="w-4 h-4">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+</svg>
+                    <h3 className='text-sm truncate'>Cambiar contraseña</h3>
+        </div>
+        
+        <div onClick={()=>dispatch(logout())} 
+                className={`flex smallButton w-10/12  cursor-pointer justify-center mx-auto hover:bg-gray-200 space-x-2`}>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+                className="w-4 h-4">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+            </svg> 
+
+                    <h3 className='text-sm'>Cerrar session</h3>
+        </div>
+
+        
+            {/* <div className='w-full flex justify-center '>
               <Image
             src='/images/logo.png'
             height={30}
@@ -44,7 +74,7 @@ return(
             priority
             width={110}
             />
-            </div>
+            </div> */}
   {rol != undefined&&
   <>
             {/* <Image
@@ -52,7 +82,7 @@ return(
             height={100}
             width={350}
             /> */}
-            <div className='pt-2'/>
+            <div className='pt-1'/>
             <div onClick={()=>router.push('/dashboard')} 
             className={`flex cursor-pointer px-2 items-center hover:bg-gray-200 p-1
             ${router.pathname == '/dashboard' && "bg-gray-200"}`}>
@@ -143,7 +173,7 @@ return(
 
 </>
 }        
-     <div className=" absolute xl:bottom-12 bottom-32
+     {/* <div className=" absolute xl:bottom-12 bottom-32
                 w-full items-center">
 
       <div onClick={()=>setOpenDialogReset(true)} 
@@ -166,10 +196,8 @@ return(
 
                     <h3 className='pl-4 font-medium text-sm'>Cerrar session</h3>
         </div>
-        </div>
+        </div> */}
       </div>
       </>
     )
 }
-
-

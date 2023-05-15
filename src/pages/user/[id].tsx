@@ -20,20 +20,22 @@ const User = () =>{
 
     return(
         <Layout>
-            <div className="grid lg:grid-cols-3 gap-x-3">
-                <div className="border-[1px] shadow-xl rounded-xl p-2 h-[98vh]">
+            <div className="">
+                <div className="grid lg:grid-cols-3 gap-x-3 pt-10 xl:pt-0 w-full">
+                <div className="border-[1px] shadow-xl  p-2 xl:h-screen " >
             {userState.user != undefined &&
             <UserDetail
             user={userState.user}
             />                    
-                }
+        }
                 </div>
-                <div className="border-[1px] shadow-xl rounded-xl p-2 col-span-2 h-screen overflow-auto">
+                <div className="border-[1px] shadow-xl mt-10 lg:mt-0 p-2 col-span-2 h-screen overflow-auto">
                     <UsuarioDetailTab
                     id={id as string}
                     />
                 </div>
             </div>
+        </div>
         </Layout>
     )
 }

@@ -32,7 +32,7 @@ const Pages = () =>{
     return(
       <Layout>
       
-            <div className="">
+            <div className="pt-10 xl:pt-0">
               <div className="mb-3">
                 {/* <Button color={'light'} onClick={()=>router.push(`/splash/add?splash_url=${splashState.splashBaseUrl}`)}>
                 Crear

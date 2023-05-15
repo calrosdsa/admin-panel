@@ -45,29 +45,35 @@ const UserDetail = ({user}:Props)=>{
 
 
         <div>
+            
             <div className="detailInfo">
                 <span className="font-medium">Nombre</span>
                 <span>{user.fullName}</span>
             </div>
+            {user.birthday != "" &&
             <div className="detailInfo">
                 <span className="font-medium">Fecha de Nacimiento</span>
                 <span>{user.birthday}</span>
             </div>
-
+            }
+            {user.gender != "" &&
             <div className="detailInfo">
-                <span className="font-medium">Genero</span>
+                <span className="font-medium">Genero </span>
                 <span>{user.gender}</span>
             </div>
-
+            }
+            {user.ci != "" &&
             <div className="detailInfo">
                 <span className="font-medium">Ci</span>
                 <span>{user.ci}</span>
             </div>
-            
+            }
+            {user.ci != "" &&
              <div className="detailInfo">
                 <span className="font-medium">Numero</span>
                 <span>{user.movil}</span>
             </div>
+            }
         </div>
             <div className="grid sm:grid-cols-2 place-items-center pt-5 "> 
 

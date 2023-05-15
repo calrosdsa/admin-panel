@@ -32,11 +32,11 @@ export default function Layout({ children }:Props) {
     <>
       {/* <Header /> */}
       <ToastContainer/>
-      <main className='h-screen flex bg-gray-100  max-w-[1800px] '>
-        <div className='xl:hidden w-full bg-secondary p-2 fixed top-0 z-10'>
+      <main className='h-screen flex bg-gray-100  max-w-[1800px] mx-auto shadow-lg '>
+        <div className='xl:hidden w-full bg-secondary p-2 fixed top-0 h-10 z-10'>
       <svg onClick={()=>setOpenSideBar(!openSideBar)}
         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-        className="w-7 h-7 text-gray-200 bg-gray-700 relative">
+        className="w-6 h-6 text-gray-200 bg-gray-700 absolute right-2">
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
       </svg>
 

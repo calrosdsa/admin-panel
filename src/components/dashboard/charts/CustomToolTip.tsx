@@ -46,7 +46,7 @@ const LikeWeekChart =  ({
       <XAxis dataKey="x" />
       <YAxis />
       <Tooltip />
-      {/* <Legend /> */}
+      <Legend />
       <Bar dataKey="y" fill="#8884d8" barSize={40}/>
       {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
     </BarChart>

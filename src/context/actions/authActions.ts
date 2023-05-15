@@ -12,6 +12,7 @@ import { uiActions } from "../slices/ui-slice";
 import { getCookie, setCookie } from "cookies-next";
 import { redirectToLogin } from ".";
 import { toast } from "react-toastify";
+import { User } from "@/data/models/redux-models/auth-model";
 
 export const authActions = authSlice.actions
 
@@ -20,8 +21,10 @@ export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =
     return async(dispatch)=>{
         try{
             const rol =localStorage.getItem("_rol")
+            const user =JSON.parse(localStorage.getItem("user") as string)
             console.log(rol)
             dispatch(authActions.setRol(rol as string))
+            dispatch(authActions.setUser(user as User))
             // const response = await axios.get("/api/auth/token")
             // console.log(response.data)
         }catch(err:any){
@@ -104,13 +107,14 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             
             // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             const response = await axios.post("/api/auth",{email,password})
-            console.log(response)
+            // console.log(response)
             const rol = response.data.result.user.idRol
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             if(response.status == 200){
-               setCookie("_auth","0", {maxAge: 60 * 60 * 24})
-               localStorage.setItem('_rol',rol)
+                setCookie("_auth","0", {maxAge: 60 * 60 * 24})
+                localStorage.setItem("user",JSON.stringify(response.data.result.user))
+                localStorage.setItem('_rol',rol)
                 dispatch(authActions.setRol(rol))
                 // setCookie('rol', response.data.result.user.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
                 if(typeof window != undefined){

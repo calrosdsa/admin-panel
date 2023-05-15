@@ -23,10 +23,10 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
         try{
             dispatch(uiActions.setInnerLoading(true))
             const response = await axios.get('/api/splash-pages')
-            const splashUrl = response.data.portales[0].urlSplash 
-            const s = splashUrl.lastIndexOf("/")
-            const splashBaseUrl = splashUrl.substring(0,s +1)
-            dispatch(splashActions.setSplashBaseUrl(splashBaseUrl))
+            // const splashUrl = response.data.portales[0].urlSplash 
+            // const s = splashUrl.lastIndexOf("/")
+            // const splashBaseUrl = splashUrl.substring(0,s +1)
+            // dispatch(splashActions.setSplashBaseUrl(splashBaseUrl))
             dispatch(uiActions.setInnerLoading(false))
             // localStorage.setItem('token',response.data.access_token)
             dispatch(splashActions.setSplashPages(response.data.portales))
@@ -43,7 +43,7 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
 export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         try{
-            console.log("code////")
+            // console.log("code////")
             dispatch(uiActions.setLoading(true))
             const access_token = getCookie("access_token")
             const response = await axios.post(`/api/splash-pages`,{code})

@@ -126,10 +126,10 @@ const deletedSubmitedImage = () =>{
             value={htmlString}></textarea> */}
             <div className="overflow-auto h-screen p-3 space-y-4" >
               <div className="p-2 flex justify-between pt-16 mt-2">
-            <span className="text-xl font-semibold">Portal Cautivo</span>
+            <span className="text-lg font-medium">Portal Cautivo</span>
               </div>
               <div className="">
-              <span className="text-xl font-semibold">Editar Logo</span>
+              <span className="text-lg font-medium">Editar Logo</span>
               <ImageEdit
               id="#logo"
               src={source}
@@ -137,7 +137,7 @@ const deletedSubmitedImage = () =>{
               </div>
               {titulo.text != "" &&
               <div>
-                <span className="text-xl font-semibold">Editar Titulo</span>
+                <span className="text-lg font-medium">Editar Titulo</span>
               <EditText
               titulo={titulo.text}
               colorValue = {titulo.color}
@@ -148,7 +148,7 @@ const deletedSubmitedImage = () =>{
             }
             {descripcion != ""  && 
               <div>
-              <span className="text-xl font-semibold">Editar Descripcion</span>
+              <span className="text-lg font-medium">Editar Descripcion</span>
               <EditParagraph
               descripcion={descripcion}
               setValue={(s)=>setDescripcion(s)}
@@ -158,7 +158,7 @@ const deletedSubmitedImage = () =>{
             }
               {imageSrc != undefined &&
               <div>
-              <span className="text-xl font-semibold">Editar Portada</span>
+              <span className="text-lg font-medium">Editar Portada</span>
               {/* <EditBanner
               videoSource={videoSrc}
             imageSource={imageSrc}/> */}
@@ -181,7 +181,7 @@ const deletedSubmitedImage = () =>{
 
             {imageFondo != undefined &&
               <div className="pt-2">
-              <span className="text-xl font-semibold">Editar Imagen de fondo</span>
+              <span className="text-lg font-medium">Editar Imagen de fondo</span>
              <UploadMedia
              originSource={portalData.imageFondo}
              source={imageFondo}
@@ -196,7 +196,7 @@ const deletedSubmitedImage = () =>{
 
 
               {/* <div className="pt-2 pb-20">
-              <span className="text-xl font-semibold">Metodos de authenticacion</span>
+              <span className="text-lg font-medium">Metodos de authenticacion</span>
               <ButtonsLogin/>
             </div>   */}
            </div>
