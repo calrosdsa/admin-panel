@@ -68,7 +68,7 @@ const UserDetail = ({user}:Props)=>{
                 <span>{user.ci}</span>
             </div>
             }
-            {user.ci != "" &&
+            {user.movil != "" &&
              <div className="detailInfo">
                 <span className="font-medium">Numero</span>
                 <span>{user.movil}</span>
