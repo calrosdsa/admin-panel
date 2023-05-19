@@ -10,7 +10,7 @@ export default async function splashPages(req:NextApiRequest,res:NextApiResponse
     if(req.method == 'GET'){
         // const { param } = req.query
         try{
-            const response = await axios.post(`${API_URL}/apiFB/public/userwifi/list`,{},{
+            const response = await axios.post(`${API_URL}/apiFB/public/userwifi/listencuesta`,{},{
                 headers:{
                     'Authorization':`Bearer ${access_token}`
                 }
