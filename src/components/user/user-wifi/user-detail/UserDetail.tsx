@@ -77,7 +77,7 @@ const UserDetail = ({user}:Props)=>{
         </div>
             <div className="grid sm:grid-cols-2 place-items-center pt-5 "> 
 
-                <div className="card w-min">
+                {/* <div className="card w-min">
                     <span className=" font-medium">Dispositivos</span>
                     <div className="p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -95,7 +95,7 @@ const UserDetail = ({user}:Props)=>{
                     </svg>
                     <span>{user.cantConexion}</span>
                     </div>
-                </div>
+                </div> */}
 
 
             </div>

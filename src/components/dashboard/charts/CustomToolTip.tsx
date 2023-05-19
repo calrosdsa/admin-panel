@@ -1,148 +1,25 @@
-import { LikeData } from '@/data/models/redux-models/dashboard-model';
-import React, { PureComponent } from 'react';
-import { BarChart, Bar, CartesianGrid, XAxis, Tooltip, Legend, YAxis, ResponsiveContainer } from 'recharts';
-const data = [
-  {
-    "name": "Page A",
-    "pv": 2400
-  },
-  {
-    "name": "Page B",
-    "pv": 1398
-  },
-  {
-    "name": "Page C",
-    "pv": 9800
-  },
-  {
-    "name": "Page D",
-    "pv": 3908
-  },
-  {
-    "name": "Page E",
-    "pv": 4800
-  },
-  {
-    "name": "Page F",
-    "pv": 3800
-  },
-  {
-    "name": "Page G",
-    "pv": 4300
-  }
-]
-interface Props {
-  dataLike:undefined | any[]
+interface Props{
+  active:boolean
+  payload:any
+  label:any
 }
-const LikeWeekChart =  ({
- dataLike
-}:Props)=>  {
-  // static demoUrl = 'https://codesandbox.io/s/simple-bar-chart-tpz8r';
 
+export const CustomTooltip = ({ active, payload, label }:Props) => {
+  if (active && payload && payload.length) {
     return (
-      <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={dataLike}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="x" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="y" fill="#8884d8" barSize={40}/>
-      {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
-    </BarChart>
-      </ResponsiveContainer>
+      <div className="bg-white p-2 rounded-lg shadow-lg">
+          <span className=" font-medium">{label}</span>
+        <div>
+          {payload.map((pld:any) => (
+            <div className="flex space-x-3">
+              <span className=" font-medium text-primary">{pld.value}</span>
+              <span>Likes</span>
+            </div>
+          ))}
+        </div>
+      </div>
     );
   }
 
-export default LikeWeekChart;
-
-
-// import { VictoryAxis, VictoryBar, VictoryChart, VictoryLabel, VictoryLine, VictoryTooltip } from "victory";
-// import { LikeData } from "../../../data/models/redux-models/dashboard-model";
-// import useEffectOnce from "../../../utils/hooks/useEffectOnce";
-// import {useEffect} from 'react'
-
-// interface Props {
-//     data:LikeData[]
-// }
-// const LikeWeekChart = ({data}:Props) =>{
-//     // const likes = [{"x":"2023-01-20","y":1758},{"x":"2023-01-21","y":1783},
-//     // {"x":"2023-01-22","y":2199},{"x":"2023-01-23","y":1296},
-//     // {"x":"2023-01-24","y":1654},
-//     // {"x":"2023-01-25","y":2425},{"x":"2023-01-26","y":2000}]
-    
-
-//     return(
-//         <div  className="bg-white">
-//         <VictoryChart
-//         // events={[
-//         //   {
-//         //     target:"parent",
-//         //     eventHandlers:{
-//         //       onClick:()=>{
-//         //         // console.log(window.hei)
-//         //         const el = document.querySelector('#dash')?.getBoundingClientRect().top // Y
-//         //         var height = document.documentElement.clientHeight;
-//         //         console.log(height)
-//         //         if(el != undefined){
-//         //           // window.scrollY + el
-//         //           window.scroll(0,el + 80)
-//         //         }
-//         //         console.log(el)
-//         //         // window.scroll({
-//         //         //   top: 100,
-//         //         //   behavior: 'smooth'
-//         //         // });
-//         //         return 
-//         //       }
-//         //     }
-//         //   }
-//         // ]}
-//         // padding={38}
-//       domainPadding={{x: 25, y: 20}}
-//         >
-//             <VictoryAxis
-//             // tickFormat={(x) => `${x} likes`}
-//             dependentAxis={true}
-//             style={{
-//               grid: { stroke: "grey" },tickLabels:{fontSize:10}
-//             }}
-//           />
-//           <VictoryAxis 
-//             // tickFormat={(x) => ``}
-//             style={{
-//               tickLabels:{fontSize:10}
-//             }}
-//             labelComponent={
-//                 //   <VictoryTooltip/>
-//                   <VictoryLabel  dy={-5} angle={340}/>
-//             }
-//           />
-//           <VictoryBar
-          
-//            labelComponent={<VictoryTooltip/>}
-//         //    labelComponent={<VictoryLabel angle={270} dy={10}/>}
-//           data={data}
-//           style={{
-//             data: {fill: "tomato", width: 20}
-//           }}
-//           labels={({datum}) => `${datum.y} likes`}
-
-//           />
-//         {/* <VictoryLine
-//             data={data}
-//             labels={({datum}) => datum.x}
-//       padding={{bottom: 20, left: 5, right: 5 ,top:10}}
-//       labelComponent={
-//         //   <VictoryTooltip/>
-//           <VictoryLabel  dy={-5} angle={340}/>
-//     }
-//     // labelComponent={ <VictoryLabel  dy={-5} angle={340}/>}
-//       style={{ labels: {fontSize: 10,fill:'#0406ee',fontWeight:'bold'} }}
-//             /> */}
-//         </VictoryChart>
-//         </div>
-//     )
-// }
-
-// export default LikeWeekChart;
+  return null;
+};

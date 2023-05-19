@@ -182,26 +182,19 @@ export const donwloadReportLastTenDaysExcel = (userwifi:string,
     }
 }
 
-export const donwloadReportLastTenDaysExcelTest = (userwifi:string,
-    idProgress:number,
-    id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+export const donwloadReportTest = (idProgress:number,id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
         moment.locale("es")
         const date = moment().format('LLLL').replace(":",";");
-     
         // date.locale('es')
         // date.format('MMMM')
         // console.log(date1)
-      
         try{
-            console.log("userWifi:",userwifi)
-            const formData = new FormData()
-            formData.append("idpost","0")
-            formData.append("userwifi",userwifi)
+            
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
-            await axios.post(`${API_URL}/apiFB/public/facebook/reportexcell`,formData,{
+            await axios.post(`${API_URL}/apiFB/public/userwifi/reportxls`,{},{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },

@@ -41,7 +41,7 @@
       @apply p-4  hover:border-b-2 cursor-pointer border-gray-400
      }
      .paddingTable {
-      @apply p-2
+      @apply py-3 px-4
      }
   }
 

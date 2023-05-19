@@ -154,8 +154,6 @@ export default function Home() {
                 tickMargin={20}
                 />
         </div>
-
-
             </div>
       </Layout>
   );
