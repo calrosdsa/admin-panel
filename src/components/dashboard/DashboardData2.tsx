@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { button } from "flowbite-react";
 import { Id, toast } from "react-toastify";
-import { donwloadReportLastTenDaysExcelTest, donwloadReportLastTenDaysTest } from "../../context/actions/dashboardActions";
+import {  donwloadReportLastTenDaysTest } from "../../context/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
 import { ReporteId } from "../../data/models/redux-models/dashboard-model";
 
@@ -49,7 +49,7 @@ const DashboardData2 = ()=>{
                    className="text-xs button">Cancelar Descarga</button>
                 </div>
                 )
-            dispatch(donwloadReportLastTenDaysExcelTest(userwifi,idProgress,id,source))
+            dispatch(donwloadReportLastTenDaysTest(userwifi,idProgress,id,source))
         }
     }
    
