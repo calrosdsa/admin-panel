@@ -63,6 +63,11 @@ export type UserSolicitud  = {
 }
 
 
+export interface Encuesta extends UserWifi {
+  esFumador:string
+  marca:string
+}
+
 
 export interface UserState {
     solicitudes:UserSolicitud[],
@@ -73,4 +78,5 @@ export interface UserState {
     dispositivos:Dispositivo[]
     conexiones:Conexiones[]
     userTabDetail:UserTabDetail
+    encuestas:Encuesta[]
 }

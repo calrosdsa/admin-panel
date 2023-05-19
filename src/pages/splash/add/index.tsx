@@ -17,11 +17,11 @@ const AddSplashPage = () =>{
     return(
         <CreatePortalLayout>
                <div className="p-2 lg:px-4 flex justify-center items-center h-full flex-col w-full">
-                <div className="w-11/12 sm:w-2/3">
+                <div className="w-11/12 sm:w-2/3 grid">
                 <code className="text-sm">{splash_url+slugify(splashName)}</code>
             <input
               // id="urlsplashName"
-              className="m-2"
+              className="m-2 input"
               type="text"
               value={splashName}
               onKeyDown={(e)=>{

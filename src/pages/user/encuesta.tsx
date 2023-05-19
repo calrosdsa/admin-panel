@@ -1,8 +1,9 @@
 import DashboardData2 from "@/components/dashboard/DashboardData2";
 import Layout from "@/components/layout/layout";
+import TableUserEncuestas from "@/components/user/encuestas/TableUserEncuestas";
 import TableUserWifi from "@/components/user/user-wifi/TableUserWifi";
 import { donwloadReportLastTenDays, donwloadReportTest } from "@/context/actions/dashboardActions";
-import { getUserList } from "@/context/actions/userActions";
+import { getEncuestas, getUserList } from "@/context/actions/userActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import { ReporteId } from "@/data/models/redux-models/dashboard-model";
 import axios from "axios";
@@ -16,12 +17,7 @@ const Users = () =>{
     const dashboardState = useAppSelector(state=>state.dashboard)
     const uiState = useAppSelector(state=>state.ui)
     const dispatch = useAppDispatch()
-    useEffect(()=>{
-        if(userState.users.length == 0){
-            dispatch(getUserList())
-        }
-    },[])
-
+    
     const downloadReport = (idProgress:number) =>{
         const cancelToken = axios.CancelToken;
         const source = cancelToken.source();
@@ -39,15 +35,20 @@ const Users = () =>{
                    className="text-xs button">Cancelar Descarga</button>
                 </div>
                 )
-            dispatch(donwloadReportTest(idProgress,id,source))
+                dispatch(donwloadReportTest(idProgress,id,source))
         }
     }
+    useEffect(()=>{
+        if(userState.users.length == 0){
+            dispatch(getEncuestas())
+        }
+    },[])
     return(
 
         <Layout>
-            <div className="xl:pt-1 pt-10 ">
+            <div className="xl:pt-1 pt-10">
             <button onClick={()=>downloadReport(ReporteId.USER_RED)}
-           className='button w-min flex items-center space-x-2 rounded-none'>
+           className='button w-min flex items-center space-x-2 rounded-none mt-2'>
          
      <span className=" whitespace-nowrap text-sm font-semibold">Encuestas</span>
            </button>
@@ -63,8 +64,8 @@ const Users = () =>{
           </div>
           :
 
-              <TableUserWifi
-              users={userState.users}
+              <TableUserEncuestas
+              users={userState.encuestas}
               ids={userState.ids}
               />
                }

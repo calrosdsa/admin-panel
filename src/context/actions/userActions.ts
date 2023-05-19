@@ -26,6 +26,22 @@ export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>
 }
 }
 
+export const getEncuestas = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setInnerLoading(true))
+        const response = await axios.get(`/api/encuesta`)
+        dispatch(uiActions.setInnerLoading(false))
+        dispatch(userActions.setEncuestas(response.data.users))        
+       }catch(err:any){
+        dispatch(uiActions.setInnerLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
+
+
 export const getUserWifi =(id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
        try{

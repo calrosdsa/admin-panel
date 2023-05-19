@@ -122,6 +122,12 @@ return(
               ${router.pathname == '/user' && "bg-gray-200"}`}>
                 <h3 className='pl-4'>  {t("users-wifi")}</h3>
             </div>
+          <div onClick={()=>router.push('/user/encuesta')} 
+            className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
+              ${router.pathname == '/user/encuesta' && "bg-gray-200"}`}>
+                
+              <h3 className='pl-4'>Encuestas</h3>
+          </div>
             <div onClick={()=>router.push('/user/solicitudes')} 
             className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
               ${router.pathname == '/user/solicitudes' && "bg-gray-200"}`}>

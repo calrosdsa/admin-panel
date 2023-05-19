@@ -43,6 +43,9 @@
      .paddingTable {
       @apply py-3 px-4
      }
+     .input{
+      @apply p-2 outline-none border-[1px] rounded-md border-gray-400 focus:border-primary
+     }
   }
 
   

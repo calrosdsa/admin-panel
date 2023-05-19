@@ -2,15 +2,15 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useAppDispatch } from "../../../context/reduxHooks";
 import { userActions } from "../../../context/slices/user-slice";
-import { Order, UserSolicitud, UserWifi } from "../../../data/models/redux-models/user-models";
+import { Encuesta, Order } from "../../../data/models/redux-models/user-models";
 import { formatDate, formatShortDate } from "../../../utils/converter/date";
 import LongText from "../../LongText";
 
 interface Props{
-    users:UserWifi[]
+    users:Encuesta[]
     ids:string[]
 }
-const TableUserWifi = ({users,ids}:Props) =>{
+const TableUserEncuestas = ({users,ids}:Props) =>{
     const dispatch = useAppDispatch()
     const [ orderState, setOrderState ] = useState(Order.DESCENDENTE)
     const [ orderStateName,setOrderStateName ] = useState(Order.DESCENDENTE)
@@ -59,7 +59,12 @@ const TableUserWifi = ({users,ids}:Props) =>{
                 <th scope="col" className="paddingTable text-center">
                     Dispositivos
                 </th>
-                
+                <th scope="col" className="paddingTable text-center">
+                    Es Fumador
+                </th>
+                <th scope="col" className="paddingTable text-center">
+                    Marca de Cigarro
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -89,6 +94,24 @@ const TableUserWifi = ({users,ids}:Props) =>{
                     {item.cantDispositivo} dispositivos
 
                 </td>
+                <td  className="paddingTable font-medium text-gray-900 text-center">
+                    {/* <LongText */}
+                    {/* content={item.message} */}
+                    {/* limit={140} */}
+                    {/* /> */}
+                    {/* {formatShortDate(item.birthday)} */}
+                    {item.esFumador} 
+
+                </td>
+                <td  className="paddingTable font-medium text-gray-900 text-center">
+                    {/* <LongText */}
+                    {/* content={item.message} */}
+                    {/* limit={140} */}
+                    {/* /> */}
+                    {/* {formatShortDate(item.birthday)} */}
+                    {item.marca} 
+
+                </td>
             </tr>
                 )})}
         </tbody>
@@ -98,4 +121,4 @@ const TableUserWifi = ({users,ids}:Props) =>{
     )
 }
 
-export default TableUserWifi;
+export default TableUserEncuestas;
