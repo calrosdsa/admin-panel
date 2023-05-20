@@ -39,7 +39,7 @@ const Users = () =>{
         }
     }
     useEffect(()=>{
-        if(userState.users.length == 0){
+        if(userState.encuestas.length == 0){
             dispatch(getEncuestas())
         }
     },[])
