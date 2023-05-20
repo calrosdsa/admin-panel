@@ -65,7 +65,9 @@ export const getDispositivos =(id:string) :ThunkAction<void,RootState,undefined,
         const response = await axios.get(`/api/user/user-detail/dispositivos?id=${id}`)
         console.log(response.data)
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setDispositivos(response.data.result))        
+        if(typeof response.data.result != 'string'){
+            dispatch(userActions.setDispositivos(response.data.result))        
+        }
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)
