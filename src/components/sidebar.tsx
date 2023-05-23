@@ -121,7 +121,7 @@ return(
               <div onClick={()=>router.push('/user')} 
               className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
               ${router.pathname == '/user' && "bg-gray-200"}`}>
-                <h3 className='pl-4'>  {t("users-wifi")}</h3>
+                <h3 className='pl-4'> Conexiones</h3>
             </div>
           {(user != undefined && clientEncuesta.includes(user?.idClient)) &&
           <div onClick={()=>router.push('/reportes/encuesta')} 
@@ -146,7 +146,7 @@ return(
 
 
       
-
+{/* 
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
@@ -178,7 +178,7 @@ return(
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure>
+        </Disclosure> */}
         </>
         {/* } */}
 
