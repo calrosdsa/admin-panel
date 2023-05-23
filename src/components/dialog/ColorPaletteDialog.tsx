@@ -31,7 +31,7 @@ const ColorPaletteDialog = ({closeDialog,open,onChangeColor,color}:Props) => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 shadow-xl" />
+            <div className="fixed inset-0 shadow-xl bg-black/25" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
@@ -54,7 +54,7 @@ const ColorPaletteDialog = ({closeDialog,open,onChangeColor,color}:Props) => {
                     Filtros 
                   </Dialog.Title>
                   <div className='flex flex-col'>
-                    <ColorPicker width={456} height={228} color={color} onChange={onChangeColor} hideHSV dark />
+                    <ColorPicker width={456} height={228} color={color} onChange={onChangeColor} hideHSV />
             </div>
                 </Dialog.Panel>
               </Transition.Child>

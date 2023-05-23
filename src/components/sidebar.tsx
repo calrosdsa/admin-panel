@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import ResetPasswordDialog from "./dialog/account/ResetPasswordDialog"
 import { getCookie } from "cookies-next"
 import { getUser } from "@/context/selectors"
+import { clientEncuesta, facebookClients } from "@/utils/data/clients"
 
 
 export  const SideBarApp = () =>{
@@ -52,8 +53,8 @@ return(
               className="w-4 h-4">
   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
 </svg>
-                    <h3 className='text-sm truncate'>Cambiar contraseña</h3>
-        </div>
+      <h3 className='text-sm truncate'>Cambiar contraseña</h3>
+    </div>
         
         <div onClick={()=>dispatch(logout())} 
                 className={`flex smallButton w-10/12  cursor-pointer justify-center mx-auto hover:bg-gray-200 space-x-2`}>
@@ -93,7 +94,7 @@ return(
                 <h3 className='pl-4 font-medium'>  {t('home')}</h3>
             </div>
 
-        {rol == "0" &&
+        {/* {rol == "0" && */}
         <>
              <Disclosure defaultOpen={true}>
           {({ open }) => (
@@ -109,7 +110,7 @@ return(
    18.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 
    0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
            </svg>
-                <span className='pl-4'>{t("users")}</span>
+                <span className='pl-4'>Reportes</span>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
             className={`w-6 h-6  ${open ? 'rotate-180 transform' : ''}`}>
@@ -122,18 +123,22 @@ return(
               ${router.pathname == '/user' && "bg-gray-200"}`}>
                 <h3 className='pl-4'>  {t("users-wifi")}</h3>
             </div>
-          <div onClick={()=>router.push('/user/encuesta')} 
+          {(user != undefined && clientEncuesta.includes(user?.idClient)) &&
+          <div onClick={()=>router.push('/reportes/encuesta')} 
             className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${router.pathname == '/user/encuesta' && "bg-gray-200"}`}>
+              ${router.pathname == '/reportes/encuesta' && "bg-gray-200"}`}>
                 
               <h3 className='pl-4'>Encuestas</h3>
           </div>
-            <div onClick={()=>router.push('/user/solicitudes')} 
+          }
+          {(user != undefined && facebookClients.includes(user?.idClient)) &&
+            <div onClick={()=>router.push('/reportes/facebook-data')} 
             className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${router.pathname == '/user/solicitudes' && "bg-gray-200"}`}>
+            ${router.pathname == '/reportes/facebook-data' && "bg-gray-200"}`}>
                 
-              <h3 className='pl-4'> {t("requests")}</h3>
+              <h3 className='pl-4'>Facebook</h3>
           </div>
+              }
               </Disclosure.Panel>
             </>
           )}
@@ -175,7 +180,7 @@ return(
           )}
         </Disclosure>
         </>
-        }
+        {/* } */}
 
 </>
 }        

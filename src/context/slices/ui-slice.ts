@@ -11,12 +11,16 @@ const initialUiState :UiState ={
     isMobile:false,
     initAnimation:true,
     pathName:'',
+    execute:false,
 }
 
 const uiSlice = createSlice({
     name:'ui',
     initialState:initialUiState,
     reducers:{
+        setExecute(state,action:PayloadAction<boolean>){
+            state.execute = action.payload
+        },
         setOpenDialog(state,action:PayloadAction<boolean>){
             state.openDialog = action.payload
         },

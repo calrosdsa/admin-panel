@@ -11,6 +11,7 @@ import authSlice from "../slices/auth-slice";
 import { splashActions } from "../slices/splash-slice";
 import uiSlice, { uiActions } from "../slices/ui-slice";
 import { RootState } from "../store";
+import { toast } from "react-toastify";
 // import { uiActions } from "../slices/ui-slice";
 // import { NextRouter } from "next/router";
 
@@ -45,13 +46,14 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
         try{
             // console.log("code////")
             dispatch(uiActions.setLoading(true))
-            const access_token = getCookie("access_token")
-            const response = await axios.post(`/api/splash-pages`,{code})
+            // const access_token = getCookie("access_token")
+            const response = await axios.get(`http://localhost:1323/v1/portal/basic/`)
             // console.log(response)
             // const response =await axios.get('/api/splash-pages')
             dispatch(uiActions.setLoading(false))
+            console.log(response.data)
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(splashActions.setSplashPage(response.data.portal))
+            dispatch(splashActions.setSplashData(response.data))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -62,6 +64,24 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
     }
 }
 
+
+
+export const saveSplashPage = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch,getState)=>{
+        try{
+            const portal = getState().splash.basicPortal
+            dispatch(uiActions.setOpenDialog(false))
+            dispatch(uiActions.setLoading(true))
+            const res = await axios.post("http://localhost:1323/v1/portal/basic/",portal)
+            dispatch(uiActions.setLoading(false))
+            toast.success(res.data)
+            console.log(res)
+          }catch(err:any){
+            dispatch(uiActions.setLoading(false))
+            toast.error(err.response.data.message)
+          }
+    }
+}
 // export const validateLike = async()=>{
 //     const validateLike = await axios.get(`https://teclu.com/validatelike.php?name=${username}`)
 //     const hasLike:boolean = validateLike.data

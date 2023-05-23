@@ -84,14 +84,14 @@ const HtmlCode = ()=>{
             value={splashState.htmlCode}
             onChange={onChange}
             />
-    </div>
+      </div>
       <div id="iframe-container" className="w-full bg-white z-10 col-span-2">
         {/* <iframe onChange={(e)=>console.log(e)} className= "w-full h-screen justify-center flex relative"
-         src="/transporte2.html"></iframe> */}
-         {splashState.htmlCode != undefined &&
-         <iframe className= "w-full h-screen flex relative"
-         src={splashState.splashPage?.urlSplash}
-         id="myiframe"></iframe>
+        src="/transporte2.html"></iframe> */}
+        {splashState.htmlCode != undefined &&
+        <iframe className= "w-full h-screen flex relative"
+        src={splashState.splashPage?.urlSplash}
+        id="myiframe"></iframe>
         }
       </div>
       </div>

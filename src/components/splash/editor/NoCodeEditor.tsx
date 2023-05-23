@@ -1,216 +1,285 @@
-import { uploadImage } from "@/utils/uploadImage"
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { toast } from "react-toastify"
-import EditBanner from "./EditBanner"
-import EditParagraph from "./EditParagraph"
-import EditText from "./EditText"
-import ImageEdit from "./ImageEdit"
-import SlideImages from "./SlideImages"
-import UploadMedia from "./UploadMedia"
-
-interface Props{
-  htmlCode: string | undefined
-  isCodeEditor:boolean
+import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
+import ImageEdit from "./components/ImageEdit";
+import { uiActions } from "@/context/slices/ui-slice";
+import { splashActions } from "@/context/slices/splash-slice";
+import axios, { AxiosResponse } from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import useDebounce from "@/utils/hooks/useDebounce";
+import { BasicPortal, ContentPortal } from "@/data/models/redux-models/splash-data";
+import useEffectOnce from "@/utils/hooks/useEffectOnce";
+import ContentEdit from "./components/ContentEdit";
+import { URL } from "url";
+import { Blob } from "buffer";
+import { saveSplashPage } from "@/context/actions/splashActions";
+import DialogConfirmation from "@/components/dialog/DialogConfirmation";
+interface Props {
+  basicPortal:BasicPortal
 }
-const NoCodeEditor = ({htmlCode,isCodeEditor}:Props)=>{
-   const base_url = process.env.PUBLIC_URL
-  const [titulo,setTitulo] = useState({
-    text:"",
-    color:""
-  })
-  const [portalData,setPortalData]=useState({
-    imageFondo:"",
-    image:"",
-    video:"",
-    poster:"",
-    titulo:"",
-    descripcion:"",
-    color:""
-  })
-  const [descripcion,setDescripcion] = useState("")
-  const [loading,setLoading]=useState(false)
-  const [source,setSource] = useState("")
-  const [imageSrc,setImageSrc] = useState<string | undefined>(undefined)
-  const [videoSrc,setVideoSrc] = useState<string | undefined>(undefined)
-  const [imageFondo,setImageFondo] = useState<string | undefined>(undefined)
-  
-  const updateHtmlCode = ()=>{
-    if (htmlCode != undefined){
-      const logoSource:any = document.querySelector("#logo")
-      const tituloP:any = document.querySelector("#titulo")
-      const descripcionId:any = document.querySelector("#descripcion")
-      const imageB:any = document.querySelector("#image-main")
-      const videoB:any  = document.querySelector("#video-b")
-      const imageFondo2:any =  document.querySelector("#image-fondo")
-      // const image = document.querySelector("#image-1")
-      // console.log("image-1:....")
-      // console.log("image",image)
-      if(logoSource != undefined){
-      setSource(logoSource.src)
-    }
-    if(descripcionId != undefined){
-      setDescripcion(descripcionId.textContent)
-    }
-    if(imageB != undefined){
-      setImageSrc(imageB.src)
-      setPortalData({...portalData,image:imageB.src as string})
-    }
-    if(videoB != undefined){
-      setVideoSrc(videoB)
-    }
-    if(tituloP != undefined){
-      setTitulo({
-        text:tituloP.textContent as string,
-        color:tituloP.style.color as string
-      })
-    }
-    if(imageFondo2 != undefined){
-      setPortalData({...portalData,imageFondo:imageFondo2.src as string})
-      setImageFondo(imageFondo2.src)
+const NoCodeEditor = ({basicPortal}:Props)=>{
+  const baseUrl = "http://localhost:1323"
+  const htmlCode = useAppSelector(state=>state.splash.htmlCode)
+  const [showDialog,setShowDialog] = useState(false)
+  const execute = useAppSelector(state=>state.ui.execute)
+  const [submit,setSubmit] = useState(false)
+  const [file,setFile] = useState<File>()
+  const [fileLogo,setFileLogo] = useState<File>()
+  const dispatch = useAppDispatch()
+  const getHtmlFromApi = async() =>{
+    try{
+        const response = await axios.post(`${baseUrl}/v1/portal/basic/update/`,basicPortal)
+        const codeHtml = response.data
+        await dispatch(splashActions.setHtmlCode(codeHtml))
+    }catch(err:any){
+      console.log(err)
     }
   }
+const updatedIFrame =async()=>{
+  console.log("updating")
+  const iframe:any = document.getElementById("myiframe")
+  if(iframe != undefined){
+      iframe.srcdoc = htmlCode
+      // getHtmlFromApi()
   }
+}
 
-  const onChangeImageFondo = async(e:React.ChangeEvent<HTMLInputElement>,id:string,callback:(src:string)=>void) => {
-    const imageBack:any = document.querySelector(id)
-    if(imageBack != undefined){   
-        if (e.target.files && e.target.files[0]) {
-          const id = toast.loading("Porfavor espere...",{position:"bottom-center"})
-          try{
-            const formData = new FormData()
-            const filename = e.target.files[0].name
-            const lastdot = filename.lastIndexOf(".")
-            const imagewebp = filename.slice(0,lastdot) +".webp"
-            formData.append("file",e.target.files[0])   
-            formData.append("filename",imagewebp)
-            // const response = await axios.post(`${base_url}/upload/media/`,formData)
-            toast.update(id, {render:"La carga de la imagen se ha realizado con éxito.",type: "success", isLoading: false,autoClose:5000,position:"bottom-center"});
-            setLoading(false)
-            uploadImage(formData).then(res=>{
-              console.log(res)
-              const imgHref = res.data
-              // setImageSrc(imgHref)
-              callback(imgHref)
-              imageBack.src = imgHref
-            })
-          }catch(err:any){
-             toast.update(id, {render:err.message, type: "error", isLoading: false ,autoClose:5000,position:"bottom-center"});
-          }
-            // const fileN = getInputFileName()
-            // setFileNameVideo(fileN)
+const uploadImage = async(file:File)=>{
+    const formData = new FormData()
+    const lastDot = file?.name.lastIndexOf(".") as number
+    const imgWebp = file?.name.substring(0,lastDot +1) + "webp"
+    formData.append("file",file as File)
+    formData.append("filename",imgWebp)
+    formData.append("bucketName",basicPortal.bucket_name)
+    formData.append("pathName",basicPortal.path_name + "media/")
+    const res = await axios.post<string>(`${baseUrl}/v1/upload/converter/`,formData)
+    console.log(res.data)
+    return res.data
+}
+const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
+  if (e.target.files != null){
+    const file = e.target.files[0];
+    console.log(file.name)
+    setFile(file)
+    const objectUrl = window.URL.createObjectURL(file);
+    // console.log(objectUrl);
+    dispatch(splashActions.setSplashData({
+      ...basicPortal,
+      image:{
+          ...basicPortal.image,
+          url:objectUrl
+      }
+  }))
+  return
+  }
+    dispatch(splashActions.setSplashData({
+        ...basicPortal,
+        image:{
+            ...basicPortal.image,
+            [e.target.name]:e.target.value
         }
-        return
-    } 
+    }))
 }
 
-const deletedSubmitedImage = () =>{
-  setImageFondo(portalData.imageFondo)
-  const image:any = document.querySelector("#image-fondo")
-  image.src = portalData.imageFondo
-}
- 
-  useEffect(()=>{
-   updateHtmlCode()
-    // eslint-disable-line react-hooks/exhaustive-deps
-  },[htmlCode,isCodeEditor])
-
-
-
-    return(
-      <>
-      {/* <h1 className="pt-20 mt-20">dskadmaksmkasm</h1> */}
-        <div className={`max-w-6xl mx-auto ${htmlCode == undefined? " transition-all opacity-0 duration-1000":
-        " transition-all opacity-100 duration-1000 "}`}>
-            {/* <textarea className="w-1/2" name="" id="" cols={30} rows={10}
-            value={htmlString}></textarea> */}
-            <div className="overflow-auto h-screen p-3 space-y-4" >
-              <div className="p-2 flex justify-between pt-16 mt-2">
-            <span className="text-lg font-medium">Portal Cautivo</span>
-              </div>
-              <div className="">
-              <span className="text-lg font-medium">Editar Logo</span>
-              <ImageEdit
-              id="#logo"
-              src={source}
-              />
-              </div>
-              {titulo.text != "" &&
-              <div>
-                <span className="text-lg font-medium">Editar Titulo</span>
-              <EditText
-              titulo={titulo.text}
-              colorValue = {titulo.color}
-              id="#titulo"
-              setValueText={(s,c)=>setTitulo({text:s,color:c})}
-              />
-              </div>
-            }
-            {descripcion != ""  && 
-              <div>
-              <span className="text-lg font-medium">Editar Descripcion</span>
-              <EditParagraph
-              descripcion={descripcion}
-              setValue={(s)=>setDescripcion(s)}
-              id="#descripcion"
-              />
-              </div>
-            }
-              {imageSrc != undefined &&
-              <div>
-              <span className="text-lg font-medium">Editar Portada</span>
-              {/* <EditBanner
-              videoSource={videoSrc}
-            imageSource={imageSrc}/> */}
-            <UploadMedia
-            originSource={portalData.image}
-             source={imageSrc}
-             onChange={(e)=>onChangeImageFondo(e,"#image-main",(src:string)=>setImageSrc(src))}
-             text="Sube una imagen"
-             loading={loading}
-             id="image-1a"
-             restore={deletedSubmitedImage}
-             />
-              </div>
-            }
-
-             
-                <SlideImages
-                htmlCode={htmlCode}
-                />
-
-            {imageFondo != undefined &&
-              <div className="pt-2">
-              <span className="text-lg font-medium">Editar Imagen de fondo</span>
-             <UploadMedia
-             originSource={portalData.imageFondo}
-             source={imageFondo}
-             onChange={(e)=>onChangeImageFondo(e,"#image-fondo",(src:string)=>setImageFondo(src))}
-             text="Sube una imagen"
-             loading={loading}
-             id="fondo"
-             restore={deletedSubmitedImage}
-             />
-              </div>  
-            }
-
-
-              {/* <div className="pt-2 pb-20">
-              <span className="text-lg font-medium">Metodos de authenticacion</span>
-              <ButtonsLogin/>
-            </div>   */}
-           </div>
-
-       
-            <div
-            id="core"
-            className="relative hidden"
-            dangerouslySetInnerHTML={{__html:htmlCode as string}}
-            />
-             </div>
-            </>
-    )
+const onChangeLogo = (e: ChangeEvent<HTMLInputElement>)=>{
+  if (e.target.files != null){
+    const file = e.target.files[0];
+    setFileLogo(file)
+    const objectUrl = window.URL.createObjectURL(file);
+    // console.log(objectUrl);
+    dispatch(splashActions.setSplashData({
+      ...basicPortal,
+      logo:{
+          ...basicPortal.logo,
+          url:objectUrl
+      }
+  }))
+  return
+  }
+  dispatch(splashActions.setSplashData({
+      ...basicPortal,
+      logo:{
+          ...basicPortal.logo,
+          [e.target.name]:e.target.value
+      }
+  }))
 }
 
-export default NoCodeEditor
- 
+const onChangeColor = (name:string,value:string)=>{
+  console.log(name,value)
+  dispatch(splashActions.setSplashData({
+    ...basicPortal,
+    content:{
+        ...basicPortal.content,
+        [name]:value
+    }
+}))
+}
+
+const applyChanges = async() =>{
+  if(file != undefined){
+    dispatch(splashActions.setHtmlCode(undefined))
+    await uploadImage(file).then(res=>{
+        console.log("uploading")
+        dispatch(splashActions.setSplashData({
+          ...basicPortal,
+          image:{
+              ...basicPortal.image,
+              url:res
+          }
+      }))
+      setSubmit(true)
+      setFile(undefined)
+    })
+  }else {
+    dispatch(splashActions.setHtmlCode(undefined))
+    getHtmlFromApi()
+  }
+}
+
+const applyChangesLogo = async() =>{
+  if(fileLogo != undefined){
+    dispatch(splashActions.setHtmlCode(undefined))
+    await uploadImage(fileLogo).then(res=>{
+        console.log("uploading")
+        setSubmit(!submit)
+        setFileLogo(undefined)
+        dispatch(splashActions.setSplashData({
+          ...basicPortal,
+          logo:{
+              ...basicPortal.logo,
+              url:res
+          }
+      }))
+    })
+  }else {
+    dispatch(splashActions.setHtmlCode(undefined))
+    getHtmlFromApi()  
+  }
+}
+
+const applyImage = async()=>{
+  if(fileLogo != undefined){
+  await uploadImage(fileLogo ).then(res=>{
+    // console.log("uploading")
+    // setSubmit(!submit)
+    setFileLogo(undefined)
+    dispatch(splashActions.setSplashData({
+      ...basicPortal,
+      logo:{
+          ...basicPortal.logo,
+          url:res
+      }
+  }))
+})
+}
+if(file != undefined){
+  await uploadImage(file).then(res=>{
+    console.log("uploading")
+    // setSubmit(!submit)
+    setFileLogo(undefined)
+    dispatch(splashActions.setSplashData({
+      ...basicPortal,
+      image:{
+        ...basicPortal.image,
+        url:res
+      }
+    }))
+  })
+}
+setSubmit(true)
+}
+
+
+
+useEffect(()=>{
+    // console.log('submit')
+    getHtmlFromApi()
+},[submit])
+
+useEffect(()=>{
+  updatedIFrame()
+},[htmlCode])
+
+useEffect(()=>{
+  if(execute){
+    console.log(file,fileLogo)
+    if(file == undefined && fileLogo == undefined){
+      dispatch(saveSplashPage())
+    }else{
+      setShowDialog(true)
+      dispatch(uiActions.setExecute(false))
+    }
+  }
+},[execute])
+
+
+
+  return(
+    <>
+    {showDialog&&
+     <DialogConfirmation
+     title="Hay cambios hechos sin guardar. ¿Desea guardarlos?"
+     descripcion="Los cambios realizados serán guardados si decide continuar."
+     openModal={showDialog}
+     closeModal={()=>setShowDialog(false)}
+     buttonText2="Guardar cambios"
+     descartar={()=>setShowDialog(false)}
+     performAction={async()=>{
+       dispatch(uiActions.setLoading(true))
+       dispatch(uiActions.setOpenDialog(false))
+       setShowDialog(false)
+      await applyImage()
+      dispatch(uiActions.setLoading(false))
+      dispatch(uiActions.setOpenDialog(true))
+     }}
+     />
+    }
+    <div className="grid gap-y-3 w-full">
+        {/* {basicPortal != undefined && */}
+        <div className="lg:grid lg:grid-cols-2 xl:grid-cols-3 gap-3 w-full">
+          
+          <div className="lg:col-span-1 xl:col-span-2 overflow-auto h-[91vh]">
+            <div>
+            <h2 className="title text-center text-2xl underline">Portal Cautivo</h2>
+                    <ContentEdit
+                    content={basicPortal.content}
+                    onChangeColor={onChangeColor}
+                    />
+                  {/* } */}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2  gap-4 mt-3">
+                    <ImageEdit
+                    image={basicPortal?.image}
+                    onChange={onChangeImage}
+                    id="image"
+                    applyChanges={applyChanges}
+                    />
+                    <ImageEdit
+                    image={basicPortal?.logo}
+                    onChange={onChangeLogo}
+                    applyChanges={applyChangesLogo}
+                    id="logo"
+                    />
+                    </div>
+            </div>
+
+
+      </div>
+
+      <div id="iframe-container" className="relative h-screen lg:h-full">
+        {/* <iframe onChange={(e)=>console.log(e)} className= "w-full h-screen justify-center flex relative"
+        src="/transporte2.html"></iframe> */}
+        {(htmlCode == undefined) ?
+        <div className= " flex fixed animate-pulse bg-gray-400 w-full h-screen lg:h-full "/>
+         :
+        <iframe className= "w-full h-full  flex relative"
+        src={basicPortal.url}
+        id="myiframe"></iframe>
+        }
+      </div>
+
+      </div>
+    </div>
+    </>
+  )
+}
+
+export default NoCodeEditor;

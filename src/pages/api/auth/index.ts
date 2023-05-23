@@ -35,8 +35,10 @@ export default async function auth(req:NextApiRequest,res:NextApiResponse){
                 // sameSite: 'strict',
                 path:"/api/",
                 });
+            
+            // console.log(data)
             res.status(200).json({
-                result:data
+                result:data.user
             })
         } 
         catch(err:any) {

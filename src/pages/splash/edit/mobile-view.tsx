@@ -19,7 +19,7 @@ const MobileView = () =>{
                 <div className="relative shadow-xl flex justify-center h-screen overflow-auto max-w-3xl mx-auto">
                     <div className='pt-20'>
                     <DeviceFrameset device="Samsung Galaxy S5" color="black" width={380} height={700}>
-                        {splashState.splashPage == undefined ?
+                        {splashState.basicPortal == undefined ?
                         <div className='grid place-content-center -mt-14 h-screen'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
                             stroke="currentColor" className="w-10 h-10 cursor-pointer"
@@ -30,7 +30,7 @@ const MobileView = () =>{
                         </div>
                     :
                     <iframe className="h-[700px] w-[380px]"
-                    src={splashState.splashPage?.urlSplash}
+                    src={splashState.basicPortal?.url}
                     id="myiframe"></iframe>
                 }
                     </DeviceFrameset>

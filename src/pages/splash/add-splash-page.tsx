@@ -55,10 +55,10 @@ const AddSplashPage = () =>{
         <EditLayout>
         <ToastContainer/>
             <div>
-            <NoCodeEditor
-                htmlCode={htmlCode}
-                isCodeEditor={isCodeEditor}
-                />
+            {/* <NoCodeEditor
+                // htmlCode={htmlCode}
+                // isCodeEditor={isCodeEditor}
+                /> */}
             </div>
         </EditLayout>
         // </SplashLayout>

@@ -1,12 +1,13 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { SplashPage, SplashState } from "../../data/models/redux-models/splash-data";
+import { BasicPortal, SplashPage, SplashState } from "../../data/models/redux-models/splash-data";
 
 
 const initialSplashState :SplashState ={
     splashPages:[],
     splashPage:undefined,
     splashBaseUrl:undefined,
-    htmlCode:undefined
+    htmlCode:undefined,
+    basicPortal:undefined
 }
 
 const splashSlice = createSlice({
@@ -24,6 +25,9 @@ const splashSlice = createSlice({
         },
         setSplashBaseUrl(state,action:PayloadAction<string>){
             state.splashBaseUrl = action.payload
+        },
+        setSplashData(state,action:PayloadAction<BasicPortal>){
+            state.basicPortal = {...state.basicPortal,...action.payload}
         }
       
     }

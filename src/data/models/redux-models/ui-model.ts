@@ -21,6 +21,7 @@ export interface UiState {
     isMobile:boolean
     initAnimation:boolean
     pathName:string
+    execute:boolean
     // shouldFetch:boolean,
     // dialogLoading:boolean,
 }
