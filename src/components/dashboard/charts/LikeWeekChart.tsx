@@ -2,16 +2,24 @@ import { LikeData } from '@/data/models/redux-models/dashboard-model';
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, CartesianGrid, XAxis, Tooltip, Legend, YAxis, ResponsiveContainer } from 'recharts';
 import { CustomTooltip } from './CustomToolTip';
+import Loader from '@/components/util/loaders/Loader';
 
 interface Props {
   dataLike:undefined | any[]
+  loading:boolean
 }
 const LikeWeekChart =  ({
- dataLike
+ dataLike,loading
 }:Props)=>  {
   // static demoUrl = 'https://codesandbox.io/s/simple-bar-chart-tpz8r';
 
     return (
+      <>
+      {loading?
+      <Loader
+      className='h-[300px] w-full grid place-content-center'
+      />
+      :
       <ResponsiveContainer width="100%" height={300}>
       <BarChart data={dataLike}  margin={{
         top: 20,
@@ -27,6 +35,8 @@ const LikeWeekChart =  ({
       {/* <Bar dataKey="uv" fill="#82ca9d" /> */}
     </BarChart>
       </ResponsiveContainer>
+    }
+    </>
     );
   }
 

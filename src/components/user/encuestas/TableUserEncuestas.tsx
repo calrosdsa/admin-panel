@@ -40,9 +40,9 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
     return(
         <>
         <div className="relative overflow-x-auto mt-4">
-    <table className="w-full text-sm text-left text-gray-500 ">
+    <table className="w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
-            <tr>
+            <tr className="">
                 <th scope="col" className="paddingTable"  onClick={()=>changeOrderListByName(orderStateName)}>
                     Nombre
                     {/* <div className="flex items-center"> 
@@ -64,6 +64,9 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
                 </th>
                 <th scope="col" className="paddingTable text-center">
                     Marca de Cigarro
+                </th>
+                <th scope="col" className="paddingTable text-center">
+                Aceptó los términos
                 </th>
             </tr>
         </thead>
@@ -111,6 +114,14 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
                     {/* {formatShortDate(item.birthday)} */}
                     {item.marca} 
 
+                </td>
+                <td  className="paddingTable font-medium text-gray-900 text-center">
+                    {/* <LongText */}
+                    {/* content={item.message} */}
+                    {/* limit={140} */}
+                    {/* /> */}
+                    {/* {formatShortDate(item.birthday)} */}
+                    Si
                 </td>
             </tr>
                 )})}

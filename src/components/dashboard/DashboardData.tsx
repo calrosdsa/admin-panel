@@ -8,7 +8,7 @@ import Example from "./charts/LikeWeekChart";
 
 const DashboardData = ()=>{
     const dashboardState = useAppSelector(state=>state.dashboard)
-    const uiState = useAppSelector(state=>state.ui)
+    const loading = useAppSelector(state=>state.ui.loading)
     const dispatch = useAppDispatch()
     // useEffect(()=>{
     //     dispatch(getDataLikeForWeek())
@@ -56,7 +56,7 @@ const DashboardData = ()=>{
    
 
     return(
-        <div className="w-full px-1 xl:mt-0 lg:pr-5 lg:pt-4 flex flex-col lg:h-screen lg:overflow-auto">
+        <div className="w-full px-1 xl:mt-0 lg:pr-5 lg:pt-3 flex flex-col lg:h-screen lg:overflow-auto">
         <div className='pt-10 xl:pt-0'>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">
@@ -206,6 +206,7 @@ const DashboardData = ()=>{
         <span className="font-semibold">(usuarios de la red)</span>
         <LikeWeekChart
         dataLike={dashboardState.likesForWeekUserWifi}
+        loading={loading}
         />
         </div>
 
@@ -215,6 +216,7 @@ const DashboardData = ()=>{
         <span className="font-semibold">(general)</span>
         <LikeWeekChart
         dataLike={dashboardState.likesForWeekUserWifi}
+        loading={loading}
         // data={dashboardState.likesForWeek}
         />
         </div>

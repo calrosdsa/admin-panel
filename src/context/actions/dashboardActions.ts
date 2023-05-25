@@ -30,9 +30,9 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
             // const access_token = getCookie("access_token")
             const response = await axios.get('/api/dashboard/likes')
             // const response =await axios.get('/api/splash-pages')
-            dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)
             dispatch(dashboardAction.setLikeDataForWeek(response.data.res))
+            dispatch(uiActions.setLoading(false))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -51,9 +51,9 @@ export const getDataLikeForWeekUserWifi = () :ThunkAction<void,RootState,undefin
             // const access_token = getCookie("access_token")
             const response = await axios.get('/api/dashboard/likesLocal')
             // const response =await axios.get('/api/splash-pages')
-            dispatch(uiActions.setLoading(false))
             // localStorage.setItem('token',response.data.access_token)
             dispatch(dashboardAction.setLikeDataForLikesUserWifi(response.data.res))
+            dispatch(uiActions.setLoading(false))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
