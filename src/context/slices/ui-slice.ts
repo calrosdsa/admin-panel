@@ -1,4 +1,4 @@
-import { UiState } from "../../data/models/redux-models/ui-model";
+import { PaginationProps, UiState } from "../../data/models/redux-models/ui-model";
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 
@@ -12,12 +12,16 @@ const initialUiState :UiState ={
     initAnimation:true,
     pathName:'',
     execute:false,
+    totalCount:undefined,
 }
 
 const uiSlice = createSlice({
     name:'ui',
     initialState:initialUiState,
     reducers:{
+        setTotalCount(state,action:PayloadAction<number>){
+            state.totalCount = action.payload
+        },
         setExecute(state,action:PayloadAction<boolean>){
             state.execute = action.payload
         },

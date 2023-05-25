@@ -9,8 +9,9 @@ import LongText from "../../LongText";
 interface Props{
     users:Encuesta[]
     ids:string[]
+    currentPage:number
 }
-const TableUserEncuestas = ({users,ids}:Props) =>{
+const TableUserEncuestas = ({users,ids,currentPage}:Props) =>{
     const dispatch = useAppDispatch()
     const [ orderState, setOrderState ] = useState(Order.DESCENDENTE)
     const [ orderStateName,setOrderStateName ] = useState(Order.DESCENDENTE)
@@ -41,8 +42,11 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
         <>
         <div className="relative overflow-x-auto mt-4">
     <table className="w-full text-sm text-left text-gray-500">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
+        <thead className="text-xs truncate text-gray-700 uppercase bg-gray-200 ">
             <tr className="">
+                <th>
+
+                </th>
                 <th scope="col" className="paddingTable"  onClick={()=>changeOrderListByName(orderStateName)}>
                     Nombre
                     {/* <div className="flex items-center"> 
@@ -71,10 +75,13 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
             </tr>
         </thead>
         <tbody>
-            {users.map((item)=>{
+            {users.map((item,idx)=>{
                 return(
-                    <tr key={item.id} className="bg-white border-b hover:bg-gray-100">
-            
+                    <tr key={idx} className="bg-white border-b hover:bg-gray-100">
+                <td className="paddingTable font-medium">
+                    {idx + (currentPage-1)*30 + 1}.-
+                </td>
+
                 <td onClick={()=>navigateToUserProfilePage(item.id)}
                 className="paddingTable whitespace-nowrap text-primary cursor-pointer">
                     {item.fullName}
@@ -88,7 +95,7 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
                 {/* <td className="paddingTable whitespace-nowrap">
                     {item.gender}
                 </td> */}
-                <td  className="paddingTable font-medium text-gray-900 text-center">
+                <td  className="paddingTable font-medium text-gray-900 text-center ">
                     {item.cantDispositivo} dispositivos
 
                 </td>

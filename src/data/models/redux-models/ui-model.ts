@@ -5,6 +5,11 @@ export interface ToastData {
 }
 
 
+type PaginationProps = {
+    currentPage:number
+    totalCount:number
+}
+
 
 
 export interface UiState {
@@ -22,6 +27,11 @@ export interface UiState {
     initAnimation:boolean
     pathName:string
     execute:boolean
+    totalCount?:number
     // shouldFetch:boolean,
     // dialogLoading:boolean,
+}
+
+export type {
+    PaginationProps
 }

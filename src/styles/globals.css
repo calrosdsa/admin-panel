@@ -45,7 +45,7 @@
       @apply p-4  hover:border-b-2 cursor-pointer border-gray-400
      }
      .paddingTable {
-      @apply py-3 px-4 
+      @apply py-3 px-4  whitespace-nowrap
      }
      .input{
       @apply p-1 outline-none border-[1px] rounded-md border-gray-400 focus:border-primary 

@@ -31,7 +31,9 @@ export const getEncuestas = () :ThunkAction<void,RootState,undefined,AnyAction>=
        try{
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user/encuesta`)
-        console.log(response.data)
+        const count =Math.ceil(response.data.users.length / 30)
+        console.log(count)
+        dispatch(uiActions.setTotalCount(count))
         dispatch(uiActions.setInnerLoading(false))
         dispatch(userActions.setEncuestas(response.data.users))        
        }catch(err:any){

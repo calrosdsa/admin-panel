@@ -7,8 +7,10 @@ import { donwloadReportLastTenDays, donwloadReportTest } from "@/context/actions
 import { getEncuestas, getUserList } from "@/context/actions/userActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import { ReporteId } from "@/data/models/redux-models/dashboard-model";
+import { Encuesta } from "@/data/models/redux-models/user-models";
+import { usePagination } from "@/utils/hooks/usePagination";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FallingLines } from "react-loader-spinner";
 import { Id, toast } from "react-toastify";
 
@@ -17,7 +19,10 @@ const Users = () =>{
     const userState = useAppSelector(state=>state.user)
     const dashboardState = useAppSelector(state=>state.dashboard)
     const uiState = useAppSelector(state=>state.ui)
+    const [ currentPage,setCurrentPage] = useState(1)
+    const [encuestas,setEncuestas] = useState<Encuesta[]>([])
     const dispatch = useAppDispatch()
+    const pageSize = 30
     
     const downloadReport = (idProgress:number) =>{
         const cancelToken = axios.CancelToken;
@@ -39,19 +44,55 @@ const Users = () =>{
                 dispatch(donwloadReportTest(idProgress,id,source))
         }
     }
+
+    const onNext=()=>{
+        if(uiState.totalCount != undefined && currentPage < uiState.totalCount){
+            setCurrentPage(currentPage + 1)
+            const inicio = pageSize * currentPage
+            setEncuestas(userState.encuestas.slice(inicio,inicio+pageSize))
+        }
+    }
+
+    const onPrev = () =>{
+        if(currentPage > 1){
+            setCurrentPage(currentPage - 1)
+            console.log(currentPage)
+            const page = currentPage -1
+            const inicio = pageSize * page -pageSize
+            const end = page *pageSize
+            // console.log(inicio,end)
+            setEncuestas(userState.encuestas.slice(inicio,end))
+        }
+    }
+
+    const setPage = (p:number) => {
+        setCurrentPage(p)
+        console.log(p)
+        const start = pageSize * (p-1)
+        const end = p * pageSize
+        // console.log(start,end)
+        setEncuestas(userState.encuestas.slice(start,end))
+    }
+
     useEffect(()=>{
         if(userState.encuestas.length == 0){
             dispatch(getEncuestas())
         }
     },[])
+
+    // useEffect(()=>{
+    //     if(currentPage == 1){
+    //         setEncuestas(userState.encuestas.slice(0,pageSize))
+    //     }
+    // },[userState.encuestas])
     return(
 
         <Layout>
-            <div className="xl:pt-1 pt-10">
-                <div className=" flex justify-between">
+            <div className="xl:pt-1 pt-10 relative">
+                <div className=" flex justify-between items-center mt-2">
 
             <button onClick={()=>downloadReport(ReporteId.USER_RED)}
-           className='button w-min flex items-center space-x-2 rounded-none mt-2'>
+           className='button w-min flex items-center space-x-2 rounded-none'>
            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 48 48" width="25px" height="25px" className="mr-1">
             <path fill="#4CAF50" d="M41,10H25v28h16c0.553,0,1-0.447,1-1V11C42,10.447,41.553,10,41,10z"/>
             <path fill="#FFF" d="M32 15H39V18H32zM32 25H39V28H32zM32 30H39V33H32zM32 20H39V23H32zM25 15H30V18H25zM25
@@ -61,8 +102,11 @@ const Users = () =>{
             4c0.078-0.271,0.224-0.68,0.439-1.22L19.237,17h3.515l-4.199,6.939l4.316,7.059h-3.74V31z"/></svg>
                 <span className=" whitespace-nowrap text-sm font-semibold">Descargar Reporte</span>
            </button>
-
-           {/* <Pagination/> */}
+           {/* {uiState.totalCount != undefined &&
+               <Pagination currentPage={currentPage} setPage={setPage}
+               totalCount={uiState.totalCount} onPrev={onPrev} onNext={onNext}
+               />
+            } */}
 
         </div>
                 {/* <DashboardData2/> */}
@@ -78,8 +122,10 @@ const Users = () =>{
           :
 
               <TableUserEncuestas
-              users={userState.encuestas}
+            //   users={encuestas}
+            users={userState.encuestas}
               ids={userState.ids}
+              currentPage={currentPage}
               />
                }
             </div>

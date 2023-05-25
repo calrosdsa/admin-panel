@@ -7,18 +7,13 @@ const range = (start: number, end: number) => {
   let length = end - start + 1;
   return Array.from({ length }, (_, idx) => idx + start);
 };
-interface Props{
-  totalCount:number
-  pageSize:number
-  siblingCount:number
-  currentPage:number
-}
+
 export const usePagination = ({
   totalCount,
   pageSize,
   siblingCount = 1,
   currentPage
-}:Props) => {
+}:any) => {
   const paginationRange = useMemo(() => {
     const totalPageCount = Math.ceil(totalCount / pageSize);
 

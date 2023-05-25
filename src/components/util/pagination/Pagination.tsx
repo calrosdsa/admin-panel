@@ -1,48 +1,63 @@
+import { useAppDispatch } from '@/context/reduxHooks';
+import { userActions } from '@/context/slices/user-slice';
 import { DOTS, usePagination } from '@/utils/hooks/usePagination';
+import { useEffect, useState } from 'react';
+
+interface Props{
+    currentPage:number
+    setPage:(num:number)=>void
+    totalCount:number
+    onPrev:()=>void
+    onNext:()=>void
+}
+const Pagination = ({currentPage,setPage,totalCount,onNext,onPrev}:Props) => {
+   
+    const siblingCount =1;
+    const pageSize =1
+    const paginationRange = usePagination({
+        currentPage,
+        totalCount,
+        siblingCount,
+        pageSize,
+    })
+       
 
 
-const Pagination = () => {
-  const currentPage =  1
-  const totalCount = 10
-  const siblingCount =0;
-  const pageSize =1
-  const paginationRange = usePagination({
-    currentPage,
-    totalCount,
-    siblingCount,
-    pageSize,
-})
+useEffect(()=>{
+    // console.log(paginationRange)
+},[currentPage])
 
     return(
         <>      
-            <div className='w-full items-center sm:justify-end flex space-x-3  px-1'> 
-            <span className='iconM'  />
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-</svg>
+            <div className='flex px-1 space-x-3 items-end noselect'> 
+            {/* <span className='iconM'  /> */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+             className="w-5 h-5 cursor-pointer" onClick={onPrev}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+            </svg>
 
-              {paginationRange != undefined&&
-               paginationRange.map(pageNumber => {
-
-                  if (pageNumber === DOTS) {
-                      return <span key={pageNumber} className="text-2xl px-2">{DOTS}</span>;
+            <div>
+              {paginationRange != undefined &&
+              paginationRange.map((pageNumber,idx) => {
+                // console.log(typeof pageNumber)
+                   if (typeof pageNumber == 'string') {
+                       return <span key={idx} className="text-2xl px-3 ">{DOTS}</span>;
                     }
 
                 return (
-                <span key={pageNumber}
-                className={` ${currentPage != pageNumber ?
-                    'button bg-white text-black border-[2px]':"border-[2px] border-primary button text-primary"}`}
-                
+                <span key={idx} onClick={()=>setPage(pageNumber as number)}
+                className={`cursor-pointer border-[1px] py-2 px-3 ${currentPage != pageNumber ?
+                    'text-black border-gray-400':"border-primary text-primary"}`}
                 >
                     {pageNumber}
                 </span>
                 );
             })}
-            <span className='iconM'>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
+            className="w-5 h-5 cursor-pointer" onClick={onNext}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
             </svg>
-            </span>
             </div>
         </>
     )
