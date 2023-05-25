@@ -78,7 +78,7 @@ const TableUserEncuestas = ({users,ids,currentPage}:Props) =>{
             {users.map((item,idx)=>{
                 return(
                     <tr key={idx} className="bg-white border-b hover:bg-gray-100">
-                <td className="paddingTable font-medium">
+                <td className="paddingTable pl-3 font-medium">
                     {idx + (currentPage-1)*30 + 1}.-
                 </td>
 
