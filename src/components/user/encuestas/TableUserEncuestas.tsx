@@ -66,7 +66,7 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
                     Marca de Cigarro
                 </th>
                 <th scope="col" className="paddingTable text-center">
-                Aceptó los términos
+                 Consentimiento
                 </th>
             </tr>
         </thead>
@@ -89,39 +89,19 @@ const TableUserEncuestas = ({users,ids}:Props) =>{
                     {item.gender}
                 </td> */}
                 <td  className="paddingTable font-medium text-gray-900 text-center">
-                    {/* <LongText */}
-                    {/* content={item.message} */}
-                    {/* limit={140} */}
-                    {/* /> */}
-                    {/* {formatShortDate(item.birthday)} */}
                     {item.cantDispositivo} dispositivos
 
                 </td>
                 <td  className="paddingTable font-medium text-gray-900 text-center">
-                    {/* <LongText */}
-                    {/* content={item.message} */}
-                    {/* limit={140} */}
-                    {/* /> */}
-                    {/* {formatShortDate(item.birthday)} */}
                     {item.esFumador} 
 
                 </td>
                 <td  className="paddingTable font-medium text-gray-900 text-center">
-                    {/* <LongText */}
-                    {/* content={item.message} */}
-                    {/* limit={140} */}
-                    {/* /> */}
-                    {/* {formatShortDate(item.birthday)} */}
                     {item.marca} 
 
                 </td>
                 <td  className="paddingTable font-medium text-gray-900 text-center">
-                    {/* <LongText */}
-                    {/* content={item.message} */}
-                    {/* limit={140} */}
-                    {/* /> */}
-                    {/* {formatShortDate(item.birthday)} */}
-                    Si
+                    {item.esFumador == "Si" ? "Si":""}
                 </td>
             </tr>
                 )})}

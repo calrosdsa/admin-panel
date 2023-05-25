@@ -1,7 +1,4 @@
 import CreatePortalLayout from "@/components/layout/CreatePortalLayout";
-import Input from "@/components/util/Input";
-import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
-// import { button, Spinner, TextInput } from "flowbite-react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import slugify from "react-slugify";

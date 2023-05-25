@@ -8,9 +8,10 @@ import { login } from '@/context/actions/authActions';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { authActions } from '@/context/slices/auth-slice';
 import RegistroLayer from '@/components/layout/registerLayer';
-import InputPassword from '@/components/util/InputPassword';
-import Input from '@/components/util/Input';
-import ButtonSubmit from '@/components/util/ButtonSubmit';
+import InputPassword from '@/components/util/input/InputPassword';
+// import Input from '@/components/util/Input';
+import ButtonSubmit from '@/components/util/button/ButtonSubmit';
+import Input from '@/components/util/input/Input';
 
 interface Props {
   userAgent?: string;
