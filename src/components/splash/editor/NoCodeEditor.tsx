@@ -239,7 +239,7 @@ useEffect(()=>{
           
           <div className="lg:col-span-1 xl:col-span-2 overflow-auto h-[91vh]">
             <div>
-            <h2 className="title text-center text-2xl underline">Portal Cautivo</h2>
+            <h2 className="title text-center text-xl underline">Portal Cautivo</h2>
                     <ContentEdit
                     content={basicPortal.content}
                     onChangeColor={onChangeColor}
