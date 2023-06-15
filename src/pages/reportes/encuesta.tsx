@@ -123,7 +123,7 @@ const Users = () =>{
 
               <TableUserEncuestas
             //   users={encuestas}
-            users={userState.encuestas}
+               users={userState.encuestas}
               ids={userState.ids}
               currentPage={currentPage}
               />

@@ -66,6 +66,7 @@ export type UserSolicitud  = {
 export interface Encuesta extends UserWifi {
   esFumador:string
   marca:string
+  fecha:string
 }
 
 

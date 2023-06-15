@@ -58,11 +58,11 @@ const TableUserEncuestas = ({users,ids,currentPage}:Props) =>{
                     Mail
                 </th>
                 <th scope="col" className="paddingTable text-center">
-                    Conexiones
+                    Fecha de Registro
                 </th>
-                <th scope="col" className="paddingTable text-center">
-                    Dispositivos
-                </th>
+                {/* <th scope="col" className="paddingTable text-center"> */}
+                    {/* Dispositivos */}
+                {/* </th> */}
                 <th scope="col" className="paddingTable text-center">
                     Es Fumador
                 </th>
@@ -91,15 +91,15 @@ const TableUserEncuestas = ({users,ids,currentPage}:Props) =>{
                     {item.mail}
                 </td>
                 <td className="paddingTable whitespace-nowrap text-center">
-                    {item.cantConexion} conexiones
+                    {item.fecha}
                 </td>
                 {/* <td className="paddingTable whitespace-nowrap">
                     {item.gender}
                 </td> */}
-                <td  className="paddingTable font-medium text-gray-900 text-center ">
+                {/* <td  className="paddingTable font-medium text-gray-900 text-center ">
                     {item.cantDispositivo} dispositivos
 
-                </td>
+                </td> */}
                 <td  className="paddingTable font-medium text-gray-900 text-center">
                     {item.esFumador} 
 

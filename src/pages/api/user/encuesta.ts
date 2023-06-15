@@ -24,7 +24,7 @@ export default async function splashPages(req:NextApiRequest,res:NextApiResponse
 
             // console.log(response.status)
             const data = response.data
-            console.log(data)
+            // console.log(data)
             return res.status(200).json({
                 users:data.data
             })
