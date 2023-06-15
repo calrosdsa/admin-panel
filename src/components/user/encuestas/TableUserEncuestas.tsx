@@ -80,6 +80,7 @@ const TableUserEncuestas = ({users,ids,currentPage}:Props) =>{
                     <tr key={idx} className="bg-white border-b hover:bg-gray-100">
                 <td className="paddingTable pl-3 font-medium">
                     {idx + (currentPage-1)*30 + 1}.-
+                    <span className="hidden">{item.id}</span>
                 </td>
 
                 <td onClick={()=>navigateToUserProfilePage(item.id)}
