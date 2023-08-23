@@ -17,6 +17,7 @@ export default async function getPortal(req:NextApiRequest,res:NextApiResponse){
                 portal:data
             })
         }catch(err:any){
+            // console.log(err,"ERROR")
             return res.status(err.response.status).json({
                 message:err.response.message
             })
