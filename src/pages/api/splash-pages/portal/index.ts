@@ -12,7 +12,7 @@ export default async function getPortal(req:NextApiRequest,res:NextApiResponse){
         try{
             const response = await axios.get(`${PUBLIC_URL}/portal/basic/${code}/`)
             const data = response.data
-            // console.log(data)
+            console.log(data)
             return res.status(200).json({
                 portal:data
             })
