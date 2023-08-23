@@ -47,7 +47,7 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
         try{
             dispatch(uiActions.setLoading(true))
             const response = await axios.get(`/api/splash-pages/portal?code=${code}`)
-            console.log(response.data.portal)
+            // console.log(response.data.portal)
             dispatch(uiActions.setLoading(false))
             dispatch(splashActions.setSplashData(response.data.portal))
         }catch(err:any){
