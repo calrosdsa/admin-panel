@@ -30,7 +30,7 @@ const MobileView = () =>{
                         </div>
                     :
                     <iframe className="h-[700px] w-[380px]"
-                    src={splashState.basicPortal?.url}
+                    src={splashState.basicPortal.portal.url}
                     id="myiframe"></iframe>
                 }
                     </DeviceFrameset>

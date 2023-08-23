@@ -146,7 +146,7 @@ return(
 
 
       
-{/* 
+
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
@@ -178,7 +178,7 @@ return(
               </Disclosure.Panel>
             </>
           )}
-        </Disclosure> */}
+        </Disclosure>
         </>
         {/* } */}
 

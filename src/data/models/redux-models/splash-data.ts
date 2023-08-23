@@ -10,7 +10,15 @@ type SplashPage = {
     urlSplash?:string
 }
 
+type SettingsPortal = {
+    id:number
+    provider:number
+    provider_url:string
+    url_redirect:string
+}
+
 type ImagePortal = {
+    id:number
     url?:string,
     height?:string,
     width?:string,
@@ -18,21 +26,30 @@ type ImagePortal = {
     object_fit?:string
 }
 
-type PortalCommon = {
+type PortalBase = {
+    id_portal:number
     bucket_name:string
     path_name:string
+    portal_name:string
     url:string
+    provider_url:string
+    provider:number
 }
 
-type  ContentPortal ={
-    button_color:string
+type  PortalProperties ={
+    id:number    
+    color:string
     background:string
+    text_color:string
+    image_background:string
 }
 
-export interface BasicPortal extends PortalCommon {
-    image?:ImagePortal
-    logo?:ImagePortal
-    content:ContentPortal
+export interface BasicPortal {
+    portal:PortalBase
+    image:ImagePortal
+    logo:ImagePortal
+    properties:PortalProperties
+    settings:SettingsPortal
 }
 
 
@@ -47,5 +64,5 @@ export interface SplashState {
 export type {
     SplashPage,
     ImagePortal,
-    ContentPortal,
+    PortalProperties as ContentPortal,
 }

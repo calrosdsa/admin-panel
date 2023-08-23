@@ -22,6 +22,7 @@ module.exports = nextTranslate({
     "scontent.fsrz3-1.fna.fbcdn.net",
     "graph.facebook.com",
     "platform-lookaside.fbsbx.com",
-    ]
+    ],
+    writeToCacheDir: false,
   },
 })

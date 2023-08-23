@@ -14,14 +14,28 @@ import { toast } from "react-toastify";
 const Edit = ()=>{
   const base_url = process.env.PUBLIC_URL
   const dispatch = useAppDispatch()
-  const splashState = useAppSelector(state=>state.splash)
+  const [showDialog,setShowDialog] = useState(false)
   const basicPortal = useAppSelector(state=>state.splash.basicPortal)
+  const execute = useAppSelector(state=>state.ui.execute)
 
  
 
   const saveChanges = async() =>{
     dispatch(uiActions.setExecute(true))
   }
+
+
+  // useEffect(()=>{
+  //   if(execute){
+  //     console.log(file,fileLogo)
+  //     if(file == undefined && fileLogo == undefined){
+  //       dispatch(saveSplashPage())
+  //     }else{
+  //       setShowDialog(true)
+  //       dispatch(uiActions.setExecute(false))
+  //     }
+  //   }
+  // },[execute])
  
   useEffectOnce(()=>{
     if(window.location.search != undefined){
@@ -29,6 +43,7 @@ const Edit = ()=>{
         dispatch(getSplashPageByCode(parsed.code as string))
       }
   })
+
   return(
       <EditLayout saveChanges={saveChanges}>
         <div className=" grid-cols-2">

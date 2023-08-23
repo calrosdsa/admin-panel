@@ -23,7 +23,8 @@ const ColorPicker = ({color,onChangeColor,title}:Props) =>{
         <div className="grid gap-y-1">
         <span className=" font-semibold">{title}</span>
         <div className=" flex space-x-3 items-center">
-        <span style={{background:color.hex}} className={` h-5 w-8 rounded-md`}/>
+        <span  onClick={()=>setOpenPalette(true)}
+         style={{background:color.hex}} className={` h-5 w-8 rounded-md border-gray-500 border-[1px]`}/>
         <span className="underline cursor-pointer" onClick={()=>setOpenPalette(true)}>{color.hex}</span>
         </div>
         </div>

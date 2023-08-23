@@ -20,7 +20,7 @@ const EditLayout = ({children,saveChanges}:Props) =>{
     const { code } = router.query
     const dispatch = useAppDispatch();
     const uiState = useAppSelector(state=>state.ui);
-    const showSaveButton = router.pathname == "/splash/edit" || router.pathname == "/splash/edit/html" || router.pathname == "/splash/edit/auth-method" ;
+    const showSaveButton = router.pathname == "/splash/edit" || router.pathname == "/splash/edit/html" || router.pathname == "/splash/edit/settings" ;
     const portal = useAppSelector(state=>state.splash.basicPortal)
 
     
@@ -64,9 +64,9 @@ const EditLayout = ({children,saveChanges}:Props) =>{
                        className={` button ${router.pathname == "/splash/edit/mobile-view" && "text-primary"}`}>
                         Mobile View
                     </button>
-                    <button  onClick={()=>router.push(`/splash/edit/auth-method?code=${code}`)}
-                       className={` button ${router.pathname == "/splash/edit/auth-method" && "text-primary"}`}>
-                        Method
+                    <button  onClick={()=>router.push(`/splash/edit/settings?code=${code}`)}
+                       className={` button ${router.pathname == "/splash/edit/settings" && "text-primary"}`}>
+                        Ajustes
                     </button>
                     <button  onClick={()=>{
                         router.push(`/splash/edit?code=${code}`)
@@ -75,17 +75,10 @@ const EditLayout = ({children,saveChanges}:Props) =>{
                        className={` button ${router.pathname == "/splash/edit" && "text-primary"}`}>
                         Editar
                     </button>
-                    <button  onClick={()=>{
-                        router.push(`/splash/edit/html?code=${code}`)
-                        dispatch(splashActions.setHtmlCode(undefined))
-                    }}
-                       className={` button ${router.pathname == "/splash/edit/html" && "text-primary"}`}>
-                        Html
-                    </button>
                   </div>
                   <div className="flex space-x-3">
                   <button disabled={!showSaveButton} className=" button underline" onClick={()=>{
-                      window.open(portal?.url)
+                      window.open(portal?.portal.url)
                     }}>
                     Ver portal
                   </button>

@@ -18,7 +18,7 @@ const DeskTopView = () =>{
     }
     return(
         <EditLayout>
-       {splashState.splashPage == undefined ?
+       {splashState.basicPortal == undefined ?
                     <div className='grid place-content-center -mt-14 h-screen'>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
                         stroke="currentColor" className="w-10 h-10 cursor-pointer"
@@ -29,7 +29,7 @@ const DeskTopView = () =>{
                     </div>
                 :
                 <iframe className="h-screen w-full pt-20"
-                src={splashState.splashPage?.urlSplash}
+                src={splashState.basicPortal.portal.url}
                 id="myiframe"></iframe>
             }
         </EditLayout>
