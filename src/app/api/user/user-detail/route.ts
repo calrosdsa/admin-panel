@@ -9,7 +9,10 @@ export async function GET(request:Request) {
     const id = searchParams.get('id')
     const nextCookies = cookies(); // Get cookies object
     const token = nextCookies.get('access_token')?.value
-    console.log(token,"--------------------")
+    if(token == undefined){
+      return NextResponse.json("Usuario no authorizado",{status:401})
+    }
+    // console.log(token,"--------------------")
   try{
     //   const body = await request.json()
       const res = await fetch(`${API_URL}/apiFB/public/userwifi/getUserWifi`,{

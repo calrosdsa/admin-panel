@@ -21,7 +21,7 @@ export async function GET(request:Request) {
        }}
      )
      const data =await res.json()
-     console.log(data)
+    //  console.log(data)
       return NextResponse.json(data.data,{status:200})
    }catch(err){
       console.log(err)

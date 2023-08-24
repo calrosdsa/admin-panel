@@ -7,8 +7,8 @@ import { NextResponse } from "next/server";
 // import { json } from "node:stream/consumers";
 export async function GET(request:Request) {
     const nextCookies = cookies(); // Get cookies object
-   console.log(nextCookies.get("rol"))
-   console.log(nextCookies.get("access_token"))
+   // console.log(nextCookies.get("rol"))
+   // console.log(nextCookies.get("access_token"))
   try{
     //   nextCookies.delete("access_token")
     nextCookies.delete("rol")
