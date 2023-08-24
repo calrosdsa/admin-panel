@@ -1,11 +1,12 @@
+"use client"
 import { getSplashPageByCode } from "@/context/actions/splashActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import { splashActions } from "@/context/slices/splash-slice";
 import { uiActions } from "@/context/slices/ui-slice";
-import { useRouter } from "next/router";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { toast, ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css";
+// import { toast, ToastContainer } from "react-toastify"
+// import "react-toastify/dist/ReactToastify.css";
 import DialogConfirmation from "../dialog/DialogConfirmation";
 import Loader from "../util/loaders/Loader";
 import { Dialog } from "@headlessui/react";
@@ -17,10 +18,12 @@ interface Props {
 const EditLayout = ({children,saveChanges}:Props) =>{
     const [confirmSave,setConfirmSave] = useState(false)
     const router = useRouter();
-    const { code } = router.query
+    const pathname = usePathname();
+    const params = useSearchParams()
+    const code = params.get("code")
     const dispatch = useAppDispatch();
     const uiState = useAppSelector(state=>state.ui);
-    const showSaveButton = router.pathname == "/splash/edit" || router.pathname == "/splash/edit/html" || router.pathname == "/splash/edit/settings" ;
+    const showSaveButton = pathname == "/splash/edit" || pathname == "/splash/edit/html" || pathname == "/splash/edit/settings" ;
     const portal = useAppSelector(state=>state.splash.basicPortal)
 
     
@@ -40,9 +43,9 @@ const EditLayout = ({children,saveChanges}:Props) =>{
         </Dialog>
             </div>
         <div className="relative max-w-[1800px] mx-auto text-sm ">
-        <ToastContainer
+        {/* <ToastContainer
         position={"bottom-center"}
-        />
+        /> */}
             <div className="fixed left-0 top-0 flex justify-between p-2 w-full bg-white shadow-md z-20 overflow-auto
              space-x-3 whitespace-nowrap">
             <button className=" button"  onClick={()=>router.push("/splash/pages")}>
@@ -53,26 +56,26 @@ const EditLayout = ({children,saveChanges}:Props) =>{
                   </button>
             <div className="flex">
                     {/* <button  onClick={()=>router.push("")}
-                    className={`${router.pathname == "" && "text-primary"}`}>
+                    className={`${pathname == "" && "text-primary"}`}>
                         Crear Portal
                     </button> */}
                     <button  onClick={()=>router.push(`/splash/edit/desktop-view?code=${code}`)}
-                       className={` button ${router.pathname == "/splash/edit/desktop-view" && "text-primary"}`}>
+                       className={` button ${pathname == "/splash/edit/desktop-view" && "text-primary"}`}>
                         Desktop View
                     </button>
                     <button  onClick={()=>router.push(`/splash/edit/mobile-view?code=${code}`)} 
-                       className={` button ${router.pathname == "/splash/edit/mobile-view" && "text-primary"}`}>
+                       className={` button ${pathname == "/splash/edit/mobile-view" && "text-primary"}`}>
                         Mobile View
                     </button>
                     <button  onClick={()=>router.push(`/splash/edit/settings?code=${code}`)}
-                       className={` button ${router.pathname == "/splash/edit/settings" && "text-primary"}`}>
+                       className={` button ${pathname == "/splash/edit/settings" && "text-primary"}`}>
                         Ajustes
                     </button>
                     <button  onClick={()=>{
                         router.push(`/splash/edit?code=${code}`)
                         dispatch(splashActions.setHtmlCode(undefined))
                     }}
-                       className={` button ${router.pathname == "/splash/edit" && "text-primary"}`}>
+                       className={` button ${pathname == "/splash/edit" && "text-primary"}`}>
                         Editar
                     </button>
                   </div>

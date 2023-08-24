@@ -1,4 +1,4 @@
-
+"use client"
 import React, { useEffect, useState } from 'react'
 import { SideBarApp } from '../sidebar';
 import "react-toastify/dist/ReactToastify.css";

@@ -22,7 +22,7 @@ export const getUserData = () :ThunkAction<void,RootState,undefined,AnyAction> =
         try{
             const rol =localStorage.getItem("_rol")
             const user =JSON.parse(localStorage.getItem("user") as string)
-            console.log(rol)
+            // console.log(rol)
             dispatch(authActions.setRol(rol as string))
             dispatch(authActions.setUser(user as User))
             // const response = await axios.get("/api/auth/token")
@@ -48,7 +48,7 @@ export const resetPassword = (
             formData.append("password",currentPassword)
             formData.append("passwordNew",newPassword)
             const resToken = await axios.get('/api/auth/token')
-            console.log(resToken)
+            // console.log(resToken)
             await axios.post("https://teclu.com/apiFB/public/userbusiness/updatePassword",formData,{
                 headers:{
                     'Authorization':`Bearer ${resToken.data.access_token}`
@@ -78,7 +78,7 @@ export const getSettings = () :ThunkAction<void,RootState,undefined,AnyAction> =
         try{
             const response = await axios.get("/api/auth/settings")
             // console.log(response.data)
-            dispatch(authActions.setSettings(response.data.data))
+            dispatch(authActions.setSettings(response.data))
         }catch(err:any){    
             if(err.response.status == 401){
                 redirectToLogin()
@@ -89,7 +89,7 @@ export const getSettings = () :ThunkAction<void,RootState,undefined,AnyAction> =
 }
 
 export const logout = () :ThunkAction<void,RootState,undefined,AnyAction> =>{
-    return async(dispatch)=>{
+    return async()=>{
         await axios.get("/api/auth/logout")
         redirectToLogin()
     }
@@ -108,7 +108,8 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
             const response = await axios.post("/api/auth",{email,password})
             // console.log(response)
-            const data = response.data.result
+            const data = response.data.user
+            // console.log(data)
             // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
             // localStorage.setItem('token',response.data.access_token)
             if(response.status == 200){
@@ -117,7 +118,7 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
                 localStorage.setItem("user",JSON.stringify(data))
                 localStorage.setItem('_rol',data.idRol)
                 dispatch(authActions.setRol(data.idRol))
-                // setCookie('rol', response.data.result.user.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
+                setCookie('rol', data.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
                 if(typeof window != undefined){
                     const parsed = queryString.parse(window.location.search);  
                     if(parsed.redirect != undefined){

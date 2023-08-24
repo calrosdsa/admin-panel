@@ -17,7 +17,7 @@ export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user`)
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setUsersWifi(response.data.users))        
+        dispatch(userActions.setUsersWifi(response.data))        
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)
@@ -31,11 +31,11 @@ export const getEncuestas = () :ThunkAction<void,RootState,undefined,AnyAction>=
        try{
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user/encuesta`)
-        const count =Math.ceil(response.data.users.length / 30)
-        console.log(count)
+        const count =Math.ceil(response.data.length / 30)
+        // console.log(response.data)
         dispatch(uiActions.setTotalCount(count))
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setEncuestas(response.data.users))        
+        dispatch(userActions.setEncuestas(response.data))        
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)
@@ -51,7 +51,7 @@ export const getUserWifi =(id:string) :ThunkAction<void,RootState,undefined,AnyA
         dispatch(uiActions.setLoading(true))
         const response = await axios.get(`/api/user/user-detail?id=${id}`)
         dispatch(uiActions.setLoading(false))
-        dispatch(userActions.setUserWifi(response.data.result))        
+        dispatch(userActions.setUserWifi(response.data))        
        }catch(err:any){
         dispatch(uiActions.setLoading(false))
         console.log(err)
@@ -67,8 +67,8 @@ export const getDispositivos =(id:string) :ThunkAction<void,RootState,undefined,
         const response = await axios.get(`/api/user/user-detail/dispositivos?id=${id}`)
         console.log(response.data)
         dispatch(uiActions.setInnerLoading(false))
-        if(typeof response.data.result != 'string'){
-            dispatch(userActions.setDispositivos(response.data.result))        
+        if(typeof response.data != 'string'){
+            dispatch(userActions.setDispositivos(response.data))        
         }
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
@@ -84,7 +84,7 @@ export const getConexiones =(id:string) :ThunkAction<void,RootState,undefined,An
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user/user-detail/conexiones?id=${id}`)
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setConexiones(response.data.result))        
+        dispatch(userActions.setConexiones(response.data))        
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)
@@ -100,7 +100,7 @@ export const getSolicitudList =(param:string="Todos") :ThunkAction<void,RootStat
         const response = await axios.get(`/api/user/solicitud?param=${param}`)
         console.log(response.data)
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setSolicitudList(response.data.solicitudes))        
+        dispatch(userActions.setSolicitudList(response.data))        
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)

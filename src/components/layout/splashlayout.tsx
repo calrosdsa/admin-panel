@@ -1,7 +1,7 @@
 import React, { ReactNode,useState,useEffect } from 'react'
 import Head from 'next/head'
-import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from 'react-toastify'
+// import "react-toastify/dist/ReactToastify.css";
+// import { ToastContainer } from 'react-toastify'
 import Image from 'next/image'
 type Props = {
     children?: ReactNode
@@ -23,8 +23,8 @@ return(
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    <ToastContainer
-    />
+    {/* <ToastContainer
+    /> */}
         <div className='w-full relative h-screen grid lg:grid-cols-2 xl:grid-cols-2 place-items-center max-w-[1800px] mx-auto'>
             <div id="iframe-container" className="w-full bg-white z-10">
         {/* <iframe onChange={(e)=>console.log(e)} className= "w-full h-screen justify-center flex relative"

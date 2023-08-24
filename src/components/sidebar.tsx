@@ -5,7 +5,7 @@ import { Disclosure } from "@headlessui/react"
 import useTranslation from "next-translate/useTranslation"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/router"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import ResetPasswordDialog from "./dialog/account/ResetPasswordDialog"
 import { getCookie } from "cookies-next"
@@ -16,6 +16,7 @@ import { clientEncuesta, facebookClients } from "@/utils/data/clients"
 export  const SideBarApp = () =>{
   const { t, lang } = useTranslation('common')
   const router = useRouter()
+  const pathname = usePathname()
   // const rol = getCookie("rol")
   const rol = useAppSelector(state=>state.auth.rol)
   const user = useAppSelector(getUser)
@@ -84,15 +85,15 @@ return(
             width={350}
             /> */}
             <div className='pt-1'/>
-            <div onClick={()=>router.push('/dashboard')} 
+            {/* <div onClick={()=>router.push('/dashboard')} 
             className={`flex cursor-pointer px-2 items-center hover:bg-gray-200 p-1
-            ${router.pathname == '/dashboard' && "bg-gray-200"}`}>
+            ${pathname == '/dashboard' && "bg-gray-200"}`}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} 
             stroke="currentColor" className="w-6 h-6">
         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
             </svg>
                 <h3 className='pl-4 font-medium'>  {t('home')}</h3>
-            </div>
+            </div> */}
 
         {/* {rol == "0" && */}
         <>
@@ -120,13 +121,13 @@ return(
               <Disclosure.Panel className="pl-7 text-sm text-gray-500">
               <div onClick={()=>router.push('/user')} 
               className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${router.pathname == '/user' && "bg-gray-200"}`}>
+              ${pathname == '/user' && "bg-gray-200"}`}>
                 <h3 className='pl-4'> Conexiones</h3>
             </div>
           {(user != undefined && clientEncuesta.includes(user?.idClient)) &&
           <div onClick={()=>router.push('/reportes/encuesta')} 
             className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${router.pathname == '/reportes/encuesta' && "bg-gray-200"}`}>
+              ${pathname == '/reportes/encuesta' && "bg-gray-200"}`}>
                 
               <h3 className='pl-4'>Encuestas</h3>
           </div>
@@ -134,7 +135,7 @@ return(
           {(user != undefined && facebookClients.includes(user?.idClient)) &&
             <div onClick={()=>router.push('/reportes/facebook-data')} 
             className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-            ${router.pathname == '/reportes/facebook-data' && "bg-gray-200"}`}>
+            ${pathname == '/reportes/facebook-data' && "bg-gray-200"}`}>
                 
               <h3 className='pl-4'>Facebook</h3>
           </div>
@@ -171,7 +172,7 @@ return(
               <Disclosure.Panel className="pl-7 text-sm text-gray-500">
               <div onClick={()=>router.push('/splash/pages')} 
               className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${router.pathname == '/splash/pages' && "bg-gray-200"}`}>
+              ${pathname == '/splash/pages' && "bg-gray-200"}`}>
                 <h3 className='pl-4'> {t("portal")}</h3>
             </div>
            
@@ -184,30 +185,7 @@ return(
 
 </>
 }        
-     {/* <div className=" absolute xl:bottom-12 bottom-32
-                w-full items-center">
 
-      <div onClick={()=>setOpenDialogReset(true)} 
-                className={`flex pl-2 cursor-pointer items-center overflow-hidden px-2 hover:bg-gray-200 p-2`}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-</svg>
-
-
-                    <h3 className='pl-4 text-sm font-medium truncate'>Cambiar contraseña</h3>
-        </div>
-        
-
-          <div onClick={()=>dispatch(logout())} 
-                className={`flex pl-2 items-center cursor-pointer overflow-hidden px-2 hover:bg-gray-200 p-2`}>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-                className="w-6 h-6">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
-            </svg> 
-
-                    <h3 className='pl-4 font-medium text-sm'>Cerrar session</h3>
-        </div>
-        </div> */}
       </div>
       </>
     )

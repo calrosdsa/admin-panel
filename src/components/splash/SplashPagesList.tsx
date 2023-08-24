@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/context/reduxHooks";
 import { splashActions } from "@/context/slices/splash-slice";
 import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { SplashPage } from "../../data/models/redux-models/splash-data";
 
 interface Props{

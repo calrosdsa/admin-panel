@@ -44,22 +44,29 @@ const updatedIFrame =async()=>{
 }
 
 const uploadImage = async(file:File,label:string,current:string | undefined)=>{
+  try{
+
     const formData = new FormData()
-    // const lastDot = file?.name.lastIndexOf(".") as number
     let imgWebp = ""
     if(current == `${basicPortal.portal.id_portal}${label}.webp`){
       imgWebp = `${basicPortal.portal.id_portal}${label}2.webp`
     }else{
       imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
     }
-    // const imgWebp = file?.name.substring(0,lastDot +1) + "webp"
-    formData.append("file",file as File)
     formData.append("filename",imgWebp)
+    formData.append("file",file as File)
     formData.append("bucketName",basicPortal.portal.bucket_name)
     formData.append("pathName",basicPortal.portal.path_name + "/media/")
-    const res = await axios.post<string>(`${baseUrl}/upload/converter/`,formData)
-    // console.log(res.data)
+    const res = await axios.post<string>(`/api/splash-pages/upload-image`,formData,{
+      headers:{
+        'Content-Type': 'multipart/form-data'
+      }
+    })
     return res.data
+  }catch(err){
+    console.log(err)
+    return ""
+  }
 }
 const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
   if (e.target.files != null){

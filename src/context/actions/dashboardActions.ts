@@ -29,9 +29,10 @@ export const getDataLikeForWeek = () :ThunkAction<void,RootState,undefined,AnyAc
             dispatch(uiActions.setLoading(true))
             // const access_token = getCookie("access_token")
             const response = await axios.get('/api/dashboard/likes')
+            // console.log(response.data)
             // const response =await axios.get('/api/splash-pages')
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(dashboardAction.setLikeDataForWeek(response.data.res))
+            dispatch(dashboardAction.setLikeDataForWeek(response.data))
             dispatch(uiActions.setLoading(false))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
@@ -49,10 +50,12 @@ export const getDataLikeForWeekUserWifi = () :ThunkAction<void,RootState,undefin
         try{
             dispatch(uiActions.setLoading(true))
             // const access_token = getCookie("access_token")
-            const response = await axios.get('/api/dashboard/likesLocal')
-            // const response =await axios.get('/api/splash-pages')
-            // localStorage.setItem('token',response.data.access_token)
-            dispatch(dashboardAction.setLikeDataForLikesUserWifi(response.data.res))
+            const response = await fetch('/api/dashboard/likesLocal')
+            const data = await response.json()
+            // console.log(data)
+            // const =await axios.get('/api/splash-pages')
+            // localStorage.setItem('token',data.access_token)
+            dispatch(dashboardAction.setLikeDataForLikesUserWifi(data))
             dispatch(uiActions.setLoading(false))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
@@ -194,6 +197,7 @@ export const donwloadReportTest = (idProgress:number,id: Id,source:CancelTokenSo
             
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
+            console.log(response.data)
             await axios.post(`${API_URL}/apiFB/public/userwifi/reportxls`,{},{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`

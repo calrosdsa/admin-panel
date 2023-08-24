@@ -1,3 +1,4 @@
+"use client"
 import { Transition } from "@headlessui/react"
 import { useState } from "react"
 import ButtonWithLoader from "../button/ButtonWithLoader"

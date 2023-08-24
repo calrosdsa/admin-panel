@@ -1,3 +1,4 @@
+"use client"
 import axios, { AxiosResponse } from "axios"
 import { getCookie } from "cookies-next";
 
@@ -25,13 +26,14 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
         try{
             dispatch(uiActions.setInnerLoading(true))
             const response = await axios.get('/api/splash-pages')
+            console.log(response)
             // const splashUrl = response.data.portales[0].urlSplash 
             // const s = splashUrl.lastIndexOf("/")
             // const splashBaseUrl = splashUrl.substring(0,s +1)
             // dispatch(splashActions.setSplashBaseUrl(splashBaseUrl))
             dispatch(uiActions.setInnerLoading(false))
             // localStorage.setItem('token',response.data.access_token)
-            dispatch(splashActions.setSplashPages(response.data.portales))
+            dispatch(splashActions.setSplashPages(response.data.Likes))
         }catch(err:any){
             dispatch(uiActions.setInnerLoading(false))
             if(err.response.status == 401){
@@ -47,9 +49,9 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
         try{
             dispatch(uiActions.setLoading(true))
             const response = await axios.get(`/api/splash-pages/portal?code=${code}`)
-            console.log(response.data.portal)
+            // console.log(response.data,"-------------------------------")
             dispatch(uiActions.setLoading(false))
-            dispatch(splashActions.setSplashData(response.data.portal))
+            dispatch(splashActions.setSplashData(response.data))
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
             if(err.response.status == 401){
@@ -83,7 +85,8 @@ export const updatePortal = (portal:BasicPortal) :ThunkAction<void,RootState,und
     return async(dispatch)=>{
         try{
             const res = await axios.post(`/api/splash-pages/portal/update`,portal)
-            const codeHtml = res.data.portal
+            const codeHtml = res.data
+            // console.log(res.data)
             dispatch(splashActions.setHtmlCode(codeHtml))
           }catch(err:any){
             // console.log("ERROR----------",err)
