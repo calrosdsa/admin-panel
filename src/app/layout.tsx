@@ -1,3 +1,4 @@
+"use client"
 import '../style/globals.css'
 import '../style/index.css'
 import { Inter } from 'next/font/google'
@@ -15,10 +16,9 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <Providers>
-        
-      <body className='bg-gray-50'>
+      <body className=''>
     
         {children}
         </body>
