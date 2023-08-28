@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 import { cookies } from 'next/headers'; // Import cookies
 import { PUBLIC_URL } from "@/config";
 
-
+export const runtime = 'nodejs'
 export async function POST(request:Request) {
    const nextCookies = cookies(); // Get cookies object
    const token = nextCookies.get('access_token')?.value
@@ -32,10 +32,10 @@ export async function POST(request:Request) {
 }
 
 
-export const config = {
-  api: {
-    bodyParser: {
-      sizeLimit: '20mb',
-    },
-  },
-}
+// export const config = {
+//   api: {
+//     bodyParser: {
+//       sizeLimit: '20mb',
+//     },
+//   },
+// }

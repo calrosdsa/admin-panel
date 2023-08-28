@@ -13,6 +13,7 @@ import { Blob } from "buffer";
 import { saveSplashPage, updatePortal } from "@/context/actions/splashActions";
 import DialogConfirmation from "@/components/dialog/DialogConfirmation";
 import { PUBLIC_URL } from "@/config";
+import EditComponent from "@/components/util/input/EditComponent";
 interface Props {
   basicPortal:BasicPortal
 }
@@ -267,6 +268,20 @@ const applyChangesLogo = async() =>{
   }
 }
 
+const applyChangesWithName = (addLoader:()=>void,removeLoader:()=>void,value:string,name:string) =>{
+  addLoader()
+   if(basicPortal == undefined) return
+   dispatch(splashActions.setSplashData({
+       ...basicPortal,
+       properties:{
+           ...basicPortal?.properties,
+           [name]:value
+       }  
+   }))
+   setSubmit(!submit)
+   removeLoader()
+}
+
   useEffect(()=>{
       getHtmlFromApi()
   },[submit])
@@ -338,6 +353,20 @@ const applyChangesLogo = async() =>{
                     apply={applyChangeColor}
                     />
                     </div>
+
+                  <div className=" max-w-xl py-10">
+                    <EditComponent
+                 label="Encabezado"
+                 content={basicPortal?.properties.title || ""}
+                 edit={(addLoader,removeLoader,value)=>applyChangesWithName(addLoader,removeLoader,value,"title")}
+                 />   
+                  <EditComponent
+                 label="Descripción"
+                 content={basicPortal?.properties.description || ""}
+                 edit={(addLoader,removeLoader,value)=>applyChangesWithName(addLoader,removeLoader,value,"description")}
+                 isTextArea={true}
+                 />   
+                 </div>
                   {/* } */}
                     <div className="grid md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2  gap-4 mt-3">
                     <ImageEdit

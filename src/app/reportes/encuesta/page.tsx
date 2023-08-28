@@ -87,9 +87,8 @@ const Users = () =>{
     //     }
     // },[userState.encuestas])
     return(
-
         <Layout>
-            <div className="xl:pt-1 pt-10 relative">
+            <div className="xl:pt-1 pt-10 relative px-2">
                 <div className=" flex justify-between items-center mt-2">
 
             <button onClick={()=>downloadReport(ReporteId.USER_RED)}

@@ -23,6 +23,12 @@
                                       supported by Chrome, Edge, Opera and Firefox */
     }
 
+    .box {
+      display: flex;
+      flex-flow: column;
+      height: 100%;
+    }
+
   /* ::-webkit-scrollbar {
     width: 8px;               
   }

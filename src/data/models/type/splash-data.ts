@@ -46,6 +46,8 @@ type  PortalProperties ={
     text_color:string
     image_background:string
     show_video:boolean
+    title?:string
+    description?:string
 }
 
 type ConnectionMethod = {
