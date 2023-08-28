@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { AuthModel, ErrorLogin, Settings, User } from "../../data/models/redux-models/auth-model";
+import { AuthModel, ErrorLogin, Settings, User } from "../../data/models/type/auth-model";
 
 const initialAuthState:AuthModel = {
     authLoading:false,

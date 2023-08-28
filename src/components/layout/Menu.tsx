@@ -9,12 +9,11 @@ interface Props{
 
 const Menu:React.FC<Props> = ({open,setOpen}) =>{
  
-
     return(
       <Transition.Root show={open} as='div'>
       <Dialog 
         as='div'
-        className='fixed  inset-0 overflow-hidden xl:hidden z-10'
+        className='fixed  inset-0 overflow-hidden xl:hidden z-20'
         onClose={setOpen}
       >
         <div className='absolute inset-0 overflow-hidden'>

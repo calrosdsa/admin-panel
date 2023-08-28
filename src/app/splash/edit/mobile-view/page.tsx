@@ -19,7 +19,7 @@ const MobileView = () =>{
     return(
         <EditLayout>
                 <div className="relative shadow-xl flex justify-center h-screen overflow-auto max-w-3xl mx-auto">
-                    <div className='pt-20'>
+                    <div className=''>
                     <DeviceFrameset device="Samsung Galaxy S5" color="black" width={380} height={700}>
                         {splashState.basicPortal == undefined ?
                         <div className='grid place-content-center -mt-14 h-screen'>

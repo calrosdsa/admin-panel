@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
-import { Conexiones, Dispositivo, Encuesta, Order, UserSolicitud, UserState, UserTabDetail, UserWifi } from "../../data/models/redux-models/user-models";
+import { Conexiones, Dispositivo, Encuesta, Order, UserSolicitud, UserState, UserTabDetail, UserWifi } from "../../data/models/type/user-models";
 
 const initialUserState:UserState ={
     solicitudes:[],

@@ -1,9 +1,11 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { BasicPortal, SplashPage, SplashState } from "../../data/models/redux-models/splash-data";
+import { BasicPortal, ConnectionMethod, SplashPage, SplashState } from "../../data/models/type/splash-data";
+import { Payload } from "recharts/types/component/DefaultLegendContent";
 
 
 const initialSplashState :SplashState ={
     splashPages:[],
+    connection_methods:[],
     splashPage:undefined,
     splashBaseUrl:undefined,
     htmlCode:undefined,
@@ -17,6 +19,9 @@ const splashSlice = createSlice({
         setSplashPages(state,action:PayloadAction<SplashPage[]>){
             state.splashPages = action.payload
         },
+        setConnectionMethods(state,action:PayloadAction<ConnectionMethod[]>){
+            state.connection_methods = action.payload
+        },
         setSplashPage(state,action:PayloadAction<SplashPage | undefined>){
             state.splashPage = action.payload
         },
@@ -28,6 +33,9 @@ const splashSlice = createSlice({
         },
         setSplashData(state,action:PayloadAction<BasicPortal>){
             state.basicPortal = {...state.basicPortal,...action.payload}
+        },
+        clearPortalData(state){
+            state.basicPortal = undefined
         }
       
     }

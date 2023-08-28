@@ -11,6 +11,7 @@ import ResetPasswordDialog from "./dialog/account/ResetPasswordDialog"
 import { getCookie } from "cookies-next"
 import { getUser } from "@/context/selectors"
 import { clientEncuesta, facebookClients } from "@/utils/data/clients"
+import { uiActions } from "@/context/slices/ui-slice"
 
 
 export  const SideBarApp = () =>{
@@ -48,7 +49,10 @@ return(
       </div>
     </div>
     
-    <div onClick={()=>setOpenDialogReset(true)} 
+    <div onClick={()=>{
+      // dispatch(uiActions.setOpenSidebar(false))
+      setOpenDialogReset(true)
+    }}
                 className={`flex smallButton w-10/12  cursor-pointer justify-center mx-auto hover:bg-gray-200 space-x-2`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
               className="w-4 h-4">

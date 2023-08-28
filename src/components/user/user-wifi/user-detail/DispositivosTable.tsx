@@ -1,4 +1,4 @@
-import { Conexiones, Dispositivo } from "@/data/models/redux-models/user-models";
+import { Conexiones, Dispositivo } from "@/data/models/type/user-models";
 import { FallingLines } from "react-loader-spinner";
 
 interface Props {

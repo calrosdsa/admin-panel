@@ -1,7 +1,7 @@
 import { getConexiones, getDispositivos } from "@/context/actions/userActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import { userActions } from "@/context/slices/user-slice";
-import { UserTabDetail } from "@/data/models/redux-models/user-models";
+import { UserTabDetail } from "@/data/models/type/user-models";
 import useEffectOnce from "@/utils/hooks/useEffectOnce";
 import ConexionesTable from "./ConexionesTable";
 import DispositivosTable from "./DispositivosTable";

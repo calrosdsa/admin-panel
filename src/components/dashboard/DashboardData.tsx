@@ -2,7 +2,7 @@ import axios from "axios";
 import { Id, toast } from "react-toastify";
 import { donwloadReportLastTenDays, donwloadReportLastTenDaysExcel } from "../../context/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
-import { ReporteId } from "../../data/models/redux-models/dashboard-model";
+import { ReporteId } from "../../data/models/type/dashboard-model";
 import LikeWeekChart from "./charts/LikeWeekChart";
 import Example from "./charts/LikeWeekChart";
 

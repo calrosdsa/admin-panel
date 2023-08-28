@@ -5,11 +5,12 @@ import { splashActions } from "@/context/slices/splash-slice";
 import { uiActions } from "@/context/slices/ui-slice";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-// import { toast, ToastContainer } from "react-toastify"
-// import "react-toastify/dist/ReactToastify.css";
+import { toast, ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 import DialogConfirmation from "../dialog/DialogConfirmation";
 import Loader from "../util/loaders/Loader";
 import { Dialog } from "@headlessui/react";
+import DialogLoader from "../util/loaders/LoaderDialog";
 
 interface Props {
     children:React.ReactNode,
@@ -32,20 +33,19 @@ const EditLayout = ({children,saveChanges}:Props) =>{
     return(
         <>
           {uiState.loading &&
-                <Loader
-                className="z-10 absolute top-1/2 left-1/2 
-                -translate-x-1/2 -translate-y-1/2"
-                />
+          <DialogLoader
+          openModal={uiState.loading}
+          />
             }
-        <div>
+        {/* <div>
         <Dialog open={uiState.loading} onClose={()=>{}}>
                 <div className=" fixed inset-0 bg-black bg-opacity-25"></div>
         </Dialog>
-            </div>
+            </div> */}
         <div className="relative max-w-[1800px] mx-auto text-sm ">
-        {/* <ToastContainer
+        <ToastContainer
         position={"bottom-center"}
-        /> */}
+        />
             <div className="fixed left-0 top-0 flex justify-between p-2 w-full bg-white shadow-md z-20 overflow-auto
              space-x-3 whitespace-nowrap">
             <button className=" button"  onClick={()=>router.push("/splash/pages")}>

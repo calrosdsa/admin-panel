@@ -3,7 +3,7 @@ import moment from 'moment'
 import Image from "next/image";
 import PostOptions from "../../dialog/DialogFilter";
 import { useState } from "react";
-import { Post } from '@/data/models/redux-models/dashboard-model';
+import { Post } from '@/data/models/type/dashboard-model';
 interface Props{
     post:Post
 }

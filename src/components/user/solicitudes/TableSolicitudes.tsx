@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../../context/reduxHooks";
 import { userActions } from "../../../context/slices/user-slice";
-import { Order, UserSolicitud } from "../../../data/models/redux-models/user-models";
+import { Order, UserSolicitud } from "../../../data/models/type/user-models";
 import { formatDate } from "../../../utils/converter/date";
 import LongText from "../../LongText";
 

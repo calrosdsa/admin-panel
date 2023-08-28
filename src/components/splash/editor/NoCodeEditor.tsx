@@ -5,7 +5,7 @@ import { splashActions } from "@/context/slices/splash-slice";
 import axios, { AxiosResponse } from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
 import useDebounce from "@/utils/hooks/useDebounce";
-import { BasicPortal, ContentPortal, ImagePortal } from "@/data/models/redux-models/splash-data";
+import { BasicPortal, ContentPortal, ImagePortal, PortalType } from "@/data/models/type/splash-data";
 import useEffectOnce from "@/utils/hooks/useEffectOnce";
 import ColorEdit from "./components/ColorEdit";
 import { URL } from "url";
@@ -19,7 +19,7 @@ interface Props {
 const NoCodeEditor = ({basicPortal}:Props)=>{
   const baseUrl = PUBLIC_URL
   const htmlCode = useAppSelector(state=>state.splash.htmlCode)
-  const [portada,setPortada] = useState(basicPortal.image)
+  const [portada,setPortada] = useState(basicPortal.portada)
   const [imageBackground,setImageBackground] = useState<ImagePortal>({
     url:basicPortal.properties.image_background,
     id:0
@@ -30,6 +30,7 @@ const NoCodeEditor = ({basicPortal}:Props)=>{
   const [file,setFile] = useState<File>()
   const [fileLogo,setFileLogo] = useState<File>()
   const [fileImgBackground,setFileImgBackground] = useState<File>()
+  const [video,setVideo] = useState<File>()
   const dispatch = useAppDispatch()
   const getHtmlFromApi = async() =>{
     dispatch(updatePortal(basicPortal))
@@ -43,7 +44,7 @@ const updatedIFrame =async()=>{
   }
 }
 
-const uploadImage = async(file:File,label:string,current:string | undefined)=>{
+const uploadImage = async(file:File,label:string,current:string | undefined,isVideo:boolean = false)=>{
   try{
 
     const formData = new FormData()
@@ -55,6 +56,7 @@ const uploadImage = async(file:File,label:string,current:string | undefined)=>{
     }
     formData.append("filename",imgWebp)
     formData.append("file",file as File)
+    formData.append("isVideo",`${isVideo}`)
     formData.append("bucketName",basicPortal.portal.bucket_name)
     formData.append("pathName",basicPortal.portal.path_name + "/media/")
     const res = await axios.post<string>(`/api/splash-pages/upload-image`,formData,{
@@ -68,27 +70,42 @@ const uploadImage = async(file:File,label:string,current:string | undefined)=>{
     return ""
   }
 }
-const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
+const onChangeVideo = (e:ChangeEvent<HTMLInputElement>)=>{
   if (e.target.files != null){
     const file = e.target.files[0];
     console.log(file.name)
-    setFile(file)
+    setVideo(file)
     const objectUrl = window.URL.createObjectURL(file);
     console.log(objectUrl);
     setPortada({
       ...portada,
-      url:objectUrl
+      video_url:objectUrl
 })
   return
   }
+}
+
+const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
+    if (e.target.files != null){
+      const file = e.target.files[0];
+      console.log(file.name)
+      setFile(file)
+      const objectUrl = window.URL.createObjectURL(file);
+      console.log(objectUrl);
+      setPortada({
+        ...portada,
+        url:objectUrl
+  })
+    return
+    }
    setPortada({
             ...portada,
             [e.target.name]:e.target.value
     })
     dispatch(splashActions.setSplashData({
       ...basicPortal,
-      image:{
-          ...basicPortal.image,
+      portada:{
+          ...basicPortal.portada,
           [e.target.name]:e.target.value
       }
   }))
@@ -142,23 +159,23 @@ const onChangeColor = (name:string,value:string)=>{
 }))
 }
 
-const applyChangeColor = ()=>{
+const applyChangeColor = () => {
       getHtmlFromApi()
 }
 
 const applyChanges = async() =>{
   if(file != undefined){
     dispatch(splashActions.setHtmlCode(undefined))
-    const last = basicPortal.image.url?.lastIndexOf("/") || 0
-    const current = basicPortal.image.url?.substring(last+1)
+    const last = basicPortal.portada.url?.lastIndexOf("/") || 0
+    const current = basicPortal.portada.url?.substring(last+1)
     await uploadImage(file,"portada",current).then(res=>{
         setSubmit(!submit)
         setFile(undefined)
         // console.log("uploading")
         dispatch(splashActions.setSplashData({
           ...basicPortal,
-          image:{
-              ...basicPortal.image,
+          portada:{
+              ...basicPortal.portada,
               url:res
           }
       }))
@@ -168,6 +185,31 @@ const applyChanges = async() =>{
     getHtmlFromApi()
   }
 }
+
+const applyChangesVideo = async() =>{
+  if(video != undefined){
+    dispatch(splashActions.setHtmlCode(undefined))
+    const last = basicPortal.portada.video_url?.lastIndexOf("/") || 0
+    const current = basicPortal.portada.video_url?.substring(last+1)
+    console.log(current,"VIDEO_URL")
+    await uploadImage(video,"video",current,true).then(res=>{
+        setSubmit(!submit)
+        setVideo(undefined)
+        // console.log("uploading")
+        dispatch(splashActions.setSplashData({
+          ...basicPortal,
+          portada:{
+              ...basicPortal.portada,
+              video_url:res
+          }
+      }))
+    })
+  }else {
+    dispatch(splashActions.setHtmlCode(undefined))
+    getHtmlFromApi()
+  }
+}
+
 const applyChangesImageBackground = async() =>{
   if(fileImgBackground != undefined){
     dispatch(splashActions.setHtmlCode(undefined))
@@ -225,44 +267,7 @@ const applyChangesLogo = async() =>{
   }
 }
 
-
-
-// const applyImage = async()=>{
-//   if(fileLogo != undefined){
-//   await uploadImage(fileLogo,"logo").then(res=>{
-//     // console.log("uploading")
-//     // setSubmit(!submit)
-//     setFileLogo(undefined)
-//     dispatch(splashActions.setSplashData({
-//       ...basicPortal,
-//       logo:{
-//           ...basicPortal.logo,
-//           url:res
-//       }
-//   }))
-// })
-// }
-// if(file != undefined){
-//   await uploadImage(file,"portada").then(res=>{
-//     console.log("uploading")
-//     // setSubmit(!submit)
-//     setFileLogo(undefined)
-//     dispatch(splashActions.setSplashData({
-//       ...basicPortal,
-//       image:{
-//         ...basicPortal.image,
-//         url:res
-//       }
-//     }))
-//   })
-// }
-// setSubmit(true)
-// }
-
-
-
   useEffect(()=>{
-      // console.log('submit')
       getHtmlFromApi()
   },[submit])
 
@@ -272,12 +277,8 @@ const applyChangesLogo = async() =>{
 
   useEffect(()=>{
     if(execute){
-      console.log(file,fileLogo)
-      // if(file == undefined && fileLogo == undefined){
+      console.log(basicPortal)
         dispatch(saveSplashPage())
-      // }else{
-        // setShowDialog(true)
-        // dispatch(uiActions.setExecute(false))
       // }
     }
   },[execute])
@@ -311,7 +312,7 @@ const applyChangesLogo = async() =>{
           <div className="lg:col-span-1 xl:col-span-2 overflow-auto h-[91vh]">
             <div>
             <h2 className="title text-center text-xl underline">Portal Cautivo</h2>
-                  <div className="flex space-x-4">
+                  <div className="grid gap-2 sm:grid-cols-2 xl:flex xl:space-x-4 pt-2">
                     <ColorEdit
                     onChangeColor={(e)=>{
                       onChangeColor("color",e)
@@ -342,8 +343,22 @@ const applyChangesLogo = async() =>{
                     <ImageEdit
                     image={portada}
                     onChange={onChangeImage}
+                    changeMedia={(bool)=>{
+                      dispatch(splashActions.setSplashData({
+                        ...basicPortal,
+                        properties:{
+                          ...basicPortal.properties,
+                          show_video:bool
+                        }
+                      }))
+                    }}
+                    idVideo="video"
+                    onChangeVideo={onChangeVideo}
                     id="image"
                     applyChanges={applyChanges}
+                    applyChangesVideo={applyChangesVideo}
+                    includeVideo={basicPortal.settings.portal_type == PortalType.VALIDATE_LIKE_TYPE}
+                    showVideo={basicPortal.properties.show_video}
                     />
                     <ImageEdit
                     image={basicPortal?.logo}

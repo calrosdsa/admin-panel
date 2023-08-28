@@ -3,7 +3,7 @@ import axios from "axios";
 import { Id, toast } from "react-toastify";
 import {  donwloadReportLastTenDaysTest } from "../../context/actions/dashboardActions";
 import { useAppDispatch, useAppSelector } from "../../context/reduxHooks";
-import { ReporteId } from "../../data/models/redux-models/dashboard-model";
+import { ReporteId } from "../../data/models/type/dashboard-model";
 
 const DashboardData2 = ()=>{
     const dashboardState = useAppSelector(state=>state.dashboard)

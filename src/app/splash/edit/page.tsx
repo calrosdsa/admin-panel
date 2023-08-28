@@ -40,7 +40,7 @@ const Edit = ()=>{
   // },[execute])
  
   useEffectOnce(()=>{
-    if(window.location.search != undefined){
+    if(window.location.search != undefined && basicPortal == undefined){
         const parsed = queryString.parse(location.search);  
         dispatch(getSplashPageByCode(parsed.code as string))
       }

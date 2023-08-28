@@ -1,5 +1,5 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
-import { DashBoardState, LikeData } from "../../data/models/redux-models/dashboard-model";
+import { DashBoardState, LikeData } from "../../data/models/type/dashboard-model";
 
 
 const initialDashboardState :DashBoardState ={

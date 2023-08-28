@@ -1,4 +1,4 @@
-import { LikeData } from '@/data/models/redux-models/dashboard-model';
+import { LikeData } from '@/data/models/type/dashboard-model';
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, CartesianGrid, XAxis, Tooltip, Legend, YAxis, ResponsiveContainer } from 'recharts';
 import { CustomTooltip } from './CustomToolTip';

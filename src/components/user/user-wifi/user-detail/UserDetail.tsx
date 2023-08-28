@@ -1,4 +1,4 @@
-import { UserWifi } from "@/data/models/redux-models/user-models";
+import { UserWifi } from "@/data/models/type/user-models";
 import Image from "next/image";
 import { useEffect } from "react";
 
@@ -20,8 +20,8 @@ const UserDetail = ({user}:Props)=>{
         console.log("User image",user.image)
     })
     return(
-        <div className="grid gap-y-4">
-            <div className="flex flex-col justify-center items-center">
+        <div className="grid gap-y-4 w-full">
+            <div className="flex flex-col items-center">
             {user.image == "" ?
             <Image
             src={validateImageNullOrBlank(user.image)}

@@ -9,7 +9,7 @@ import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { redirectToLogin } from ".";
 import { API_URL } from "../../config";
-import { ReporteId } from "../../data/models/redux-models/dashboard-model";
+import { ReporteId } from "../../data/models/type/dashboard-model";
 // import authService from "../../data/service/authService"
 import authSlice from "../slices/auth-slice";
 import { dashboardAction } from "../slices/dashboard-slice";

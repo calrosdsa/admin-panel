@@ -28,7 +28,7 @@ const DialogConfirmation:React.FC<Props>=({
 //   }
   return (
     <Transition appear show={openModal} as={Fragment}>
-    <Dialog as='div' className="relative z-10" open={openModal} onClose={() =>{
+    <Dialog as='div' className="relative z-20" open={openModal} onClose={() =>{
       closeModal(false)
     }}>
     <Transition.Child

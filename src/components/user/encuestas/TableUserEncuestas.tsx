@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useAppDispatch } from "../../../context/reduxHooks";
 import { userActions } from "../../../context/slices/user-slice";
-import { Encuesta, Order } from "../../../data/models/redux-models/user-models";
+import { Encuesta, Order } from "../../../data/models/type/user-models";
 import { formatDate, formatShortDate } from "../../../utils/converter/date";
 import LongText from "../../LongText";
 

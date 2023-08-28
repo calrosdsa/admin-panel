@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/context/reduxHooks";
 import { splashActions } from "@/context/slices/splash-slice";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
-import { SplashPage } from "../../data/models/redux-models/splash-data";
+import { SplashPage } from "../../data/models/type/splash-data";
 
 interface Props{
     splasPagesList:SplashPage[]
@@ -51,6 +51,7 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
                 </td>
                 <td onClick={()=>{
                     dispatch(splashActions.setSplashPage(undefined))
+                    dispatch(splashActions.clearPortalData())
                     router.push(`/splash/edit?code=${item.code}`)
                 }}  className="paddingTable whitespace-nowrap cursor-pointer text-primary">
                     {item.name}
@@ -65,6 +66,7 @@ const SplashPagesList = ({splasPagesList}:Props)=>{
                 </td>
                 <td className="text-primary font-semibold cursor-pointer" onClick={()=>{
                      dispatch(splashActions.setSplashPage(undefined))
+                     dispatch(splashActions.clearPortalData())
                      router.push(`/splash/edit?code=${item.code}`)
                 }}> 
                     {t("edit")}

@@ -13,7 +13,7 @@ import { splashActions } from "../slices/splash-slice";
 import uiSlice, { uiActions } from "../slices/ui-slice";
 import { RootState } from "../store";
 import { toast } from "react-toastify";
-import { BasicPortal } from "@/data/models/redux-models/splash-data";
+import { BasicPortal, PortalType } from "@/data/models/type/splash-data";
 // import { uiActions } from "../slices/ui-slice";
 // import { NextRouter } from "next/router";
 
@@ -44,12 +44,33 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
     }
 }
 
+export const getConnectionMethods = (portalType:PortalType | undefined) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+return async(dispatch)=>{
+        try{
+            if (portalType == undefined) return 
+            console.log("portaltype",portalType)
+            dispatch(uiActions.setInnerLoading(true))
+            const response = await axios.get(`/api/splash-pages/portal/connection-methods?portalType=${portalType}`)
+            console.log(response.data)
+            dispatch(uiActions.setInnerLoading(false))
+            // localStorage.setItem('token',response.data.access_token)
+            dispatch(splashActions.setConnectionMethods(response.data))
+        }catch(err:any){
+            dispatch(uiActions.setInnerLoading(false))
+            if(err.response.status == 401){
+                redirectToLogin()
+            }
+            console.log(err)
+        }
+    }
+}
+
 export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         try{
             dispatch(uiActions.setLoading(true))
             const response = await axios.get(`/api/splash-pages/portal?code=${code}`)
-            // console.log(response.data,"-------------------------------")
+            console.log(response.data,"-------------------------------")
             dispatch(uiActions.setLoading(false))
             dispatch(splashActions.setSplashData(response.data))
         }catch(err:any){

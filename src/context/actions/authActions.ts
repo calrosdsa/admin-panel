@@ -12,7 +12,7 @@ import { uiActions } from "../slices/ui-slice";
 import { getCookie, setCookie } from "cookies-next";
 import { redirectToLogin } from ".";
 import { toast } from "react-toastify";
-import { User } from "@/data/models/redux-models/auth-model";
+import { User } from "@/data/models/type/auth-model";
 
 export const authActions = authSlice.actions
 

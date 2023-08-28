@@ -20,7 +20,7 @@ const Users = () =>{
     return(
 
         <Layout>
-            <div className="xl:pt-1 pt-10 ">
+            <div className="xl:pt-1 pt-10 p-2 ">
                 {/* <DashboardData2/> */}
             {uiState.innerLoading ?
       <div className='grid place-content-center w-full h-[50vh]'>

@@ -30,7 +30,7 @@ const DeskTopView = () =>{
 
                     </div>
                 :
-                <iframe className="h-screen w-full pt-20"
+                <iframe className="h-screen w-full "
                 src={splashState.basicPortal.portal.url}
                 id="myiframe"></iframe>
             }

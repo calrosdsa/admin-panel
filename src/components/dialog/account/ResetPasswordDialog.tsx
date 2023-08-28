@@ -51,7 +51,7 @@ const ResetPasswordDialog:React.FC<Props>=({
     />
     }
     <Transition appear show={openModal} as={Fragment}>
-    <Dialog as='div' className="relative z-10" open={openModal} onClose={() =>{
+    <Dialog as='div' className="relative z-20" open={openModal} onClose={() =>{
       setOpenDialogConfirm(true)
     }}>
     <Transition.Child
@@ -74,7 +74,7 @@ const ResetPasswordDialog:React.FC<Props>=({
         <div className='rounded-lg bg-white p-2'>
             <DialogHeader
             title='Resetear Contraseña'
-            close={()=>setOpenDialogConfirm(true)}
+            close={()=>closeModal()}
             />
             <form onSubmit={onSubmit}>
 

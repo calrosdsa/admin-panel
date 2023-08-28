@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import EsqueletonPost from "./facebook/SqueletonPost";
 import PostItem from "./facebook/PostItem";
-import { Post } from "@/data/models/redux-models/dashboard-model";
+import { Post } from "@/data/models/type/dashboard-model";
 import { useAppSelector } from "@/context/reduxHooks";
 const LandingPage = () =>{
   const [posts,setPosts]  = useState<Post[]>([])

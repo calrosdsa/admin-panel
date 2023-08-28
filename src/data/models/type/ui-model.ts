@@ -27,6 +27,7 @@ export interface UiState {
     initAnimation:boolean
     pathName:string
     execute:boolean
+    sidebar:boolean
     totalCount?:number
     // shouldFetch:boolean,
     // dialogLoading:boolean,

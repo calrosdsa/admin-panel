@@ -10,7 +10,7 @@ import TableSolicitudes from "../../../components/user/solicitudes/TableSolicitu
 import { donwloadReportLastTenDaysExcel } from "../../../context/actions/dashboardActions";
 import { getSolicitudList } from "../../../context/actions/userActions";
 import { useAppDispatch, useAppSelector } from "../../../context/reduxHooks";
-import { ReporteId } from "../../../data/models/redux-models/dashboard-model";
+import { ReporteId } from "../../../data/models/type/dashboard-model";
 
 
 const Solicitudes = ()=>{

@@ -1,9 +1,10 @@
-import { PaginationProps, UiState } from "../../data/models/redux-models/ui-model";
+import { PaginationProps, UiState } from "../../data/models/type/ui-model";
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
 
 const initialUiState :UiState ={
     loading:false,
+    sidebar:false,
     innerLoading:false,
     openDialog:false,
     errorMessage:"",
@@ -21,6 +22,9 @@ const uiSlice = createSlice({
     reducers:{
         setTotalCount(state,action:PayloadAction<number>){
             state.totalCount = action.payload
+        },
+        setOpenSidebar(state,action:PayloadAction<boolean>){
+            state.sidebar = action.payload
         },
         setExecute(state,action:PayloadAction<boolean>){
             state.execute = action.payload

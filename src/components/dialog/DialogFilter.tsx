@@ -3,7 +3,7 @@ import { Dialog,Transition } from '@headlessui/react'
 import { useAppDispatch, useAppSelector } from '../../context/reduxHooks'
 import { donwloadReportById } from '../../context/actions/dashboardActions'
 import { toast } from 'react-toastify'
-import { ReporteId } from '../../data/models/redux-models/dashboard-model'
+import { ReporteId } from '../../data/models/type/dashboard-model'
 
 interface Props {
     closeDialog:()=>void
