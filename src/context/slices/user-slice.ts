@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import moment from "moment";
-import { Conexiones, Dispositivo, Encuesta, Order, UserSolicitud, UserState, UserTabDetail, UserWifi } from "../../data/models/type/user-models";
+import { Conexiones, Dispositivo, Encuesta, Order, UserBusiness, UserSolicitud, UserState, UserTabDetail, UserWifi } from "../../data/models/type/user-models";
 
 const initialUserState:UserState ={
     solicitudes:[],
@@ -12,6 +12,7 @@ const initialUserState:UserState ={
     user:undefined,
     userTabDetail:UserTabDetail.CONEXIONES,
     encuestas:[],
+    userBussiness:[]
 }
 
 const userSlice = createSlice({
@@ -24,6 +25,9 @@ const userSlice = createSlice({
             state.dispositivos = []
             state.userTabDetail = UserTabDetail.CONEXIONES
         }, 
+        setUserBussiness(state,action:PayloadAction<UserBusiness[]>){
+            state.userBussiness = action.payload
+        },
         setUserWifi(state,action:PayloadAction<UserWifi | undefined>){
             state.user = action.payload
         },

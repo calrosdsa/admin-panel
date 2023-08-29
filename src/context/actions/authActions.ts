@@ -105,30 +105,35 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             formData.append('email',email)
             formData.append('password',password)
             
-            // const response =await axios.post(`${API_URL}/apiFB/public/auth/login`,formData)
-            const response = await axios.post("/api/auth",{email,password})
-            // console.log(response)
-            const data = response.data.user
-            // console.log(data)
-            // setCookie('access_token', response.data.res.access_token, {maxAge:60 * 60 * 24});
-            // localStorage.setItem('token',response.data.access_token)
-            if(response.status == 200){
-                setCookie("_idCliente",data.idClient,{ maxAge:60*60*24 })
-                setCookie("_auth","0", {maxAge: 60 * 60 * 24})
-                localStorage.setItem("user",JSON.stringify(data))
-                localStorage.setItem('_rol',data.idRol)
-                dispatch(authActions.setRol(data.idRol))
-                setCookie('rol', data.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
-                if(typeof window != undefined){
-                    const parsed = queryString.parse(window.location.search);  
-                    if(parsed.redirect != undefined){
-                        window.location.replace(parsed.redirect as string)
-                    }else{
-                        window.location.replace(window.location.origin)
+            // const response = await axios.post("/api/auth",{email,password})
+            const response = await fetch("/api/auth",{
+                method:"post",
+                body:JSON.stringify({email,password})
+            })
+            const dataRes = await response.json()
+            const data = dataRes.user
+            switch(response.status){
+                case 200:
+                    setCookie("_idCliente",data.idClient,{ maxAge:60*60*24 })
+                    setCookie("_auth","0", {maxAge: 60 * 60 * 24})
+                    localStorage.setItem("user",JSON.stringify(data))
+                    localStorage.setItem('_rol',data.idRol)
+                    dispatch(authActions.setRol(data.idRol))
+                    setCookie('rol', data.idRol, { maxAge: 60 * 60 * 24,path:"/",sameSite:true });
+                    if(typeof window != undefined){
+                        const parsed = queryString.parse(window.location.search);  
+                        if(parsed.redirect != undefined){
+                            window.location.replace(parsed.redirect as string)
+                        }else{
+                            window.location.replace(window.location.origin)
+                        }
                     }
-
-                }
+                case 400:
+                    toast.error(dataRes.password)
+                default:
+                    console.log("")
             }
+            
             dispatch(uiActions.setLoading(false))
 
         }catch(e:any){

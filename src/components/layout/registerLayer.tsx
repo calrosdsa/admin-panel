@@ -1,7 +1,7 @@
 import React, { ReactNode,useState,useEffect } from 'react'
 import Head from 'next/head'
-// import "react-toastify/dist/ReactToastify.css";
-// import { ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from 'react-toastify'
 import Image from 'next/image'
 // import { useAppDispatch } from '@/context/reduxHooks';
 // import { getUserData } from '@/context/actions/authActions';
@@ -44,8 +44,8 @@ return(
       <meta charSet="utf-8" />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
-    {/* <ToastContainer
-    /> */}
+    <ToastContainer
+    />
         <div className='w-full relative h-screen grid xl:grid-cols-2 border-2 place-content-center place-items-center'>
         <Image
         src='/images/fondo5.jpeg'

@@ -13,7 +13,7 @@
       @apply text-2xl  
     }
     .hoverText {
-        @apply hover:bg-gray-200 dark:hover:bg-gray-400
+      @apply hover:bg-gray-200 dark:hover:bg-gray-400
     }
     .button {
       @apply   flex space-x-1 py-2 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 
@@ -27,8 +27,8 @@
       @apply bg-gray-200 border-[1px] border-gray-400 p-1  active:ring-blue-300 active:ring-2
     }
     .buttonPrimary {
-      @apply  py-2 border-[1px] border-primary hover:bg-white font-medium h-min text-sm
-      active:ring-offset-primary active:ring-2 px-3 bg-primary text-white hover:text-primary 
+      @apply  py-[7px] border-[1px] border-primary hover:bg-white font-medium h-min text-sm rounded-sm
+      active:ring-offset-primary active:ring-2 px-2 bg-primary text-white hover:text-primary 
     }
     .smallButton {
       @apply   flex space-x-1 py-1 border-[1px] border-gray-300 items-center bg-white hover:bg-gray-200 

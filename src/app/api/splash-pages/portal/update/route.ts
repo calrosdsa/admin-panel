@@ -21,8 +21,15 @@ export async function POST(request:Request) {
         'Content-Type' :'application/json',
        }}
      )
-     const data =await res.text()
-      return NextResponse.json(data,{status:200})
+     let data;
+     switch(res.status){
+      case 200:
+        data =await res.text()
+        return NextResponse.json(data,{status:res.status})
+        default:
+           data =await res.json()
+        return NextResponse.json(data,{status:res.status})
+     }
    }catch(err){
       console.log(err)
       return NextResponse.json("Error Request",{status:500})

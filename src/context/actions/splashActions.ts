@@ -5,7 +5,7 @@ import { getCookie } from "cookies-next";
 import { AnyAction } from "redux";
 // import 'react-toastify/dist/ReactToastify.css';
 import { ThunkAction } from "redux-thunk";
-import { redirectToLogin } from ".";
+import { getBadRequestError, redirectToLogin } from ".";
 import { API_URL, PUBLIC_URL } from "../../config";
 // import authService from "../../data/service/authService"
 import authSlice from "../slices/auth-slice";
@@ -50,16 +50,26 @@ return async(dispatch)=>{
             if (portalType == undefined) return 
             console.log("portaltype",portalType)
             dispatch(uiActions.setInnerLoading(true))
-            const response = await axios.get(`/api/splash-pages/portal/connection-methods?portalType=${portalType}`)
-            console.log(response.data)
-            dispatch(uiActions.setInnerLoading(false))
-            // localStorage.setItem('token',response.data.access_token)
-            dispatch(splashActions.setConnectionMethods(response.data))
+            const response = await fetch(`/api/splash-pages/portal/connection-methods?portalType=${portalType}`)
+            let data;
+            switch(response.status){
+                case 200:
+                    data =await response.json()
+                    dispatch(uiActions.setInnerLoading(false))
+                    dispatch(splashActions.setConnectionMethods(data))
+                case 400:
+                    data = await response.json()
+                    dispatch(uiActions.setInnerLoading(false))
+                    getBadRequestError(data)
+                case 401:
+                    redirectToLogin()    
+                default:
+                    dispatch(uiActions.setInnerLoading(false))
+            }
+
         }catch(err:any){
             dispatch(uiActions.setInnerLoading(false))
-            if(err.response.status == 401){
-                redirectToLogin()
-            }
+            
             console.log(err)
         }
     }
@@ -69,16 +79,28 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
     return async(dispatch)=>{
         try{
             dispatch(uiActions.setLoading(true))
-            const response = await axios.get(`/api/splash-pages/portal?code=${code}`)
-            console.log(response.data,"-------------------------------")
-            dispatch(uiActions.setLoading(false))
-            dispatch(splashActions.setSplashData(response.data))
+            const response = await fetch(`/api/splash-pages/portal?code=${code}`)
+            let data;
+            switch(response.status){
+                case 200:
+                    data =await response.json()
+                    dispatch(uiActions.setLoading(false))
+                    dispatch(splashActions.setSplashData(data))
+                case 400:
+                    data = await response.json()
+                    dispatch(uiActions.setLoading(false))
+                    getBadRequestError(data)
+                case 401:
+                    redirectToLogin()
+                default:
+                    dispatch(uiActions.setLoading(false))
+            }
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
-            if(err.response.status == 401){
-                redirectToLogin()
-            }
-            console.log(err)
+            // if(err.response.status == 401){
+            //     redirectToLogin()
+            // }
+            console.log(err,"error")
         }
     }
 }
@@ -91,13 +113,27 @@ export const saveSplashPage = () :ThunkAction<void,RootState,undefined,AnyAction
             const portal = getState().splash.basicPortal
             dispatch(uiActions.setOpenDialog(false))
             dispatch(uiActions.setLoading(true))
-            const res = await axios.post(`/api/splash-pages/portal/save`,portal)
-            dispatch(uiActions.setLoading(false))
-            dispatch(uiActions.setExecute(false))
-            toast.success(res.data)
+            const response = await fetch(`/api/splash-pages/portal/save`,{
+                method:'post',
+                body:JSON.stringify(portal)
+            })
+            let data;
+            switch(response.status){
+                case 200:
+                    data =await response.json()
+                    dispatch(uiActions.setLoading(false))
+                    dispatch(uiActions.setExecute(false))
+                    toast.success(data)
+                case 400:
+                    data = await response.json()
+                    // console.log(data.message,"error 400")
+                    dispatch(uiActions.setLoading(false))
+                    getBadRequestError(data)
+                default:
+                    dispatch(uiActions.setLoading(false))
+            }
           }catch(err:any){
             dispatch(uiActions.setLoading(false))
-            toast.error(err.response.data.message)
           }
     }
 }
@@ -105,10 +141,21 @@ export const saveSplashPage = () :ThunkAction<void,RootState,undefined,AnyAction
 export const updatePortal = (portal:BasicPortal) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
         try{
-            const res = await axios.post(`/api/splash-pages/portal/update`,portal)
-            const codeHtml = res.data
-            // console.log(res.data)
-            dispatch(splashActions.setHtmlCode(codeHtml))
+            const response = await fetch(`/api/splash-pages/portal/update`,{
+                method:"post",
+                body:JSON.stringify(portal)
+            })
+            let data;
+            switch(response.status){
+                case 200:
+                    data =await response.json()
+                    dispatch(splashActions.setHtmlCode(data))
+                case 400:
+                    data = await response.json()
+                    getBadRequestError(data)
+                default:
+                    console.log(response.status)
+            }
           }catch(err:any){
             // console.log("ERROR----------",err)
             // toast.error(err.response.data.message)
@@ -122,13 +169,27 @@ export const saveSplashPageSettings = () :ThunkAction<void,RootState,undefined,A
             const portal = getState().splash.basicPortal
             dispatch(uiActions.setOpenDialog(false))
             dispatch(uiActions.setLoading(true))
-            const res = await axios.post(`/api/splash-pages/portal/update-settings`,portal)
-            dispatch(uiActions.setLoading(false))
-            dispatch(uiActions.setExecute(false))
-            toast.success(res.data)
+            const response = await fetch(`/api/splash-pages/portal/update-settings`,{
+                method:'post',
+                body:JSON.stringify(portal)
+            })
+            let data;
+            switch(response.status){
+                case 200:
+                    data =await response.json()
+                    dispatch(uiActions.setLoading(false))
+                    dispatch(uiActions.setExecute(false))
+                    toast.success(data)
+                case 400:
+                    data = await response.json()
+                    dispatch(uiActions.setLoading(false))
+                    getBadRequestError(data)
+                default:
+                    dispatch(uiActions.setLoading(false))
+            }
           }catch(err:any){
             dispatch(uiActions.setLoading(false))
-            toast.error(err.response.data.message)
+            // toast.error(err.response.data.message)
           }
     }
 }

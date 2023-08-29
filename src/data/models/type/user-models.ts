@@ -15,6 +15,15 @@ export type UserWifi = {
     updated_at:string
 }
 
+export type UserBusiness = {
+    id:string
+    fullName:string
+    email:string
+    telephone?:string
+    status:string
+    idRol:string
+}
+
 export type Dispositivo = {
     id:string
     idSistemaOperativo?:string
@@ -46,6 +55,11 @@ export enum SolicitudState {
 export enum Order {
     ASCENDENTE,
     DESCENDENTE
+}
+
+export enum UserRol {
+    ADMIN,
+    REPORTE,
 }
 
 export enum UserTabDetail {
@@ -80,4 +94,5 @@ export interface UserState {
     conexiones:Conexiones[]
     userTabDetail:UserTabDetail
     encuestas:Encuesta[]
+    userBussiness:UserBusiness[]
 }

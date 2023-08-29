@@ -9,29 +9,29 @@ import { useAppDispatch, useAppSelector } from '@/context/reduxHooks'
 import DialogConfirmation from '@/components/dialog/DialogConfirmation'
 import DialogHeader from '@/components/dialog/DialogHeader'
 import Input from '@/components/util/input/Input'
-import { UserRol } from '@/data/models/type/user-models'
+import { UserBusiness, UserRol } from '@/data/models/type/user-models'
 import { getUserBussinessList } from '@/context/actions/userActions'
 import { toast } from 'react-toastify'
 
  interface Props{
    openModal:boolean,
    closeModal:()=>void,
+   user:UserBusiness
  }
 
-
-const CreateUserNegocioDialog:React.FC<Props>=({
-  openModal,closeModal,
+const UpdateUserNegocioDialog:React.FC<Props>=({
+  openModal,closeModal,user
 })=> {
     // const [openDialogConfirm,setOpenDialogConfirm] = useState(false)
     const dispatch = useAppDispatch()
     const [loading,setLaoding] = useState(false)
     // const loading = useAppSelector(state=>state.ui.loading)
     const [formData,setFormData]=useState({
-        fullName:"",
-        email:"",
-        idRol:UserRol.REPORTE.toString()
+        fullName:user.fullName,
+        idRol:user.idRol,
+        id:user.id
     })
-    const {fullName,email,idRol} = formData
+    const {fullName,idRol} = formData
   const onChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -41,7 +41,7 @@ const CreateUserNegocioDialog:React.FC<Props>=({
       setLaoding(true)
       e.preventDefault()
       console.log(formData,"SUBMITTED DATA")
-      const res = await fetch("/api/user/bussiness/add",{
+      const res = await fetch("/api/user/bussiness/update",{
       method:"POST",
       body:JSON.stringify(formData)
     })
@@ -50,7 +50,6 @@ const CreateUserNegocioDialog:React.FC<Props>=({
     switch(res.status){
       case 200:
         data = await res.json()
-        toast.success("Se ha agregado un nuevo usuario")
         dispatch(getUserBussinessList())
         setLaoding(false)
         closeModal()
@@ -71,7 +70,6 @@ const CreateUserNegocioDialog:React.FC<Props>=({
       }
     }catch(err){
       console.log(err)
-      
       setLaoding(false)
     }
   }
@@ -119,22 +117,6 @@ const CreateUserNegocioDialog:React.FC<Props>=({
                     )
                 }}
                 />
-                <Input
-                value={email}
-                onChange={onChange}
-                name='email'
-                label='Email'
-                type='email'
-                icon={()=>{
-                    return(
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
-                        className="w-5 h-5 absolute bottom-[10px] left-[5px] text-gray-400">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                      </svg>                      
-                    )
-                }}
-                />
-
                 <div className='mt-3'>
                 <label htmlFor="idRol" className="labelText">User rol</label>
                 <select name="idRol" id="idRol" className='input'
@@ -164,5 +146,5 @@ const CreateUserNegocioDialog:React.FC<Props>=({
   )
 }
 
-export default CreateUserNegocioDialog;
+export default UpdateUserNegocioDialog;
 

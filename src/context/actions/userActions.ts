@@ -44,6 +44,20 @@ export const getEncuestas = () :ThunkAction<void,RootState,undefined,AnyAction>=
 }
 }
 
+export const getUserBussinessList =() :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+       try{
+        dispatch(uiActions.setLoading(true))
+        const response = await axios.get(`/api/user/bussiness/list`)
+        dispatch(uiActions.setLoading(false))
+        dispatch(userActions.setUserBussiness(response.data))        
+       }catch(err:any){
+        dispatch(uiActions.setLoading(false))
+        console.log(err)
+        toast.error(err.response.message)
+       }
+}
+}
 
 export const getUserWifi =(id:string) :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
@@ -134,6 +148,7 @@ export const changeSolicitudState = (status:string) :ThunkAction<void,RootState,
         }
     }
 }
+
 
 // export const validateLike = async()=>{
 //     const validateLike = await axios.get(`https://teclu.com/validatelike.php?name=${username}`)

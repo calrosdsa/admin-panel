@@ -81,9 +81,9 @@ useEffectOnce(()=>{
 
   return(
       <>
-      {basicPortal != undefined&&  
         <EditLayout
         saveChanges={saveChanges}>
+        {basicPortal != undefined&&  
             <div className="relative">
                 <div className="grid xl:grid-cols-2 sm:px-10 pt-5 gap-4 2xl:gap-6">
 
@@ -130,8 +130,8 @@ useEffectOnce(()=>{
                 </div>
             
             </div>
-        </EditLayout>
         }
+        </EditLayout>
                 </>
     )
 }
