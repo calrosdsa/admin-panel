@@ -68,7 +68,7 @@ const Users = () =>{
 
         <Layout>
             {uiState.innerLoading  &&
-            <div className=" absolute left-1/2 top-40 xl:top-32  z-10 -translate-x-1/2">
+            <div className=" absolute left-1/2 top-56 xl:top-32  z-10 -translate-x-1/2">
             <div className="flex space-x-2 items-center">
                 <div role="status">
         <svg aria-hidden="true" className="w-4 h-4  text-gray-100 animate-spin  fill-gray-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
