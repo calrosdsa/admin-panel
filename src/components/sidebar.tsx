@@ -177,6 +177,12 @@ return(
                 <h3 className='pl-4'>Usuarios</h3>
             </div>
 
+            <div onClick={()=>router.push('/user/solicitudes')} 
+              className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
+              ${pathname == '/user/solicitudes' && "bg-gray-200"}`}>
+                <h3 className='pl-4'>Solicitudes</h3>
+            </div>
+
             <div onClick={()=>router.push('/manage/access-points')} 
               className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
               ${pathname == '/manage/access-points' && "bg-gray-200"}`}>

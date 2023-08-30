@@ -7,7 +7,7 @@ export async function GET(request:Request) {
     const { searchParams } = new URL(request.url)
     const param = searchParams.get('param')
     const nextCookies = cookies(); // Get cookies object
-    const token = nextCookies.get('access_token')
+    const token = nextCookies.get('access_token')?.value
     if(token == undefined){
       return NextResponse.json("Usuario no authorizado",{status:401})
     }
@@ -19,8 +19,10 @@ export async function GET(request:Request) {
         'Authorization':`Bearer ${token}`
        }}
      )
-     const data =await res.text()
-      return NextResponse.json(data,{status:200})
+     console.log(res.status)
+     const data =await res.json()
+     console.log(data)
+      return NextResponse.json(data.Likes,{status:200})
    }catch(err){
       console.log(err)
       return NextResponse.json("Error Request",{status:500})

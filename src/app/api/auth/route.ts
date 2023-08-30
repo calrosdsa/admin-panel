@@ -22,7 +22,7 @@ export async function POST(req:Request) {
              console.log(res.status,"ESTATUS")
              const data =await res.json()
              if(res.status == 200){
-                 console.log(data)
+                //  console.log(data)
             const oneDay = 24 * 60 * 60 * 1000
             nextCookies.set("rol",data.user.idRol,{ 
                 expires: Date.now() + oneDay,

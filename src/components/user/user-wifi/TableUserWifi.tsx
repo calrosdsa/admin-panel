@@ -46,6 +46,8 @@ const TableUserWifi = ({users,ids}:Props) =>{
     <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
             <tr>
+            <th scope="col" className="">
+                </th>
                 <th scope="col" className="paddingTable"  onClick={()=>changeOrderListByName(orderStateName)}>
                     Nombre
                     {/* <div className="flex items-center"> 
@@ -65,10 +67,12 @@ const TableUserWifi = ({users,ids}:Props) =>{
             </tr>
         </thead>
         <tbody>
-            {users.map((item)=>{
+            {users.map((item,idx)=>{
                 return(
                     <tr key={item.id} className="bg-white border-b hover:bg-gray-100">
-            
+            <td className="pl-2">
+                    {idx + 1}
+                </td>
                 <td onClick={()=>navigateToUserProfilePage(item.id)}
                 className="paddingTable whitespace-nowrap text-primary cursor-pointer">
                     {item.fullName}

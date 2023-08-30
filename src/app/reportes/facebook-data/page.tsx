@@ -20,7 +20,7 @@ const Dashboard = () =>{
 },[])
   return(
     <Layout>
-      <div className={` lg:grid bg-gray-100  lg:grid-cols-2 w-full xl:h-screen`}>
+      <div className={` lg:grid bg-gray-100  lg:grid-cols-2 w-full xl:h-screen `}>
         <DashboardData/>
         <div className='lg:h-screen lg:overflow-y-auto'>
       <LandingPage/>

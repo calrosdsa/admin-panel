@@ -104,8 +104,6 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
             const formData = new FormData()
             formData.append('email',email)
             formData.append('password',password)
-            
-            // const response = await axios.post("/api/auth",{email,password})
             const response = await fetch("/api/auth",{
                 method:"post",
                 body:JSON.stringify({email,password})
@@ -125,9 +123,14 @@ export const login =(email:string,password:string) :ThunkAction<void,RootState,u
                         if(parsed.redirect != undefined){
                             window.location.replace(parsed.redirect as string)
                         }else{
-                            window.location.replace(window.location.origin)
+                            if(data.idClient == "1"){
+                                window.location.replace(window.location.origin + "/reportes/facebook-data")
+                            }else{
+                                window.location.replace(window.location.origin)
+                            }
                         }
                     }
+                    
                 case 400:
                     toast.error(dataRes.password)
                 default:

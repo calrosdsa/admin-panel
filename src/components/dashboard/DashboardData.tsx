@@ -57,7 +57,7 @@ const DashboardData = ()=>{
 
     return(
         <div className="w-full px-1 xl:mt-0 lg:pr-5 lg:pt-3 flex flex-col lg:h-screen lg:overflow-auto">
-        <div className='pt-10 xl:pt-0'>
+        <div className='pt-12 xl:pt-0'>
 
             <div className="flex flex-wrap gap-x-2 gap-y-3">
           <button onClick={()=>downloadReport("1",ReporteId.USER_RED)}

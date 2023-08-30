@@ -21,7 +21,7 @@ const UserDetail = ({user}:Props)=>{
     return(
         <div className="grid gap-y-4 w-full relative">
             {uiState.loading &&
-            <div className="h-[90vh]">
+            <div className="h-[50vh]">
             <Loader
             className=" absolute -translate-x-1/2 top-1/2 left-1/2 -translate-y-1/2 "
             />

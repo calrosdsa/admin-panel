@@ -162,11 +162,11 @@ export const donwloadUserReportPdf = (
         moment.locale("es")
         const date = moment().format('LLLL').replace(":",";");
         try{
-            const formData = new FormData()
-            formData.append("idpost","0")
+            
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
-            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
+            console.log(response.data)
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportUserWifiPdf`,{},{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
@@ -176,7 +176,7 @@ export const donwloadUserReportPdf = (
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', `${date} - Reporte (general).pdf`); //or any other extension
+                link.setAttribute('download', `${date} - Reporte conexiones.pdf`); //or any other extension
                 document.body.appendChild(link);
                 toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
                 link.click();
@@ -209,11 +209,9 @@ export const donwloadUserReportExcel = (
         moment.locale("es")
         const date = moment().format('LLLL').replace(":",";");
         try{
-            const formData = new FormData()
-            formData.append("idpost","0")
             dispatch(dashboardAction.setOngoingProcess(idProgress))
             const response = await axios.get('/api/auth/token')
-            await axios.post(`${API_URL}/apiFB/public/facebook/reportexcel`,formData,{
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportUserWifiExcel`,{},{
                 headers:{
                     'Authorization':`Bearer ${response.data.access_token}`
                 },
@@ -223,7 +221,7 @@ export const donwloadUserReportExcel = (
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement('a');
                 link.href = url;
-                link.setAttribute('download', `${date} - Reporte (general).xlsx`); //or any other extension
+                link.setAttribute('download', `${date} - Reporte conexiones.xlsx`); //or any other extension
                 document.body.appendChild(link);
                 toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
                 link.click();

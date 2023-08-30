@@ -47,7 +47,7 @@ const Solicitudes = ()=>{
     return(
         <>
         <Layout>
-            <div className=" xl:pt-4 noselect">
+            <div className=" xl:pt-4 noselect p-2">
            {/* <button onClick={()=>sendRequest()}>Test </button> */}
               <SolicitudOption
               refreshList={()=>dispatch(getSolicitudList())}
