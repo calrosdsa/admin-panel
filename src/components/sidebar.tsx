@@ -179,8 +179,8 @@ return(
 
             <div onClick={()=>router.push('/manage/access-points')} 
               className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
-              ${pathname == '/manage/users' && "bg-gray-200"}`}>
-                <h3 className='pl-4'>Access Poinsts</h3>
+              ${pathname == '/manage/access-points' && "bg-gray-200"}`}>
+                <h3 className='pl-4'>Access Points</h3>
             </div>
               </Disclosure.Panel>
             </>
