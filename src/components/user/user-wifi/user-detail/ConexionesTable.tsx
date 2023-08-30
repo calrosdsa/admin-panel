@@ -1,3 +1,4 @@
+import Loader from "@/components/util/loaders/Loader";
 import { Conexiones } from "@/data/models/type/user-models";
 import { FallingLines } from "react-loader-spinner";
 
@@ -10,14 +11,17 @@ const ConexionesTable = ({conexiones,loading}:Props) =>{
     return(
         <>
         {loading ?
-        <div className='grid place-content-center w-full h-[50vh]'>
-        <FallingLines
-        color="#0406ee"
-        width="110"
-        visible={true}
-        // ariaLabel='falling-lines-loading'
+        <Loader
+        className="grid place-content-center w-full h-[50vh]"
         />
-        </div>
+        // <div className='grid place-content-center w-full h-[50vh]'>
+        // <FallingLines
+        // color="#0406ee"
+        // width="110"
+        // visible={true}
+        // // ariaLabel='falling-lines-loading'
+        // />
+        // </div>
         :
 <table className="w-full text-sm text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">

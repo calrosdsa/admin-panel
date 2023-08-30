@@ -3,6 +3,7 @@
 import DialogLayout from "@/components/layout/DialogLayout";
 import Layout from "@/components/layout/layout"
 import SplashPagesList from "@/components/splash/SplashPagesList";
+import Loader from "@/components/util/loaders/Loader";
 import { getSplashPageList } from "@/context/actions/splashActions";
 import { useAppDispatch, useAppSelector } from "@/context/reduxHooks";
 import axios from "axios";
@@ -19,7 +20,6 @@ const Pages = () =>{
     // const router = useRouter()
     const dispatch = useAppDispatch()
     const splashState = useAppSelector(state=>state.splash)
-    const uiState = useAppSelector(state=>state.ui)
     // const [ loading,setLoading ] = useState(false)
     // const [splashName,setSplashName] = useState("")
     // const [openCreateDialogSplash, setOpenDialogSplash ] = useState(false)
@@ -33,28 +33,9 @@ const Pages = () =>{
 
     return(
       <Layout>
-      
-            <div className="pt-10 xl:pt-0 p-2">
-              <div className="mb-3">
-                {/* <Button color={'light'} onClick={()=>router.push(`/splash/add?splash_url=${splashState.splashBaseUrl}`)}>
-                Crear
-                </Button> */}
-              </div>
-              {uiState.innerLoading ?
-               <div className='grid place-content-center w-full h-[50vh]'>
-               <FallingLines
-               color="#0406ee"
-               width="110"
-               visible={true}
-               // ariaLabel='falling-lines-loading'
-               />
-               </div>
-               :
             <SplashPagesList
             splasPagesList={splashState.splashPages}
             />
-          }
-            </div>
         </Layout>
     )
 }

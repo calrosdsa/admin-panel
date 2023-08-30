@@ -1,3 +1,4 @@
+import Loader from "@/components/util/loaders/Loader";
 import { Conexiones, Dispositivo } from "@/data/models/type/user-models";
 import { FallingLines } from "react-loader-spinner";
 
@@ -10,14 +11,9 @@ const DispositivosTable = ({dispositivos,loading}:Props) =>{
     return(
         <>
         {loading?
-        <div className='grid place-content-center w-full h-[50vh]'>
-        <FallingLines
-        color="#0406ee"
-        width="110"
-        visible={true}
-        // ariaLabel='falling-lines-loading'
+        <Loader
+        className="grid place-content-center w-full h-[50vh]"
         />
-        </div>
         :
         <div className="flex justify-center">
 <table className="w-full sm:w-1/2 text-sm text-left text-gray-500">

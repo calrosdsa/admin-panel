@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from "axios"
+import axios, { AxiosResponse, CancelTokenSource } from "axios"
 import queryString from "query-string";
-import { toast } from "react-toastify";
+import { Id, toast } from "react-toastify";
 import { AnyAction } from "redux";
 // import 'react-toastify/dist/ReactToastify.css';
 import { ThunkAction } from "redux-thunk";
@@ -10,10 +10,15 @@ import authSlice from "../slices/auth-slice";
 import { uiActions } from "../slices/ui-slice";
 import { userActions } from "../slices/user-slice";
 import { RootState } from "../store";
+import moment from "moment";
+import { dashboardAction } from "../slices/dashboard-slice";
+import { ReporteId } from "@/data/models/type/dashboard-model";
+import { redirectToLogin } from ".";
 
 export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
     return async(dispatch)=>{
        try{
+        dispatch(userActions.setUsersWifi([]))        
         dispatch(uiActions.setInnerLoading(true))
         const response = await axios.get(`/api/user`)
         dispatch(uiActions.setInnerLoading(false))
@@ -150,16 +155,93 @@ export const changeSolicitudState = (status:string) :ThunkAction<void,RootState,
 }
 
 
-// export const validateLike = async()=>{
-//     const validateLike = await axios.get(`https://teclu.com/validatelike.php?name=${username}`)
-//     const hasLike:boolean = validateLike.data
-// }
+export const donwloadUserReportPdf = (
+    idProgress:number,id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+        // const date = new Date().toLocaleString().replaceAll(":",";").replaceAll("/","-")
+        moment.locale("es")
+        const date = moment().format('LLLL').replace(":",";");
+        try{
+            const formData = new FormData()
+            formData.append("idpost","0")
+            dispatch(dashboardAction.setOngoingProcess(idProgress))
+            const response = await axios.get('/api/auth/token')
+            await axios.post(`${API_URL}/apiFB/public/facebook/report`,formData,{
+                headers:{
+                    'Authorization':`Bearer ${response.data.access_token}`
+                },
+                cancelToken:source.token,
+                responseType:'blob'
+            }).then((response)=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `${date} - Reporte (general).pdf`); //or any other extension
+                document.body.appendChild(link);
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
+                link.click();
+            })
+            dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            // dispatch(uiActions.setLoading(false))
+            // localStorage.setItem('token',response.data.access_token)
+        }catch(err:any){
+            console.log(err)
+            if (axios.isCancel(err)) {
+                toast.update(id, {render:"Descarga Cancelada", type: "info", isLoading: false ,autoClose:5000});
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            }else{
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+                toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
+                // dispatch(uiActions.setLoading(false))
+                if(err.response.status == 401){
+                    redirectToLogin()
+                }
+            }
+        }
+    }
+}
 
-// export const getDataUser = async(accessToken:string):Promise<AxiosResponse<any, any>>=>{
-//     const userRes =await axios.get(`https://graph.facebook.com/v15.0/me?fields=id%2Cname&access_token=${accessToken}`)
-//     // const username = userRes.data.name
-//     // const validateLike = await axios.get(`https://teclu.com/validatelike.php?name=${username}`)
-//     // const hasLike:boolean = validateLike.data
-//     return userRes
-// }
-  
+
+export const donwloadUserReportExcel = (
+    idProgress:number,
+    id: Id,source:CancelTokenSource) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch)=>{
+        moment.locale("es")
+        const date = moment().format('LLLL').replace(":",";");
+        try{
+            const formData = new FormData()
+            formData.append("idpost","0")
+            dispatch(dashboardAction.setOngoingProcess(idProgress))
+            const response = await axios.get('/api/auth/token')
+            await axios.post(`${API_URL}/apiFB/public/facebook/reportexcel`,formData,{
+                headers:{
+                    'Authorization':`Bearer ${response.data.access_token}`
+                },
+                cancelToken:source.token,
+                responseType:'blob'
+            }).then((response)=>{
+                const url = window.URL.createObjectURL(new Blob([response.data]));
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', `${date} - Reporte (general).xlsx`); //or any other extension
+                document.body.appendChild(link);
+                toast.update(id, {render: "Se ha completado la descarga", type: "success", isLoading: false,autoClose:5000});
+                link.click();
+            })
+            dispatch(dashboardAction.removeOngoingProcess(idProgress))
+        }catch(err:any){
+            console.log(err)
+            if (axios.isCancel(err)) {
+                toast.update(id, {render:"Descarga Cancelada", type: "info", isLoading: false ,autoClose:5000});
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+            }else{
+                dispatch(dashboardAction.removeOngoingProcess(idProgress))
+                toast.update(id, {render:err.response.message, type: "error", isLoading: false ,autoClose:5000});
+                // dispatch(uiActions.setLoading(false))
+                if(err.response.status == 401){
+                    redirectToLogin()
+                }
+            }
+        }
+    }
+}

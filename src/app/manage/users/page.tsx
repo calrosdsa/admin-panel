@@ -97,7 +97,7 @@ export default function Usuarios(){
                     {userBussiness.map((item,idx)=>{
                         return(
                             <div key={idx} onClick={()=>selectUser(item)}
-                            className={`p-2 hover:bg-gray-100 cursor-pointer border-b-[1px] grid
+                            className={`p-2 hover:bg-gray-100 cursor-pointer border-b-[1px] flex flex-col
                             ${currentUser?.id == item.id && "bg-gray-100"}`}>
                                 <span className="">{item.fullName}</span>
                                 {/* <span className="text-sm">{item.email}</span> */}
@@ -111,8 +111,8 @@ export default function Usuarios(){
                     {currentUser != undefined &&                     
                     <div className="flex justify-between items-center px-2">
 
-                    <div className="grid">
-                        <span className="font-medium text-lg">{currentUser.fullName}</span>
+                    <div className="grid w-full">
+                        <span className="font-medium text-lg w-10/12 truncate">{currentUser.fullName}</span>
                         <span className="text-xs">{currentUser.email}</span>
                         <span>{getUserBussinessRolName(Number(currentUser.idRol))}</span>
                     </div>

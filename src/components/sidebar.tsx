@@ -12,6 +12,7 @@ import { getCookie } from "cookies-next"
 import { getUser } from "@/context/selectors"
 import { clientEncuesta, facebookClients } from "@/utils/data/clients"
 import { uiActions } from "@/context/slices/ui-slice"
+import { UserRol } from "@/data/models/type/user-models"
 
 
 export  const SideBarApp = () =>{
@@ -146,6 +147,8 @@ return(
           )}
         </Disclosure>
 
+        {Number(rol) == UserRol.ADMIN &&
+
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
@@ -173,15 +176,20 @@ return(
               ${pathname == '/manage/users' && "bg-gray-200"}`}>
                 <h3 className='pl-4'>Usuarios</h3>
             </div>
-           
+
+            <div onClick={()=>router.push('/manage/access-points')} 
+              className={`flex cursor-pointer items-center hover:bg-gray-200 p-2
+              ${pathname == '/manage/users' && "bg-gray-200"}`}>
+                <h3 className='pl-4'>Access Poinsts</h3>
+            </div>
               </Disclosure.Panel>
             </>
           )}
         </Disclosure>
+      }
 
 
-      
-
+      {Number(rol) == UserRol.ADMIN &&
         <Disclosure defaultOpen={true}>
           {({ open }) => (
             <>
@@ -195,7 +203,7 @@ return(
    -.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0
    18.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 
    0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-           </svg> */}
+  </svg> */}
            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
             className="w-6 h-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
@@ -219,6 +227,7 @@ return(
             </>
           )}
         </Disclosure>
+      }
         </>
         {/* } */}
 

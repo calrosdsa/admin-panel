@@ -22,11 +22,9 @@ const User = ({ params }: { params: { id: string } }) =>{
             <div className="">
                 <div className=" xl:grid xl:grid-cols-3  pt-10 xl:pt-0 max-w-xl mx-auto xl:max-w-6xl bg-white">
                 <div className="border-[1px] shadow-xl p-2  m-auto xl:h-screen w-full h-96" >
-            {userState.user != undefined &&
             <UserDetail
             user={userState.user}
             />                    
-        }
                 </div>
                 <div className="border-[1px] shadow-xl mt-10 lg:mt-0 p-2 col-span-2 h-screen overflow-auto">
                     <UsuarioDetailTab

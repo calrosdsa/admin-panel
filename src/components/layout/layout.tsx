@@ -26,7 +26,7 @@ export default function Layout({ children }:Props) {
     <>
       {/* <Header /> */}
       <ToastContainer
-        position={"bottom-center"}
+        // position={"bottom-center"}
       />
       <main className='h-screen flex bg-gray-100  max-w-[1700px] mx-auto shadow-lg '>
         <div className='xl:hidden w-full bg-secondary p-2 fixed top-0 h-10 z-10'>

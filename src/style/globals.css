@@ -52,7 +52,7 @@
       @apply p-4  hover:border-b-2 cursor-pointer border-gray-400
      }
      .paddingTable {
-      @apply py-3 px-1  whitespace-nowrap
+      @apply py-3 px-3  whitespace-nowrap
      }
      .label {
       @apply font-medium text-sm

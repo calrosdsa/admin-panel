@@ -14,7 +14,7 @@ export async function GET(request:Request) {
     // console.log(token,"--------------------")
   try{
     //   const body = await request.json()
-      const res = await fetch(`${API_URL}/apiFB/public/userwifi/listencuesta`,{
+      const res = await fetch(`${API_URL}/apiFB/public/hardware/list`,{
         method:"POST",
         headers:{
         'Authorization':`Bearer ${token}`
@@ -22,7 +22,7 @@ export async function GET(request:Request) {
      )
      const data =await res.json()
     //  console.log(data)
-      return NextResponse.json(data.data,{status:res.status})
+      return NextResponse.json(data.Posts,{status:200})
    }catch(err){
       console.log(err)
       return NextResponse.json("Error Request",{status:500})

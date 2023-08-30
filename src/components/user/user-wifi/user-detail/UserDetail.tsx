@@ -1,3 +1,5 @@
+import Loader from "@/components/util/loaders/Loader";
+import { useAppSelector } from "@/context/reduxHooks";
 import { UserWifi } from "@/data/models/type/user-models";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -5,10 +7,10 @@ import { useEffect } from "react";
 
 
 interface Props{
-    user:UserWifi
+    user:UserWifi | undefined
 }
 const UserDetail = ({user}:Props)=>{
-
+    const uiState = useAppSelector(state=>state.ui)
     const validateImageNullOrBlank = (value?:string):string =>{
         console.log("value es",value)
         if(value == null || value == "") return "/images/user-icon-placeholder.webp"
@@ -16,12 +18,18 @@ const UserDetail = ({user}:Props)=>{
 
     }
 
-    useEffect(()=>{
-        console.log("User image",user.image)
-    })
     return(
-        <div className="grid gap-y-4 w-full">
-            <div className="flex flex-col items-center">
+        <div className="grid gap-y-4 w-full relative">
+            {uiState.loading &&
+            <div className="h-[90vh]">
+            <Loader
+            className=" absolute -translate-x-1/2 top-1/2 left-1/2 -translate-y-1/2 "
+            />
+            </div>
+            }
+            {user != undefined &&
+            <>
+                <div className="flex flex-col items-center">
             {user.image == "" ?
             <Image
             src={validateImageNullOrBlank(user.image)}
@@ -38,7 +46,7 @@ const UserDetail = ({user}:Props)=>{
             alt={""}
             className="rounded-full"
             />
-           
+            
         }
             <span className="italic text-sm">{user.mail}</span>
         </div>
@@ -99,7 +107,8 @@ const UserDetail = ({user}:Props)=>{
 
 
             </div>
-
+        </>
+}
             </div>
     )
 }

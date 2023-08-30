@@ -24,6 +24,7 @@ export const getSplashPageList = () :ThunkAction<void,RootState,undefined,AnyAct
     return async(dispatch)=>{
 
         try{
+            dispatch(splashActions.setSplashPages([]))
             dispatch(uiActions.setInnerLoading(true))
             const response = await axios.get('/api/splash-pages')
             console.log(response)
