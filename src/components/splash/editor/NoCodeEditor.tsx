@@ -4,21 +4,15 @@ import { uiActions } from "@/context/slices/ui-slice";
 import { splashActions } from "@/context/slices/splash-slice";
 import axios, { AxiosResponse } from "axios";
 import { ChangeEvent, useEffect, useState } from "react";
-import useDebounce from "@/utils/hooks/useDebounce";
 import { BasicPortal, ContentPortal, ImagePortal, PortalType } from "@/data/models/type/splash-data";
-import useEffectOnce from "@/utils/hooks/useEffectOnce";
 import ColorEdit from "./components/ColorEdit";
-import { URL } from "url";
-import { Blob } from "buffer";
 import { saveSplashPage, updatePortal } from "@/context/actions/splashActions";
 import DialogConfirmation from "@/components/dialog/DialogConfirmation";
-import { PUBLIC_URL } from "@/config";
 import EditComponent from "@/components/util/input/EditComponent";
 interface Props {
   basicPortal:BasicPortal
 }
 const NoCodeEditor = ({basicPortal}:Props)=>{
-  const baseUrl = PUBLIC_URL
   const htmlCode = useAppSelector(state=>state.splash.htmlCode)
   const [portada,setPortada] = useState(basicPortal.portada)
   const [imageBackground,setImageBackground] = useState<ImagePortal>({
@@ -51,9 +45,17 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
     const formData = new FormData()
     let imgWebp = ""
     if(current == `${basicPortal.portal.id_portal}${label}.webp`){
-      imgWebp = `${basicPortal.portal.id_portal}${label}2.webp`
+      if(isVideo){
+        imgWebp = `${basicPortal.portal.id_portal}${label}2.mp4`
+      }else {
+        imgWebp = `${basicPortal.portal.id_portal}${label}2.webp`
+      }
     }else{
-      imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
+      if(isVideo){
+        imgWebp = `${basicPortal.portal.id_portal}${label}.mp4`
+      }else {
+        imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
+      }
     }
     formData.append("filename",imgWebp)
     formData.append("file",file as File)
@@ -292,7 +294,7 @@ const applyChangesWithName = (addLoader:()=>void,removeLoader:()=>void,value:str
 
   useEffect(()=>{
     if(execute){
-      console.log(basicPortal)
+      // console.log(basicPortal)
         dispatch(saveSplashPage())
       // }
     }

@@ -80,14 +80,13 @@ const EditLayout = ({children,saveChanges}:Props) =>{
                     </button>
                   </div>
                   <div className="flex space-x-3">
-                  <button disabled={!showSaveButton} className=" button underline" onClick={()=>{
+                  <button  className=" button underline" onClick={()=>{
                       window.open(portal?.portal.url)
                     }}>
                     Ver portal
                   </button>
-                  <button disabled={!showSaveButton} className=" button" onClick={()=>{
-                      dispatch(uiActions.setOpenDialog(true))
-                    }}>
+                  <button disabled={!showSaveButton} className={`button ${!showSaveButton && "disabled"}`}
+                   onClick={()=>{dispatch(uiActions.setOpenDialog(true))}}>
                     Guardar Cambios
                   </button>
                 </div>

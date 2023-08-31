@@ -14,7 +14,7 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(req.nextUrl.origin+"/auth/login")
   }
   if(req.nextUrl.pathname == "/") {
-    return NextResponse.redirect(req.nextUrl.origin+"/dashboard")
+    return NextResponse.redirect(req.nextUrl.origin+"/user")
   }
   // console.log(cookie) // => 'fast'
   // const allCookies = req.cookies.getAll()

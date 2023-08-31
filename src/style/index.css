@@ -1,47 +1,49 @@
+
 .VictoryContainer {
-    /* user-select: auto !important; */
-    /* pointer-events: auto !important; */
-    touch-action: auto !important;
-    }
-  
-    /* .scrollhidden::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .scrollhidden {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }  */
-  
-    .noselect {
-      -webkit-touch-callout: none; /* iOS Safari */
-        -webkit-user-select: none; /* Safari */
-        -khtml-user-select: none; /* Konqueror HTML */
-          -moz-user-select: none; /* Old versions of Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
-                user-select: none; /* Non-prefixed version, currently
-                                      supported by Chrome, Edge, Opera and Firefox */
-    }
+  /* user-select: auto !important; */
+  /* pointer-events: auto !important; */
+  touch-action: auto !important;
+  }
 
-    .box {
-      display: flex;
-      flex-flow: column;
-      height: 100%;
-    }
-
-  /* ::-webkit-scrollbar {
-    width: 8px;               
+  /* .scrollhidden::-webkit-scrollbar {
+    display: none;
   }
   
-  ::-webkit-scrollbar-track {
-    background: transparent;
+  .scrollhidden {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }  */
+
+  .noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+      -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
   }
+
+  .box {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  
+  
   
   ::-webkit-scrollbar-thumb {
-    background-color: gainsboro;  
-    border-radius: 10px;       
+    background-color: rgb(175, 175, 175);
+    border-radius: 10px;
   }
-   */
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  } 
 
    .overlay {
     position: fixed;
