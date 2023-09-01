@@ -7,12 +7,12 @@ import { NextResponse } from "next/server";
 export async function GET(request:Request) {
     const { searchParams } = new URL(request.url)
     const code = searchParams.get('code')
-   const nextCookies = cookies(); // Get cookies object
-   const token = nextCookies.get('access_token')?.value
-//    console.log(token)
-   if(token == undefined){
-    return NextResponse.json("Usuario no authorizado",{status:401})
-  }
+//    const nextCookies = cookies(); // Get cookies object
+//    const token = nextCookies.get('access_token')?.value
+// //    console.log(token)
+//    if(token == undefined){
+//     return NextResponse.json("Usuario no authorizado",{status:401})
+//   }
   try{
     //   const body:Cupo = await request.json()
       const res = await fetch(`${PUBLIC_URL}/portal/basic/${code}/`)

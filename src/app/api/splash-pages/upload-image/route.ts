@@ -8,11 +8,11 @@ import { PUBLIC_URL } from "@/config";
 
 export const runtime = 'nodejs'
 export async function POST(request:Request) {
-   const nextCookies = cookies(); // Get cookies object
-   const token = nextCookies.get('access_token')?.value
-   if(token == undefined){
-       return NextResponse.json("Usuario no authorizado",{status:401})
-     }
+  //  const nextCookies = cookies(); // Get cookies object
+  //  const token = nextCookies.get('access_token')?.value
+  //  if(token == undefined){
+  //      return NextResponse.json("Usuario no authorizado",{status:401})
+  //    }
    // console.log("TOKEN",token)
  try{
     console.log("spplashpages ------------")
