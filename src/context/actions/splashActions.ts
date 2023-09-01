@@ -58,14 +58,18 @@ return async(dispatch)=>{
                     data =await response.json()
                     dispatch(uiActions.setInnerLoading(false))
                     dispatch(splashActions.setConnectionMethods(data))
+                    break
                 case 400:
                     data = await response.json()
                     dispatch(uiActions.setInnerLoading(false))
                     getBadRequestError(data)
+                    break
                 case 401:
                     redirectToLogin()    
+                    break
                 default:
                     dispatch(uiActions.setInnerLoading(false))
+                    break
             }
 
         }catch(err:any){
@@ -87,14 +91,18 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
                     data =await response.json()
                     dispatch(uiActions.setLoading(false))
                     dispatch(splashActions.setSplashData(data))
+                    break
                 case 400:
                     data = await response.json()
                     dispatch(uiActions.setLoading(false))
                     getBadRequestError(data)
+                    break
                 case 401:
                     redirectToLogin()
+                    break
                 default:
                     dispatch(uiActions.setLoading(false))
+                    break
             }
         }catch(err:any){
             dispatch(uiActions.setLoading(false))
@@ -125,13 +133,16 @@ export const saveSplashPage = () :ThunkAction<void,RootState,undefined,AnyAction
                     dispatch(uiActions.setLoading(false))
                     dispatch(uiActions.setExecute(false))
                     toast.success(data)
+                    break
                 case 400:
                     data = await response.json()
                     // console.log(data.message,"error 400")
                     dispatch(uiActions.setLoading(false))
                     getBadRequestError(data)
+                    break
                 default:
                     dispatch(uiActions.setLoading(false))
+                    break
             }
           }catch(err:any){
             dispatch(uiActions.setLoading(false))
@@ -151,11 +162,14 @@ export const updatePortal = (portal:BasicPortal) :ThunkAction<void,RootState,und
                 case 200:
                     data =await response.json()
                     dispatch(splashActions.setHtmlCode(data))
+                    break
                 case 400:
                     data = await response.json()
                     getBadRequestError(data)
+                    break
                 default:
                     console.log(response.status)
+                
             }
           }catch(err:any){
             // console.log("ERROR----------",err)
@@ -181,12 +195,15 @@ export const saveSplashPageSettings = () :ThunkAction<void,RootState,undefined,A
                     dispatch(uiActions.setLoading(false))
                     dispatch(uiActions.setExecute(false))
                     toast.success(data)
+                    break
                 case 400:
                     data = await response.json()
                     dispatch(uiActions.setLoading(false))
                     getBadRequestError(data)
+                    break
                 default:
                     dispatch(uiActions.setLoading(false))
+                    break
             }
           }catch(err:any){
             dispatch(uiActions.setLoading(false))
