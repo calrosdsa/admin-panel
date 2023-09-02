@@ -9,6 +9,7 @@ import ColorEdit from "./components/ColorEdit";
 import { saveSplashPage, updatePortal } from "@/context/actions/splashActions";
 import DialogConfirmation from "@/components/dialog/DialogConfirmation";
 import EditComponent from "@/components/util/input/EditComponent";
+import { toast } from "react-toastify";
 interface Props {
   basicPortal:BasicPortal
 }
@@ -55,6 +56,16 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
         imgWebp = `${basicPortal.portal.id_portal}${label}.mp4`
       }else {
         imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
+      }
+    }
+    console.log(file.size,"File size")
+    if(file.size > 4142171){
+      if(isVideo){ 
+        toast.info("Por favor, asegúrate de que el video no exceda los 4 MB.")
+        return 
+      }else{
+        toast.info("Por favor, asegúrate de que la imagen no exceda los 4 MB. ")
+        return 
       }
     }
     formData.append("filename",imgWebp)
