@@ -44,7 +44,7 @@ type  PortalProperties ={
     color:string
     background:string
     text_color:string
-    image_background:string
+    image_background?:string
     show_video:boolean
     title?:string
     description?:string
