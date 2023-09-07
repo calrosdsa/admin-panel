@@ -99,7 +99,7 @@ const UpdateUserNegocioDialog:React.FC<Props>=({
       <Dialog.Panel>
         <div className='rounded-lg bg-white p-2'>
             <DialogHeader
-            title='Resetear Contraseña'
+            title='Editar usuario'
             close={()=>closeModal()}
             />
             <form onSubmit={onSubmit}>
