@@ -131,6 +131,10 @@ const onChangeLogo = (e: ChangeEvent<HTMLInputElement>)=>{
     })
     return
     }
+    setLogo({
+      ...logo,
+      [e.target.name]:e.target.value
+})
     dispatch(splashActions.setSplashData({
         ...basicPortal,
         logo:{
