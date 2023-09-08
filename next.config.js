@@ -39,7 +39,19 @@ const nextConfig = {
             hostname: "**",
           },
         ],
-  }
+  },
+  headers: () => [
+    {
+      source: '/splash/edit',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    },
+  ],
+
 }
 
 module.exports = nextConfig
