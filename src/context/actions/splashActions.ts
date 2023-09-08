@@ -89,6 +89,7 @@ export const getSplashPageByCode = (code:string) :ThunkAction<void,RootState,und
             switch(response.status){
                 case 200:
                     data =await response.json()
+                    console.log(data)
                     dispatch(uiActions.setLoading(false))
                     dispatch(splashActions.setSplashData(data))
                     break

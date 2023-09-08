@@ -16,6 +16,7 @@ interface Props {
 const NoCodeEditor = ({basicPortal}:Props)=>{
   const htmlCode = useAppSelector(state=>state.splash.htmlCode)
   const [portada,setPortada] = useState(basicPortal.portada)
+  const [logo,setLogo] = useState(basicPortal.logo)
   const [imageBackground,setImageBackground] = useState<ImagePortal>({
     url:basicPortal.properties.image_background,
     id:0
@@ -42,7 +43,6 @@ const updatedIFrame =async()=>{
 
 const uploadImage = async(file:File,label:string,current:string | undefined,isVideo:boolean = false)=>{
   try{
-
     const formData = new FormData()
     let imgWebp = ""
     if(current == `${basicPortal.portal.id_portal}${label}.webp`){
@@ -58,7 +58,6 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
         imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
       }
     }
-    console.log(file.size,"File size")
     if(file.size > 4142171){
       if(isVideo){ 
         toast.info("Por favor, asegúrate de que el video no exceda los 4 MB.")
@@ -87,7 +86,6 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
 const onChangeVideo = (e:ChangeEvent<HTMLInputElement>)=>{
   if (e.target.files != null){
     const file = e.target.files[0];
-    console.log(file.name)
     setVideo(file)
     const objectUrl = window.URL.createObjectURL(file);
     console.log(objectUrl);
@@ -102,7 +100,6 @@ const onChangeVideo = (e:ChangeEvent<HTMLInputElement>)=>{
 const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
     if (e.target.files != null){
       const file = e.target.files[0];
-      console.log(file.name)
       setFile(file)
       const objectUrl = window.URL.createObjectURL(file);
       console.log(objectUrl);
@@ -131,23 +128,20 @@ const onChangeLogo = (e: ChangeEvent<HTMLInputElement>)=>{
     setFileLogo(file)
     const objectUrl = window.URL.createObjectURL(file);
     // console.log(objectUrl);
+    setLogo({
+        ...logo,
+        url:objectUrl
+    })
+    return
+    }
     dispatch(splashActions.setSplashData({
-      ...basicPortal,
-      logo:{
-          ...basicPortal.logo,
-          url:objectUrl
-      }
-  }))
-  return
+        ...basicPortal,
+        logo:{
+            ...basicPortal.logo,
+            [e.target.name]:e.target.value
+        }
+    }))
   }
-  dispatch(splashActions.setSplashData({
-      ...basicPortal,
-      logo:{
-          ...basicPortal.logo,
-          [e.target.name]:e.target.value
-      }
-  }))
-}
 const onChangeImageBackground = (e:ChangeEvent<HTMLInputElement>) => {
   if (e.target.files != null){
     const file = e.target.files[0];
@@ -162,7 +156,7 @@ const onChangeImageBackground = (e:ChangeEvent<HTMLInputElement>) => {
 }
 
 const onChangeColor = (name:string,value:string)=>{
-  console.log(name,value)
+  // console.log(name,value)
   // dispatch(splashActions.setHtmlCode(undefined))
   dispatch(splashActions.setSplashData({
     ...basicPortal,
@@ -205,7 +199,7 @@ const applyChangesVideo = async() =>{
     dispatch(splashActions.setHtmlCode(undefined))
     const last = basicPortal.portada.video_url?.lastIndexOf("/") || 0
     const current = basicPortal.portada.video_url?.substring(last+1)
-    console.log(current,"VIDEO_URL")
+    // console.log(current,"VIDEO_URL")
     await uploadImage(video,"video",current,true).then(res=>{
         setSubmit(!submit)
         setVideo(undefined)
@@ -264,7 +258,7 @@ const applyChangesLogo = async() =>{
     const current = basicPortal.logo.url?.substring(last+1)
     dispatch(splashActions.setHtmlCode(undefined))
     await uploadImage(fileLogo,"logo",current).then(res=>{
-        // console.log("uploading")
+        // console.log(res)
         setSubmit(!submit)
         setFileLogo(undefined)
         dispatch(splashActions.setSplashData({
@@ -403,7 +397,7 @@ const applyChangesWithName = (addLoader:()=>void,removeLoader:()=>void,value:str
                     showVideo={basicPortal.properties.show_video}
                     />
                     <ImageEdit
-                    image={basicPortal?.logo}
+                    image={logo}
                     onChange={onChangeLogo}
                     applyChanges={applyChangesLogo}
                     id="logo"
