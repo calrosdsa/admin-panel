@@ -88,7 +88,6 @@ const onChangeVideo = (e:ChangeEvent<HTMLInputElement>)=>{
     const file = e.target.files[0];
     setVideo(file)
     const objectUrl = window.URL.createObjectURL(file);
-    console.log(objectUrl);
     setPortada({
       ...portada,
       video_url:objectUrl
@@ -102,7 +101,6 @@ const onChangeImage= (e: ChangeEvent<HTMLInputElement>)=>{
       const file = e.target.files[0];
       setFile(file)
       const objectUrl = window.URL.createObjectURL(file);
-      console.log(objectUrl);
       setPortada({
         ...portada,
         url:objectUrl
@@ -127,7 +125,6 @@ const onChangeLogo = (e: ChangeEvent<HTMLInputElement>)=>{
     const file = e.target.files[0];
     setFileLogo(file)
     const objectUrl = window.URL.createObjectURL(file);
-    // console.log(objectUrl);
     setLogo({
         ...logo,
         url:objectUrl
@@ -156,8 +153,6 @@ const onChangeImageBackground = (e:ChangeEvent<HTMLInputElement>) => {
 }
 
 const onChangeColor = (name:string,value:string)=>{
-  // console.log(name,value)
-  // dispatch(splashActions.setHtmlCode(undefined))
   dispatch(splashActions.setSplashData({
     ...basicPortal,
     properties:{
@@ -179,7 +174,6 @@ const applyChanges = async() =>{
     await uploadImage(file,"portada",current).then(res=>{
         setSubmit(!submit)
         setFile(undefined)
-        // console.log("uploading")
         dispatch(splashActions.setSplashData({
           ...basicPortal,
           portada:{
@@ -199,11 +193,9 @@ const applyChangesVideo = async() =>{
     dispatch(splashActions.setHtmlCode(undefined))
     const last = basicPortal.portada.video_url?.lastIndexOf("/") || 0
     const current = basicPortal.portada.video_url?.substring(last+1)
-    // console.log(current,"VIDEO_URL")
     await uploadImage(video,"video",current,true).then(res=>{
         setSubmit(!submit)
         setVideo(undefined)
-        // console.log("uploading")
         dispatch(splashActions.setSplashData({
           ...basicPortal,
           portada:{
@@ -226,7 +218,6 @@ const applyChangesImageBackground = async() =>{
     await uploadImage(fileImgBackground,"background",current).then(res=>{
         setSubmit(!submit)
         setFile(undefined)
-        // console.log("uploading image background",res)
         dispatch(splashActions.setSplashData({
           ...basicPortal,
           properties:{
@@ -258,7 +249,6 @@ const applyChangesLogo = async() =>{
     const current = basicPortal.logo.url?.substring(last+1)
     dispatch(splashActions.setHtmlCode(undefined))
     await uploadImage(fileLogo,"logo",current).then(res=>{
-        // console.log(res)
         setSubmit(!submit)
         setFileLogo(undefined)
         dispatch(splashActions.setSplashData({

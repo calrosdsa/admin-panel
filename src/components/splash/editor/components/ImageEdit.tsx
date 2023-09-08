@@ -72,12 +72,12 @@ const ImageEdit = ({image,onChange,id,applyChanges,applyChangesVideo,noEdit = fa
             enterFrom="opacity-0 scale-95"
             enterTo="opacity-100 scale-100"
             >
-             <Image
+             <img
              alt="Mountains"
              src={image?.url || "/images/placeholder-image.webp"}
              className={`h-44 object-contain ${includeVideo && "absolute"}`}
              placeholder="blur"
-             blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(400, 275))}`}
+            //  blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(400, 275))}`}
              width={400}
              height={275}
              />
