@@ -25,7 +25,7 @@ export async function POST(request:Request) {
      switch(res.status){
       case 200:
         data =await res.text()
-        console.log(data)
+      //   console.log(data)
         return NextResponse.json(data,{status:res.status})
         default:
            data =await res.json()
@@ -33,7 +33,7 @@ export async function POST(request:Request) {
      }
 
    }catch(err){
-      console.log(err)
+      // console.log(err)
       return NextResponse.json("Error Request",{status:500})
    }
 }

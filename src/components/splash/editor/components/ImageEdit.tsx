@@ -74,7 +74,7 @@ const ImageEdit = ({image,onChange,id,applyChanges,applyChangesVideo,noEdit = fa
             >
              <img
              alt="Mountains"
-             src={image?.url || "/images/placeholder-image.webp"}
+             src={`${image?.url?.includes("blob")? image?.url:`${image?.url}?${Date.now()}`}` || "/images/placeholder-image.webp"}
              className={`h-44 object-contain ${includeVideo && "absolute"}`}
              placeholder="blur"
             //  blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(400, 275))}`}

@@ -58,6 +58,8 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
         imgWebp = `${basicPortal.portal.id_portal}${label}.webp`
       }
     }
+    // imgWebp = `${imgWebp}?${Date.now()}`
+    // URL.revokeObjectURL(imgWebp)
     if(file.size > 4142171){
       if(isVideo){ 
         toast.info("Por favor, asegúrate de que el video no exceda los 4 MB.")
