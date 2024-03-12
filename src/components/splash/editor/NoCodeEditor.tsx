@@ -10,6 +10,7 @@ import { saveSplashPage, updatePortal } from "@/context/actions/splashActions";
 import DialogConfirmation from "@/components/dialog/DialogConfirmation";
 import EditComponent from "@/components/util/input/EditComponent";
 import { toast } from "react-toastify";
+import { PUBLIC_URL } from "@/config";
 interface Props {
   basicPortal:BasicPortal
 }
@@ -74,12 +75,18 @@ const uploadImage = async(file:File,label:string,current:string | undefined,isVi
     formData.append("isVideo",`${isVideo}`)
     formData.append("bucketName",basicPortal.portal.bucket_name)
     formData.append("pathName",basicPortal.portal.path_name + "/media/")
-    const res = await axios.post<string>(`/api/splash-pages/upload-image`,formData,{
-      headers:{
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-    return res.data
+    const res = await fetch(`${PUBLIC_URL}/upload/converter/`,{
+      method:'POST',
+      body:formData
+  })
+  const responseData = await res.text()
+  console.log(responseData)
+    // const res = await axios.post<string>(`/api/splash-pages/upload-image`,formData,{
+      // headers:{
+        // 'Content-Type': 'multipart/form-data'
+      // }
+    // })
+    return responseData
   }catch(err){
     console.log(err)
     return ""

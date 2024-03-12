@@ -8,7 +8,9 @@ export function middleware(req: NextRequest) {
   const lastIndex = lang?.lastIndexOf(',') || 4
   const language =  lang?.substring(1+lastIndex)
   const isAuth = req.cookies.get('_auth')?.value
+  const token = req.cookies.get('access_token')?.value
   console.log(isAuth)
+  console.log(token,"dmkmdkasdasd")
   console.log(req.nextUrl.pathname)
   if (isAuth == undefined){
     return NextResponse.redirect(req.nextUrl.origin+"/auth/login")
@@ -36,5 +38,5 @@ export function middleware(req: NextRequest) {
   return NextResponse.rewrite(req.nextUrl)
 }
 export const config = {
-  matcher: ['/:path',"/splash/:path*","/dashboard/:path*","/user/:path*"],
+  matcher: ["/",'/:path',"/splash/:path*","/dashboard/:path*","/user/:path*"],
 }

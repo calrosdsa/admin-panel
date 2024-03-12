@@ -15,7 +15,6 @@ export async function POST(request:Request) {
   //    }
    // console.log("TOKEN",token)
  try{
-    console.log("spplashpages ------------")
      const body = await request.formData()
    //   console.log(body.get("name"))
      const res = await fetch(`${PUBLIC_URL}/upload/converter/`,{
