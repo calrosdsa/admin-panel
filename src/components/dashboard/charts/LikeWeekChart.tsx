@@ -20,14 +20,15 @@ const LikeWeekChart =  ({
       className='h-[300px] w-full grid place-content-center'
       />
       :
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={320}>
       <BarChart data={dataLike}  margin={{
         top: 20,
-        right: 20,
-        left: 20,
-      }}>
+        right: 10,
+        left: 10,
+        bottom:20
+      }} >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="x" />
+      <XAxis dataKey="x" fontSize={13} angle={330}  tickMargin={15}/>
       <YAxis />
       <Tooltip content={<CustomTooltip active={false} payload={undefined} label={undefined}/>} />
       {/* <Legend /> */}
