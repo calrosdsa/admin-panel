@@ -25,13 +25,25 @@ export async function GET(request:Request) {
      )
     //  console.log(res)
      const data =await res.json()
-    //  console.log(data)
+     console.log(data)
       return NextResponse.json(data.data,{status:200})
    }catch(err){
       console.log(err)
       return NextResponse.json("Error Request",{status:500})
    }
 }
+
+// SELECT DISTINCT usuariowifi.id, usuariowifi.fullName, usuariowifi.mail,
+// (SELECT COUNT(*) FROM conexion JOIN accesspoint AS ac ON ac.id = conexion.idHardware
+// JOIN establecimiento AS est ON est.id = ac.idEstablishment 
+// JOIN grupo AS grup ON grup.id = est.idGroup 
+// WHERE conexion.idUserWifi = usuariowifi.id) as conexiones
+// FROM conexion 
+// JOIN usuariowifi ON usuariowifi.id = conexion.idUserWifi 
+// JOIN accesspoint AS ac ON ac.id = conexion.idHardware 
+// JOIN establecimiento AS est ON est.id = ac.idEstablishment 
+// JOIN grupo AS grup ON grup.id = est.idGroup 
+// WHERE grup.idClient = 7
 
 // import { json } from "node:stream/consumers";
 // export default async function splashPages(req:NextApiRequest,res:NextApiResponse){

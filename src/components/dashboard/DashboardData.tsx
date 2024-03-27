@@ -197,7 +197,7 @@ const DashboardData = ()=>{
         <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
         <span className="font-semibold">(usuarios de la red)</span>
         <LikeWeekChart
-        dataLike={dashboardState.likesForWeek}
+        dataLike={dashboardState.likesForWeekUserWifi}
         loading={loading}
         />
         </div>
@@ -207,7 +207,7 @@ const DashboardData = ()=>{
         <span className="text-lg font-semibold">Cantidad de me gusta obtenidos en los últimos 7 días.</span>
         <span className="font-semibold">(general)</span>
         <LikeWeekChart
-        dataLike={dashboardState.likesForWeekUserWifi}
+        dataLike={dashboardState.likesForWeek}
         loading={loading}
         // data={dashboardState.likesForWeek}
         />
