@@ -2,7 +2,7 @@
 
 import CreatePortalLayout from "@/components/layout/CreatePortalLayout";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import slugify from "react-slugify";
 
 
@@ -16,6 +16,8 @@ const AddSplashPage = () =>{
 
     return(
         <CreatePortalLayout>
+           <Suspense>
+
                <div className="p-2 lg:px-4 flex justify-center items-center h-full flex-col w-full">
                 <div className="w-11/12 sm:w-2/3 grid">
                 <code className="text-sm">{splash_url+slugify(splashName)}</code>
@@ -41,6 +43,7 @@ const AddSplashPage = () =>{
             <button onClick={()=>router.push(`/splash/add/templates?splash_url=${splash_url}&splash_name=${slugify(splashName)}`)}
             className="right-3 mx-3 button" disabled={splashName == ""}>Siguiente</button>
             </div>
+            </Suspense>
         </CreatePortalLayout>
     )
 }

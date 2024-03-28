@@ -52,9 +52,6 @@ export const getDataLikeForWeekUserWifi = () :ThunkAction<void,RootState,undefin
             // const access_token = getCookie("access_token")
             const response = await fetch('/api/dashboard/likesLocal')
             const data = await response.json()
-            // console.log(data)
-            // const =await axios.get('/api/splash-pages')
-            // localStorage.setItem('token',data.access_token)
             dispatch(dashboardAction.setLikeDataForLikesUserWifi(data))
             dispatch(uiActions.setLoading(false))
         }catch(err:any){

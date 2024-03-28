@@ -14,15 +14,25 @@ import moment from "moment";
 import { dashboardAction } from "../slices/dashboard-slice";
 import { ReporteId } from "@/data/models/type/dashboard-model";
 import { redirectToLogin } from ".";
+import { UserPaginationResponse } from "@/data/models/type/user-models";
 
-export const getUserList = () :ThunkAction<void,RootState,undefined,AnyAction>=>{
-    return async(dispatch)=>{
+export const getUserList = (page:number,limit:number) :ThunkAction<void,RootState,undefined,AnyAction>=>{
+    return async(dispatch,getState)=>{
        try{
-        dispatch(userActions.setUsersWifi([]))        
+        const userPagination = getState().user.userPagination
+        dispatch(userActions.setUsersWifi({
+            total:Number(userPagination?.total),
+            users:[]
+        }))        
         dispatch(uiActions.setInnerLoading(true))
-        const response = await axios.get(`/api/user`)
+        const response = await axios.get(`/api/user?page=${page}&limit=${limit}`)
+        const data:UserPaginationResponse =  response.data
         dispatch(uiActions.setInnerLoading(false))
-        dispatch(userActions.setUsersWifi(response.data))        
+        console.log("TOTAL",response.data)
+        dispatch(userActions.setUsersWifi({
+            users:data.data,
+            total:Number(data.total)
+        }))        
        }catch(err:any){
         dispatch(uiActions.setInnerLoading(false))
         console.log(err)

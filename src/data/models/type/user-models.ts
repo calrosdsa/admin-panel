@@ -8,8 +8,8 @@ export type UserWifi = {
     movil:string
     gender:string
     image:string
-    cantConexion:number
-    cantDispositivo:number  
+    conexiones:number
+    dispositivos:number  
     firstStart:string
     created_at:string
     updated_at:string
@@ -84,11 +84,23 @@ export interface Encuesta extends UserWifi {
 }
 
 
+
+export type UserPaginationResponse = {
+    message:string
+    data:UserWifi[]
+    total:string
+}
+
+export type UserList = {
+    users:UserWifi[]
+    total:number
+}
+
 export interface UserState {
     solicitudes:UserSolicitud[],
     params:string,
     ids:string[]
-    users:UserWifi[]
+    userPagination?:UserList
     user?:UserWifi
     dispositivos:Dispositivo[]
     conexiones:Conexiones[]

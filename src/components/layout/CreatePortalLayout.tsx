@@ -1,3 +1,5 @@
+"use client"
+import { Suspense } from "react";
 
 interface Props {
     children:React.ReactNode
@@ -5,6 +7,7 @@ interface Props {
 const CreatePortalLayout = ({children}:Props) =>{
 
     return(
+        <>
         <div className="grid xl:grid-cols-2 h-screen overflow-auto">
             <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 relative h-[40vh] xl:h-full">
                 <span className="text-white font-semibold text-4xl text-center
@@ -13,10 +16,13 @@ const CreatePortalLayout = ({children}:Props) =>{
                 </span>
             </div>
             <div className="relative pb-20 ">
+                <Suspense>
             {children}
+                </Suspense>
             </div>
             
         </div>
+        </>
     )
 }
 

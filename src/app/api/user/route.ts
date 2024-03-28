@@ -12,12 +12,19 @@ import { NextResponse } from "next/server";
 export async function GET(request:Request) {
     const nextCookies = cookies(); // Get cookies object
     const token = nextCookies.get('access_token')?.value
+    const { searchParams } = new URL(request.url)
+    const page = searchParams.get('page')
+    const limit = searchParams.get('limit')
     if(token == undefined){
         return NextResponse.json("Usuario no authorizado",{status:401})
       }
   try{
       const res = await fetch(`${API_URL}/apiFB/public/userwifi/list`,{
         method:"POST",
+        body:JSON.stringify({
+          page:page,
+          limit:limit
+        }),
         headers:{
         'Content-Type' :'application/json',
         'Authorization':`Bearer ${token}`
@@ -26,7 +33,7 @@ export async function GET(request:Request) {
     //  console.log(res)
      const data =await res.json()
      console.log(data)
-      return NextResponse.json(data.data,{status:200})
+      return NextResponse.json(data,{status:200})
    }catch(err){
       console.log(err)
       return NextResponse.json("Error Request",{status:500})

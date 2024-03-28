@@ -7,7 +7,9 @@ export default function Home() {
 
   return (
     <Layout>
-     dasdasdasd
+      <div>
+        
+      </div>
     </Layout>   
   )
 }

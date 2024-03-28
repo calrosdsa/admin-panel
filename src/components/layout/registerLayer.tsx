@@ -1,3 +1,4 @@
+"use client"
 import React, { ReactNode,useState,useEffect } from 'react'
 import Head from 'next/head'
 import "react-toastify/dist/ReactToastify.css";
